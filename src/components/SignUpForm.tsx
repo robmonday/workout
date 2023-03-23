@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { signUpRequest } from "../api";
 import { SignUpRequest } from "../types";
 
@@ -15,6 +15,7 @@ export default function SignUpForm() {
 
   const onSubmit: SubmitHandler<SignUpRequest> = async (data) => {
     const res = await signUpRequest(data);
+    // console.log(JSON.stringify(res));
     if (res.serverError) {
       setError(
         "email",
@@ -22,7 +23,7 @@ export default function SignUpForm() {
         { shouldFocus: true }
       );
     } else {
-      navigate("/user/login");
+      navigate("/login");
     }
   };
 
@@ -78,12 +79,12 @@ export default function SignUpForm() {
         </button>
         <div className="mt-5">
           Already have an account?&nbsp;&nbsp;&nbsp;
-          <a
-            href="/user/login"
+          <Link
+            to="/login"
             className="text-blue-500 hover:underline hover:underline-offset-8"
           >
             Log In!
-          </a>
+          </Link>
         </div>
       </form>
     </div>

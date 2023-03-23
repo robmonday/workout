@@ -1,10 +1,11 @@
 import "./App.css";
-import { Routes, Route, Outlet, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Layout from "./components/Layout";
 import LogInForm from "./components/LogInForm";
 import SignUpForm from "./components/SignUpForm";
 import Home from "./components/Home";
+import Main from "./components/Main";
 import NotFound from "./components/NotFound";
 
 function App(): JSX.Element {
@@ -13,11 +14,10 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="user">
-            <Route path="login" element={<LogInForm />} />
-            <Route path="signup" element={<SignUpForm />} />
-            <Route path="home" element={<Home />} />
-          </Route>
+          <Route path="login" element={<LogInForm />} />
+          <Route path="signup" element={<SignUpForm />} />
+          <Route path="home" element={<Home />} />
+          <Route path="main" element={<Main />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

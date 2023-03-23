@@ -1,4 +1,4 @@
-import { LogInRequest, SignUpRequest } from "./types";
+import { SignUpRequest, LogInRequest } from "./types";
 
 type RequestBody = SignUpRequest | LogInRequest;
 
@@ -16,9 +16,10 @@ export const fetcher = async ({ url, method, body, json = true }: Fetcher) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+      Authorization: `Bearer ${window.localStorage.getItem("userToken")}`,
     },
   });
+  // console.log(window.localStorage.getItem("userToken"));
 
   if (json) {
     const data = await res.json();
@@ -26,20 +27,27 @@ export const fetcher = async ({ url, method, body, json = true }: Fetcher) => {
   }
 };
 
-export const signUpRequest = (signUpObj: SignUpRequest) => {
-  // console.log("Request body passed to fetcher()", signUpObj);
-  return fetcher({
-    url: "http://localhost:5174/user/signup",
-    method: "POST",
-    body: signUpObj,
-  });
-};
-
-export const loginRequest = (loginObj: LogInRequest) => {
-  // console.log("Request body passed to fetcher()", loginObj);
+export const loginRequest = (body: LogInRequest) => {
+  // console.log("Request body passed to fetcher()", body);
   return fetcher({
     url: "http://localhost:5174/user/login",
     method: "POST",
-    body: loginObj,
+    body,
+  });
+};
+
+export const signUpRequest = (body: SignUpRequest) => {
+  // console.log("Request body passed to fetcher()", body);
+  return fetcher({
+    url: "http://localhost:5174/user/signup",
+    method: "POST",
+    body,
+  });
+};
+
+export const getAllWorkouts = () => {
+  return fetcher({
+    url: "http://localhost:5174/workout",
+    method: "GET",
   });
 };

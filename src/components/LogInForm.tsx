@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { loginRequest } from "../api";
 import { LogInRequest } from "../types";
 
@@ -20,12 +20,12 @@ export default function LogInForm() {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const res = await loginRequest(data);
+    // console.log(JSON.stringify(res));
     if (res.serverError) {
       setError("formLevelError", { type: "custom", message: res.message });
       setTimeout(() => clearErrors(), 3000);
     } else {
-      navigate("/user/dashboard");
-
+      navigate("/main");
       window.localStorage.setItem("userToken", res.token);
     }
   };
@@ -68,12 +68,12 @@ export default function LogInForm() {
         </div>
         <div className="mt-5">
           Don't have an account?&nbsp;&nbsp;&nbsp;
-          <a
-            href="/user/signup"
+          <Link
+            to="/signup"
             className="text-blue-500 hover:underline hover:underline-offset-8"
           >
             Sign Up!
-          </a>
+          </Link>
         </div>
       </form>
     </div>
