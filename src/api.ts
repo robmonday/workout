@@ -46,8 +46,10 @@ export const signUpRequest = (body: SignUpRequest) => {
 };
 
 export const getAllWorkouts = () => {
-  return fetcher({
+  const result = fetcher({
     url: "http://localhost:5174/workout",
     method: "GET",
   });
+  // console.log("getAllWorkouts() fetcher response:", result);
+  return result;
 };
