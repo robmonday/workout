@@ -1,6 +1,12 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { getAllWorkouts } from "../api";
-import { Camera, Edit2, Plus, Trash2 } from "react-feather";
+import { Plus, Edit2, Trash2 } from "react-feather";
 
 import { Workout } from "../types";
 
@@ -55,6 +61,12 @@ const WorkoutHistoryList = ({
   };
   return (
     <>
+      <div
+        onClick={() => alert("add new workout")}
+        className="text-gray-00 ml-1 inline-block rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
+      >
+        <Plus strokeWidth={0.75} />
+      </div>
       <div className="overflow-y-scroll">
         {workouts.map((w) => (
           <div
@@ -62,17 +74,29 @@ const WorkoutHistoryList = ({
             onClick={() => handleClick(w.id)}
             className="my-2 rounded-lg border border-purple-500 p-2 hover:bg-purple-300 active:translate-y-0.5 active:bg-purple-400"
           >
-            <div className="inline">{w.type && enumToTitleCase(w.type)}</div>
-
-            <div className="float-right inline font-light text-purple-700">
-              <div className="mr-4 inline">
-                {w.start && dateToWeekdayDate(w.start)}
+            <div className="inline-block">
+              <div className="inline-block">
+                {w.type && enumToTitleCase(w.type)}
               </div>
-              <Edit2
-                className="inline border-purple-500 hover:border-black"
-                strokeWidth={0.75}
-              />
-              <Trash2 className="inline" strokeWidth={0.75} />{" "}
+              <div className="inline-block font-light text-purple-700">
+                <div className="ml-3 inline">
+                  {w.start && dateToWeekdayDate(w.start)}
+                </div>
+              </div>
+            </div>
+            <div className="float-right inline-block">
+              <div
+                onClick={() => alert(`edit workout ${w.id}`)}
+                className="text-gray-00 ml-1 inline-block rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
+              >
+                <Edit2 className="inline" strokeWidth={0.75} />
+              </div>
+              <div
+                onClick={() => alert(`delete workout ${w.id}`)}
+                className="text-gray-00 ml-1 inline-block rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
+              >
+                <Trash2 className="inline-block" strokeWidth={0.75} />
+              </div>
             </div>
           </div>
         ))}
@@ -87,8 +111,6 @@ const WorkoutSearchBar = () => {
       <div className="text-md my-4 border bg-gray-50 py-2 px-2 text-gray-500">
         Search Bar
       </div>
-      <hr className="mt-4 mb-2 border-2 border-purple-300"></hr>
-      <Plus strokeWidth={1} />
     </>
   );
 };
