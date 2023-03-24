@@ -1,4 +1,5 @@
-import { Dispatch, useEffect, useReducer } from "react";
+import { useEffect, useContext } from "react";
+import { StateContext, DispatchContext } from "./StateProvider";
 
 import { getAllWorkouts, createWorkout, deleteWorkout } from "../api";
 import { Plus, Edit2, Trash2 } from "react-feather";
@@ -7,52 +8,9 @@ import { Workout } from "../types";
 
 import { dateToWeekdayDate, dateToTime, enumToTitleCase } from "../util";
 
-const initialState: State = {
-  workouts: [],
-  selectedWorkout: undefined,
-};
-
-type State = {
-  workouts: Workout[];
-  selectedWorkout: Workout | undefined;
-};
-
-type Payload = any;
-type Action = { type: string; payload?: Payload };
-
-const reducer = (state: State, action: Action) => {
-  switch (action.type) {
-    case "set_workouts":
-      return { ...state, workouts: action.payload };
-    case "select_workout":
-      return { ...state, selectedWorkout: action.payload };
-    case "add_workout":
-      console.log("add workout");
-      createWorkout(action.payload).then((newWorkout) => {
-        return { ...state, workouts: [...state.workouts, newWorkout] };
-      });
-      return state;
-    case "delete_workout":
-      console.log(`delete workout id #${action.payload}`);
-      deleteWorkout(action.payload).then((deletedWorkout) => {
-        const workoutsAfterDelete = state.workouts.filter(
-          (w) => w.id !== deletedWorkout.id
-        );
-        return { ...state, workouts: workoutsAfterDelete };
-      });
-      return state;
-
-    case "edit_workout":
-      console.log(`edit workout id #${action.payload}`);
-      return state;
-    default:
-      console.error("Unknown action dispatched to reducer.");
-      return state;
-  }
-};
-
 export default function WorkoutHistory() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const state = useContext(StateContext);
+  const dispatch = useContext(DispatchContext);
 
   useEffect(() => {
     getAllWorkouts().then((w: Workout[]) => {
@@ -69,7 +27,7 @@ export default function WorkoutHistory() {
       <div className="flex h-96">
         <div className="min-h-96 m-2 w-1/4  rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 px-2 ">
           <WorkoutSearchBar />
-          <WorkoutHistoryList state={state} dispatch={dispatch} />
+          <WorkoutHistoryList />
         </div>
         <div className="m-2 h-auto  w-3/4 rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 p-4 ">
           {state.workouts.length > 0 && (
@@ -87,12 +45,10 @@ export default function WorkoutHistory() {
   );
 }
 
-type WorkoutHistoryListProps = {
-  dispatch: Dispatch<Action>;
-  state: State;
-};
+const WorkoutHistoryList = () => {
+  const state = useContext(StateContext);
+  const dispatch = useContext(DispatchContext);
 
-const WorkoutHistoryList = ({ dispatch, state }: WorkoutHistoryListProps) => {
   const handleClick = (id: string) => {
     const selectedWorkout = state.workouts.find((w) => w.id === id);
     dispatch({ type: "select_workout", payload: selectedWorkout });
@@ -171,22 +127,22 @@ const WorkoutDetail = ({ workout }: WorkoutDetailProps) => {
         <div className="inline text-2xl font-light">
           {enumToTitleCase(workout.type)}
         </div>
-        <div className="ml-4 inline font-light text-purple-800">
+        <div className="ml-4 inline text-purple-800">
           {dateToTime(workout.start)}
         </div>
       </div>
       <div className="">
-        <div className="my-2 font-light text-gray-900">{workout.notes}</div>
-        <div className="my-2 font-light text-gray-900">
-          {minutes && minutes > 0 && `${minutes} minutes`}
+        <div className="my-2 text-gray-900">{workout.notes}</div>
+        <div className="my-2 text-gray-900">
+          {minutes > 0 && <span>{minutes} minutes</span>}
         </div>
-        <div className="my-2 font-light text-gray-900">
+        <div className="my-2 text-gray-900">
           {workout.steps && `${workout.steps.toLocaleString("en-US")} steps`}
         </div>
-        <div className="my-2 font-light text-gray-900">
+        <div className="my-2 text-gray-900">
           {workout.distance && `${workout.distance} miles`}
         </div>
-        <div className="my-2 font-light text-gray-900">
+        <div className="my-2 text-gray-900">
           {workout.calories &&
             `${workout.calories.toLocaleString("en-US")} calories`}
         </div>
