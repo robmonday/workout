@@ -15,7 +15,7 @@ const Layout = ({ name = "App" }) => {
         </nav>
       </div>
 
-      <div className="mx-4 mt-24 mb-4">
+      <div className="mx-6 mt-20 mb-6">
         <Outlet />
       </div>
 

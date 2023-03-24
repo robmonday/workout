@@ -4,9 +4,12 @@ import { StateContext, DispatchContext } from "./StateProvider";
 import { getAllWorkouts, createWorkout, deleteWorkout } from "../api";
 import { ArrowLeft, Plus, Edit2, Trash2 } from "react-feather";
 
-import { Workout } from "../types";
+import { Workout, WorkoutRequest } from "../types";
 
 import { dateToWeekdayDate, dateToTime, enumToTitleCase } from "../util";
+
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function WorkoutHistory() {
   const state = useContext(StateContext);
@@ -25,7 +28,7 @@ export default function WorkoutHistory() {
     <div className="px-2">
       <div className="p-2 text-2xl">Workout History</div>
       <div className="flex h-96">
-        <div className="min-h-96 m-2 w-1/4  rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 px-2 ">
+        <div className="m-2 w-1/4  rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 px-2 ">
           <WorkoutSearchBar />
           <WorkoutHistoryList />
         </div>
@@ -40,7 +43,7 @@ export default function WorkoutHistory() {
         </div>
       </div>
 
-      <div className="border bg-purple-400 p-2">
+      <div className="hidden border bg-purple-400 p-2">
         <div className="p-2">{JSON.stringify(state)}</div>
       </div>
     </div>
@@ -131,7 +134,7 @@ const WorkoutSearchBar = () => {
             dispatch({ type: "update_filter_text", payload: e.target.value })
           }
           placeholder="Start typing to filter..."
-          className=" text-md my-4 w-full border bg-gray-50 py-2 px-2 text-gray-500"
+          className="input mt-4 w-full py-2 px-2 text-gray-500"
         />
       </form>
     </>
@@ -183,17 +186,56 @@ type WorkoutFormProps = {
 
 const WorkoutForm = ({ workout }: WorkoutFormProps) => {
   const dispatch = useContext(DispatchContext);
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm<WorkoutRequest>();
+
+  const onSubmit: SubmitHandler<WorkoutRequest> = async (data) => {
+    navigate("/main");
+  };
+
   return (
     <>
       <div
         onClick={() => dispatch({ type: "hide_add_workout_form" })}
-        className="text-gray-00 mb-2 inline-block rounded px-2 py-1 hover:bg-purple-500 hover:text-white active:bg-purple-700"
+        className="text-gray-00 mb-2 inline-block rounded py-1 pl-1 pr-2 hover:bg-purple-500 hover:text-white active:bg-purple-700"
       >
         <ArrowLeft className="inline-block" strokeWidth={0.75} />
         <div className="inline-block font-light">Go Back</div>
       </div>
-      <form>
-        <div className="text-2xl font-light">Add Workout</div>
+      <div className="mt-3 text-2xl font-light">
+        {workout ? "Edit Workout" : "Add Workout"}
+      </div>
+
+      <form className="my-5">
+        <input
+          className="input "
+          placeholder="Workout type"
+          {...register("type", { required: true })}
+          type="text"
+        />
+        <span className="ml-2 text-red-600">
+          {errors.type && <span>Type is required</span>}
+        </span>
+        <div className="mt-3">
+          <input
+            className="btn text-gray-00 ml-1 inline-block bg-purple-400 py-2 hover:bg-purple-500 hover:text-white active:bg-purple-700"
+            type="submit"
+            value="Submit"
+          />
+          <button
+            className="btn btn-secondary py-2 "
+            onClick={() => dispatch({ type: "hide_add_workout_form" })}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </>
   );

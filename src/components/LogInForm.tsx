@@ -62,9 +62,9 @@ export default function LogInForm() {
         </p>
         <div className="mt-3">
           <input className="btn btn-primary" type="submit" value="Submit" />
-          <button className="btn btn-secondary" onClick={() => navigate("/")}>
+          <Link to="/" className="btn btn-secondary">
             Cancel
-          </button>
+          </Link>
         </div>
         <div className="mt-5">
           Don't have an account?&nbsp;&nbsp;&nbsp;

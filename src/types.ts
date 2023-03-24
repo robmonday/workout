@@ -28,7 +28,7 @@ export type WorkoutRequest = {
   steps: number;
   calories: number;
   notes: string | null;
-  ownerId: string;
+  userId: string;
 };
 
 export type Workout = {

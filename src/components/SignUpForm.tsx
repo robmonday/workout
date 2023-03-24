@@ -74,9 +74,9 @@ export default function SignUpForm() {
         <br />
         <br />
         <input className="btn btn-primary" type="submit" value="Submit" />
-        <button className="btn btn-secondary" onClick={() => navigate("/")}>
+        <Link to="/" className="btn btn-secondary">
           Cancel
-        </button>
+        </Link>
         <div className="mt-5">
           Already have an account?&nbsp;&nbsp;&nbsp;
           <Link
