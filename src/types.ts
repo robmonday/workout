@@ -36,6 +36,7 @@ export type Workout = {
   createdAt: string;
   updatedAt: string;
   type: WORKOUT_TYPE;
+  location: string;
   start: string;
   end: string;
   distance: string;

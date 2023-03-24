@@ -2,7 +2,7 @@ import { useEffect, useContext } from "react";
 import { StateContext, DispatchContext } from "./StateProvider";
 
 import { getAllWorkouts, createWorkout, deleteWorkout } from "../api";
-import { Plus, Edit2, Trash2 } from "react-feather";
+import { ArrowLeft, Plus, Edit2, Trash2 } from "react-feather";
 
 import { Workout } from "../types";
 
@@ -17,7 +17,7 @@ export default function WorkoutHistory() {
       const sortedWorkouts = w.sort(
         (a: Workout, b: Workout) => Date.parse(b.start) - Date.parse(a.start)
       );
-      dispatch({ type: "set_workouts", payload: sortedWorkouts });
+      dispatch({ type: "fetch_workouts", payload: sortedWorkouts });
     });
   }, []);
 
@@ -30,11 +30,13 @@ export default function WorkoutHistory() {
           <WorkoutHistoryList />
         </div>
         <div className="m-2 h-auto  w-3/4 rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 p-4 ">
-          {state.workouts.length > 0 && (
-            <WorkoutDetail
-              workout={state.selectedWorkout || state.workouts[0]}
-            />
-          )}
+          {state.detailPanelDisplay === "WorkoutDetail" &&
+            state.workouts.length > 0 && (
+              <WorkoutDetail
+                workout={state.selectedWorkout || state.workouts[0]}
+              />
+            )}
+          {state.detailPanelDisplay === "WorkoutForm" && <WorkoutForm />}
         </div>
       </div>
 
@@ -49,23 +51,35 @@ const WorkoutHistoryList = () => {
   const state = useContext(StateContext);
   const dispatch = useContext(DispatchContext);
 
-  const handleClick = (id: string) => {
+  const handleSelect = (id: string) => {
     const selectedWorkout = state.workouts.find((w) => w.id === id);
     dispatch({ type: "select_workout", payload: selectedWorkout });
   };
+
+  const filteredWorkouts = state.workouts.filter((w) => {
+    return (
+      w.notes?.toLowerCase().includes(state.filterText.toLowerCase()) ||
+      w.type
+        ?.toString()
+        .toLowerCase()
+        .includes(state.filterText.toLowerCase()) ||
+      w.location?.toLowerCase().includes(state.filterText.toLowerCase())
+    );
+  });
+
   return (
     <>
       <div
-        onClick={() => dispatch({ type: "add_workout" })}
+        onClick={() => dispatch({ type: "show_add_workout_form" })}
         className="text-gray-00 ml-1 inline-block rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
       >
         <Plus strokeWidth={0.75} />
       </div>
       <div className="overflow-y-scroll">
-        {state.workouts.map((w) => (
+        {filteredWorkouts.map((w) => (
           <div
             key={w.id}
-            onClick={() => handleClick(w.id)}
+            onClick={() => handleSelect(w.id)}
             className="my-2 rounded-lg border border-purple-500 p-2 hover:bg-purple-300 active:translate-y-0.5 active:bg-purple-400"
           >
             <div className="inline-block">
@@ -104,11 +118,22 @@ const WorkoutHistoryList = () => {
 };
 
 const WorkoutSearchBar = () => {
+  const state = useContext(StateContext);
+  const dispatch = useContext(DispatchContext);
+
   return (
     <>
-      <div className="text-md my-4 border bg-gray-50 py-2 px-2 text-gray-500">
-        Search Bar
-      </div>
+      <form>
+        <input
+          type="text"
+          value={state.filterText}
+          onChange={(e) =>
+            dispatch({ type: "update_filter_text", payload: e.target.value })
+          }
+          placeholder="Start typing to filter..."
+          className=" text-md my-4 w-full border bg-gray-50 py-2 px-2 text-gray-500"
+        />
+      </form>
     </>
   );
 };
@@ -130,6 +155,7 @@ const WorkoutDetail = ({ workout }: WorkoutDetailProps) => {
         <div className="ml-4 inline text-purple-800">
           {dateToTime(workout.start)}
         </div>
+        <div className="ml-4 inline text-purple-800">{workout.location}</div>
       </div>
       <div className="">
         <div className="my-2 text-gray-900">{workout.notes}</div>
@@ -147,6 +173,28 @@ const WorkoutDetail = ({ workout }: WorkoutDetailProps) => {
             `${workout.calories.toLocaleString("en-US")} calories`}
         </div>
       </div>
+    </>
+  );
+};
+
+type WorkoutFormProps = {
+  workout?: Workout;
+};
+
+const WorkoutForm = ({ workout }: WorkoutFormProps) => {
+  const dispatch = useContext(DispatchContext);
+  return (
+    <>
+      <div
+        onClick={() => dispatch({ type: "hide_add_workout_form" })}
+        className="text-gray-00 mb-2 inline-block rounded px-2 py-1 hover:bg-purple-500 hover:text-white active:bg-purple-700"
+      >
+        <ArrowLeft className="inline-block" strokeWidth={0.75} />
+        <div className="inline-block font-light">Go Back</div>
+      </div>
+      <form>
+        <div className="text-2xl font-light">Add Workout</div>
+      </form>
     </>
   );
 };
