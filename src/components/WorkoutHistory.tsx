@@ -1,74 +1,112 @@
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
-import { getAllWorkouts } from "../api";
+import { Dispatch, useEffect, useReducer } from "react";
+
+import { getAllWorkouts, createWorkout, deleteWorkout } from "../api";
 import { Plus, Edit2, Trash2 } from "react-feather";
 
 import { Workout } from "../types";
 
 import { dateToWeekdayDate, dateToTime, enumToTitleCase } from "../util";
 
+const initialState: State = {
+  workouts: [],
+  selectedWorkout: undefined,
+};
+
+type State = {
+  workouts: Workout[];
+  selectedWorkout: Workout | undefined;
+};
+
+type Payload = any;
+type Action = { type: string; payload?: Payload };
+
+const reducer = (state: State, action: Action) => {
+  switch (action.type) {
+    case "set_workouts":
+      return { ...state, workouts: action.payload };
+    case "select_workout":
+      return { ...state, selectedWorkout: action.payload };
+    case "add_workout":
+      console.log("add workout");
+      createWorkout(action.payload).then((newWorkout) => {
+        return { ...state, workouts: [...state.workouts, newWorkout] };
+      });
+      return state;
+    case "delete_workout":
+      console.log(`delete workout id #${action.payload}`);
+      deleteWorkout(action.payload).then((deletedWorkout) => {
+        const workoutsAfterDelete = state.workouts.filter(
+          (w) => w.id !== deletedWorkout.id
+        );
+        return { ...state, workouts: workoutsAfterDelete };
+      });
+      return state;
+
+    case "edit_workout":
+      console.log(`edit workout id #${action.payload}`);
+      return state;
+    default:
+      console.error("Unknown action dispatched to reducer.");
+      return state;
+  }
+};
+
 export default function WorkoutHistory() {
-  const [workouts, setWorkouts] = useState<Workout[]>([]);
-  const [selectedWorkout, setSelectedWorkout] = useState<Workout>();
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     getAllWorkouts().then((w: Workout[]) => {
       const sortedWorkouts = w.sort(
         (a: Workout, b: Workout) => Date.parse(b.start) - Date.parse(a.start)
       );
-      setWorkouts(sortedWorkouts);
+      dispatch({ type: "set_workouts", payload: sortedWorkouts });
     });
   }, []);
 
   return (
-    <div className="p-2">
+    <div className="px-2">
       <div className="p-2 text-2xl">Workout History</div>
       <div className="flex h-96">
         <div className="min-h-96 m-2 w-1/4  rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 px-2 ">
           <WorkoutSearchBar />
-          <WorkoutHistoryList
-            workouts={workouts}
-            setSelectedWorkout={setSelectedWorkout}
-          />
+          <WorkoutHistoryList state={state} dispatch={dispatch} />
         </div>
         <div className="m-2 h-auto  w-3/4 rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 p-4 ">
-          {workouts.length > 0 && (
-            <WorkoutDetail workout={selectedWorkout || workouts[0]} />
+          {state.workouts.length > 0 && (
+            <WorkoutDetail
+              workout={state.selectedWorkout || state.workouts[0]}
+            />
           )}
         </div>
+      </div>
+
+      <div className="border bg-purple-400 p-2">
+        <div className="p-2">{JSON.stringify(state)}</div>
       </div>
     </div>
   );
 }
 
 type WorkoutHistoryListProps = {
-  workouts: Workout[];
-  setSelectedWorkout: Dispatch<SetStateAction<Workout | undefined>>;
+  dispatch: Dispatch<Action>;
+  state: State;
 };
 
-const WorkoutHistoryList = ({
-  workouts,
-  setSelectedWorkout,
-}: WorkoutHistoryListProps) => {
+const WorkoutHistoryList = ({ dispatch, state }: WorkoutHistoryListProps) => {
   const handleClick = (id: string) => {
-    const selectedWorkout = workouts.find((w) => w.id === id);
-    setSelectedWorkout(selectedWorkout);
+    const selectedWorkout = state.workouts.find((w) => w.id === id);
+    dispatch({ type: "select_workout", payload: selectedWorkout });
   };
   return (
     <>
       <div
-        onClick={() => alert("add new workout")}
+        onClick={() => dispatch({ type: "add_workout" })}
         className="text-gray-00 ml-1 inline-block rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
       >
         <Plus strokeWidth={0.75} />
       </div>
       <div className="overflow-y-scroll">
-        {workouts.map((w) => (
+        {state.workouts.map((w) => (
           <div
             key={w.id}
             onClick={() => handleClick(w.id)}
@@ -86,13 +124,17 @@ const WorkoutHistoryList = ({
             </div>
             <div className="float-right inline-block">
               <div
-                onClick={() => alert(`edit workout ${w.id}`)}
+                onClick={() =>
+                  dispatch({ type: "edit_workout", payload: w.id })
+                }
                 className="text-gray-00 ml-1 inline-block rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
               >
                 <Edit2 className="inline" strokeWidth={0.75} />
               </div>
               <div
-                onClick={() => alert(`delete workout ${w.id}`)}
+                onClick={() =>
+                  dispatch({ type: "delete_workout", payload: w.id })
+                }
                 className="text-gray-00 ml-1 inline-block rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
               >
                 <Trash2 className="inline-block" strokeWidth={0.75} />

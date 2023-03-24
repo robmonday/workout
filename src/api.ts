@@ -1,6 +1,15 @@
-import { SignUpRequest, LogInRequest } from "./types";
+import {
+  SignUpRequest,
+  LogInRequest,
+  DeleteRequest,
+  WorkoutRequest,
+} from "./types";
 
-type RequestBody = SignUpRequest | LogInRequest;
+type RequestBody =
+  | SignUpRequest
+  | LogInRequest
+  | WorkoutRequest
+  | DeleteRequest;
 
 type Fetcher = {
   url: string;
@@ -52,4 +61,20 @@ export const getAllWorkouts = () => {
   });
   // console.log("getAllWorkouts() fetcher response:", result);
   return result;
+};
+
+export const createWorkout = (body: WorkoutRequest) => {
+  return fetcher({
+    url: "http://localhost:5174/workout",
+    method: "POST",
+    body,
+  });
+};
+
+export const deleteWorkout = (id: string) => {
+  return fetcher({
+    url: "http://localhost:5174/workout",
+    method: "DELETE",
+    body: { id },
+  });
 };

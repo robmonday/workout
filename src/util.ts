@@ -8,22 +8,22 @@ export function enumToTitleCase(enumValue: WORKOUT_TYPE): string {
 
 export function dateToWeekdayDate(dateString: string): string {
   const date = new Date(dateString);
-  const weekdayFormat = new Intl.DateTimeFormat("en-US", {
+  const fomatObj = new Intl.DateTimeFormat("en-US", {
     weekday: "short",
     month: "short",
     day: "numeric",
   });
-  return weekdayFormat.format(date).toString();
+  return fomatObj.format(date).toString();
 }
 
 export function dateToTime(dateString: string): string {
   const date = new Date(dateString);
-  const weekdayFormat = new Intl.DateTimeFormat("en-US", {
+  const fomatObj = new Intl.DateTimeFormat("en-US", {
     weekday: "short",
     month: "short",
     day: "numeric",
     hour: "numeric",
     minute: "numeric",
   });
-  return weekdayFormat.format(date).toString();
+  return fomatObj.format(date).toString();
 }

@@ -20,6 +20,17 @@ export enum WORKOUT_TYPE {
   OTHER,
 }
 
+export type WorkoutRequest = {
+  type: WORKOUT_TYPE;
+  start: string;
+  end: string;
+  distance: string;
+  steps: number;
+  calories: number;
+  notes: string | null;
+  ownerId: string;
+};
+
 export type Workout = {
   id: string;
   createdAt: string;
@@ -31,5 +42,8 @@ export type Workout = {
   steps: number;
   calories: number;
   notes: string | null;
-  description?: string;
+};
+
+export type DeleteRequest = {
+  id: string;
 };
