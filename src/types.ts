@@ -8,34 +8,28 @@ export type SignUpRequest = LogInRequest & {
   lastName: string;
 };
 
-export enum WORKOUT_TYPE {
-  WALK_OUTDOORS,
-  WALK_INDOORS,
-  RUN_OUTDOORS,
-  RUN_INDOORS,
-  BICYCLE,
-  SWIM,
-  WEIGHT_LIFT,
-  YOGA,
-  OTHER,
-}
-
 export type WorkoutRequest = {
-  type: WORKOUT_TYPE;
-  start: string;
-  end: string;
-  distance: string;
+  location: string;
+  distance: number;
   steps: number;
   calories: number;
   notes: string | null;
-  userId: string;
+  workoutTypeId: string;
 };
+
+export type WorkoutType = {
+  id: string;
+  name: string;
+  sortOrder: string;
+  workouts: Workout[];
+};
+
+export type WorkoutTypeName = Pick<WorkoutType, "id" | "name">;
 
 export type Workout = {
   id: string;
   createdAt: string;
   updatedAt: string;
-  type: WORKOUT_TYPE;
   location: string;
   start: string;
   end: string;
@@ -43,6 +37,7 @@ export type Workout = {
   steps: number;
   calories: number;
   notes: string | null;
+  workoutType?: WorkoutTypeName;
 };
 
 export type Badge = {

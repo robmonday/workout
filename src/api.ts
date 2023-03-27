@@ -86,3 +86,11 @@ export const getAllBadges = () => {
   });
   return result;
 };
+
+export const getAllWorkoutTypes = () => {
+  const result = fetcher({
+    url: "http://localhost:5174/workout/type",
+    method: "GET",
+  });
+  return result;
+};

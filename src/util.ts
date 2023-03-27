@@ -1,11 +1,3 @@
-import { WORKOUT_TYPE } from "./types";
-
-export function enumToTitleCase(enumValue: WORKOUT_TYPE): string {
-  let result = enumValue.toString().replaceAll("_", " ").toLowerCase();
-  result = result.charAt(0).toUpperCase() + result.slice(1);
-  return result;
-}
-
 export function dateToWeekdayDate(dateString: string): string {
   const date = new Date(dateString);
   const fomatObj = new Intl.DateTimeFormat("en-US", {

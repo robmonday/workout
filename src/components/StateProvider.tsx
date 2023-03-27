@@ -7,7 +7,7 @@ import React, {
 } from "react";
 
 import { Workout, Badge } from "../types";
-import { createWorkout, deleteWorkout } from "../api";
+import { createWorkout } from "../api";
 
 // creating and typing initial state
 
@@ -15,7 +15,9 @@ type State = {
   workouts: Workout[];
   selectedWorkout: Workout | undefined;
   filterText: string;
-  detailPanelDisplay: "WorkoutDetail" | "WorkoutForm";
+  detailPanelDisplay: "WorkoutDetail" | "WorkoutFormAdd" | "WorkoutFormEdit";
+  workoutToEdit: Workout | undefined;
+  updatedWorkout: Workout | undefined;
   badges: Badge[];
 };
 
@@ -24,6 +26,8 @@ const initialState: State = {
   selectedWorkout: undefined,
   filterText: "",
   detailPanelDisplay: "WorkoutDetail",
+  workoutToEdit: undefined,
+  updatedWorkout: undefined,
   badges: [],
 };
 
@@ -33,31 +37,52 @@ type Action = { type: string; payload?: Payload };
 
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
-    case "fetch_workouts":
+    case "set_workouts":
       return { ...state, workouts: action.payload };
-    case "fetch_badges":
+    case "set_badges":
       return { ...state, badges: action.payload };
     case "select_workout":
-      return { ...state, selectedWorkout: action.payload };
-    case "show_add_workout_form":
-      console.log("need to display form here");
-      return { ...state, detailPanelDisplay: "WorkoutForm" };
-    case "hide_add_workout_form":
+      return {
+        ...state,
+        selectedWorkout: action.payload,
+      };
+    case "show_workout_form_blank":
+      return { ...state, detailPanelDisplay: "WorkoutFormAdd" };
+    case "show_workout_form_populated":
+      return {
+        ...state,
+        detailPanelDisplay: "WorkoutFormEdit",
+        workoutToEdit: action.payload,
+      };
+    case "hide_workout_form":
       return { ...state, detailPanelDisplay: "WorkoutDetail" };
     case "add_workout":
-      console.log("add workout");
-      createWorkout(action.payload);
-      return { ...state, workouts: [...state.workouts, action.payload] };
+      console.log(action.payload);
+      return {
+        ...state,
+        workouts: [...state.workouts, action.payload],
+        selectedWorkout: action.payload,
+        updatedWorkout: action.payload,
+      };
     case "delete_workout":
-      console.log(`delete workout id #${action.payload}`);
-      deleteWorkout(action.payload);
       const workoutsAfterDelete = state.workouts.filter(
         (w) => w.id !== action.payload
       );
-      return { ...state, workouts: workoutsAfterDelete };
+      return {
+        ...state,
+        workouts: workoutsAfterDelete,
+      };
     case "edit_workout":
       console.log(`edit workout id #${action.payload}`);
-      return state;
+      const workoutsOldRemoved = state.workouts.filter(
+        (w) => w.id !== action.payload
+      );
+      return {
+        ...state,
+        workouts: [...workoutsOldRemoved, action.payload],
+        selectedWorkout: action.payload,
+        updatedWorkout: action.payload,
+      };
     case "update_filter_text":
       return { ...state, filterText: action.payload };
     case "filter_workouts":

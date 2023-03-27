@@ -55,7 +55,13 @@ export default function SignUpForm() {
           className="input w-64"
           placeholder="Email Address"
           type="email"
-          {...register("email", { required: true })}
+          {...register("email", {
+            required: true,
+            pattern: {
+              value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+              message: "Email is not valid.",
+            },
+          })}
         />
         <span className="ml-2 text-red-600">
           {errors.email &&

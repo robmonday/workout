@@ -9,7 +9,7 @@ export default function Badges() {
   useEffect(() => {
     getAllBadges().then((badges) => {
       // console.log(badges);
-      dispatch({ type: "fetch_badges", payload: badges });
+      dispatch({ type: "set_badges", payload: badges });
     });
   }, []);
 
@@ -32,7 +32,7 @@ export default function Badges() {
 const Badge = ({ type = "Badge" }) => {
   return (
     <>
-      <div className="m-5 w-24 rounded-lg border bg-orange-200 p-4 text-center hover:shadow-lg active:-translate-y-1">
+      <div className="m-5 w-auto rounded-lg border bg-orange-200 p-4 text-center hover:shadow-lg active:translate-y-1">
         {type}
       </div>
     </>

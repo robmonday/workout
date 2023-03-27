@@ -1,12 +1,17 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState, Fragment } from "react";
 import { StateContext, DispatchContext } from "./StateProvider";
 
-import { getAllWorkouts, createWorkout, deleteWorkout } from "../api";
+import {
+  createWorkout,
+  getAllWorkouts,
+  getAllWorkoutTypes,
+  deleteWorkout,
+} from "../api";
 import { ArrowLeft, Plus, Edit2, Trash2 } from "react-feather";
 
-import { Workout, WorkoutRequest } from "../types";
+import { Workout, WorkoutType } from "../types";
 
-import { dateToWeekdayDate, dateToTime, enumToTitleCase } from "../util";
+import { dateToWeekdayDate, dateToTime } from "../util";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
@@ -16,18 +21,18 @@ export default function WorkoutHistory() {
   const dispatch = useContext(DispatchContext);
 
   useEffect(() => {
-    getAllWorkouts().then((w) => {
-      const sortedWorkouts = w.sort(
-        (a: Workout, b: Workout) => Date.parse(b.start) - Date.parse(a.start)
+    getAllWorkouts().then((workouts: Workout[]) => {
+      const sortedWorkouts = workouts.sort(
+        (a, b) => Date.parse(b.start) - Date.parse(a.start)
       );
-      dispatch({ type: "fetch_workouts", payload: sortedWorkouts });
+      dispatch({ type: "set_workouts", payload: sortedWorkouts });
     });
-  }, []);
+  }, [state.updatedWorkout]);
 
   return (
     <div className="px-2">
       <div className="p-2 text-2xl">Workout History</div>
-      <div className="flex h-96">
+      <div className="flex h-auto">
         <div className="m-2 w-1/4  rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 px-2">
           <WorkoutSearchBar />
           <WorkoutHistoryList />
@@ -39,11 +44,15 @@ export default function WorkoutHistory() {
                 workout={state.selectedWorkout || state.workouts[0]}
               />
             )}
-          {state.detailPanelDisplay === "WorkoutForm" && <WorkoutForm />}
+          {state.detailPanelDisplay === "WorkoutFormAdd" && <WorkoutForm />}
+          {state.detailPanelDisplay === "WorkoutFormEdit" && (
+            <WorkoutForm workout={state.workoutToEdit} />
+          )}
         </div>
       </div>
 
-      <div className="hidden border bg-purple-400 p-2">
+      {/* Displays State on Page */}
+      <div className=" border bg-purple-400 p-2">
         <div className="p-2">{JSON.stringify(state)}</div>
       </div>
     </div>
@@ -62,8 +71,7 @@ const WorkoutHistoryList = () => {
   const filteredWorkouts = state.workouts.filter((w) => {
     return (
       w.notes?.toLowerCase().includes(state.filterText.toLowerCase()) ||
-      w.type
-        ?.toString()
+      w.workoutType?.name
         .toLowerCase()
         .includes(state.filterText.toLowerCase()) ||
       w.location?.toLowerCase().includes(state.filterText.toLowerCase())
@@ -73,7 +81,7 @@ const WorkoutHistoryList = () => {
   return (
     <div className="">
       <div
-        onClick={() => dispatch({ type: "show_add_workout_form" })}
+        onClick={() => dispatch({ type: "show_workout_form_blank" })}
         className="text-gray-00 ml-1 inline-block rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
       >
         <Plus strokeWidth={0.75} />
@@ -86,9 +94,7 @@ const WorkoutHistoryList = () => {
             className="my-2 rounded-lg border border-purple-500 p-2 hover:bg-purple-300 active:translate-y-0.5 active:bg-purple-400"
           >
             <div className="inline-block">
-              <div className="inline-block">
-                {w.type && enumToTitleCase(w.type)}
-              </div>
+              <div className="inline-block">{w.workoutType?.name}</div>
               <div className="inline-block font-light text-purple-700">
                 <div className="ml-3 inline">
                   {w.start && dateToWeekdayDate(w.start)}
@@ -98,16 +104,20 @@ const WorkoutHistoryList = () => {
             <div className="float-right inline-block">
               <div
                 onClick={() =>
-                  dispatch({ type: "edit_workout", payload: w.id })
+                  dispatch({
+                    type: "show_workout_form_populated",
+                    payload: w,
+                  })
                 }
                 className="text-gray-00 ml-1 inline-block rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
               >
                 <Edit2 className="inline" strokeWidth={0.75} />
               </div>
               <div
-                onClick={() =>
-                  dispatch({ type: "delete_workout", payload: w.id })
-                }
+                onClick={() => {
+                  deleteWorkout(w.id);
+                  dispatch({ type: "delete_workout", payload: w.id });
+                }}
                 className="text-gray-00 ml-1 inline-block rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
               >
                 <Trash2 className="inline-block" strokeWidth={0.75} />
@@ -146,16 +156,38 @@ type WorkoutDetailProps = {
 };
 
 const WorkoutDetail = ({ workout }: WorkoutDetailProps) => {
+  const dispatch = useContext(DispatchContext);
   const minutes = Math.floor(
     (Date.parse(workout.end) - Date.parse(workout.start)) / (1000 * 60)
   );
   return (
     <>
       <div className="mb-3">
-        <div className="inline text-2xl font-light">
-          {enumToTitleCase(workout.type)}
+        <div className="mb-4 inline text-2xl font-light">
+          {workout?.workoutType?.name}
         </div>
-        <div className="ml-4 inline text-purple-800">
+        <div
+          onClick={() =>
+            dispatch({ type: "delete_workout", payload: workout.id })
+          }
+          className="text-gray-00 float-right ml-1 inline rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
+        >
+          <Trash2 className="inline-block" strokeWidth={0.75} />
+        </div>
+        <div
+          onClick={() =>
+            dispatch({
+              type: "show_workout_form_populated",
+              payload: workout,
+            })
+          }
+          className="text-gray-00 float-right ml-1 inline rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
+        >
+          <Edit2 className="inline" strokeWidth={0.75} />
+        </div>
+      </div>
+      <div>
+        <div className="my-2 inline text-purple-800">
           {dateToTime(workout.start)}
         </div>
         <div className="ml-4 inline text-purple-800">{workout.location}</div>
@@ -180,6 +212,15 @@ const WorkoutDetail = ({ workout }: WorkoutDetailProps) => {
   );
 };
 
+type FormData = {
+  location: string;
+  distance: string;
+  steps: string;
+  calories: string;
+  notes: string | null;
+  workoutTypeId: string;
+};
+
 type WorkoutFormProps = {
   workout?: Workout;
 };
@@ -188,22 +229,44 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
   const dispatch = useContext(DispatchContext);
   const navigate = useNavigate();
 
+  const [workoutTypes, setWorkoutTypes] = useState<WorkoutType[]>([]);
+
   const {
     register,
     handleSubmit,
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<WorkoutRequest>();
+  } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<WorkoutRequest> = async (data) => {
-    navigate("/main");
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    dispatch({ type: "hide_workout_form" });
+    // console.log(data);
+    const { workoutTypeId, location, distance, steps, calories, notes } = data;
+    const parsedData = {
+      workoutTypeId,
+      location,
+      distance: parseInt(distance),
+      steps: parseInt(steps),
+      calories: parseInt(calories),
+      notes,
+    };
+    // console.log(parsedData);
+    const newRecord = await createWorkout(parsedData);
+    console.log(newRecord);
+    dispatch({ type: "add_workout", payload: newRecord });
   };
+
+  useEffect(() => {
+    getAllWorkoutTypes().then((workoutTypes: WorkoutType[]) => {
+      setWorkoutTypes(workoutTypes);
+    });
+  }, []);
 
   return (
     <>
       <div
-        onClick={() => dispatch({ type: "hide_add_workout_form" })}
+        onClick={() => dispatch({ type: "hide_workout_form" })}
         className="text-gray-00 mb-2 inline-block rounded py-1 pl-1 pr-2 hover:bg-purple-500 hover:text-white active:bg-purple-700"
       >
         <ArrowLeft className="inline-block" strokeWidth={0.75} />
@@ -213,15 +276,82 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
         {workout ? "Edit Workout" : "Add Workout"}
       </div>
 
-      <form className="my-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="my-5">
+        <label className="inline-block w-20">Type</label>
+        <select
+          className="input w-52"
+          {...register("workoutTypeId", { required: true })}
+          value={workout?.workoutType?.id}
+        >
+          {workoutTypes.map((t: WorkoutType) => (
+            <option key={t.id} value={t.id}>
+              {t.name}
+            </option>
+          ))}
+        </select>
+        <span className="ml-2 text-red-600">
+          {errors.workoutTypeId && <span>Type is required</span>}
+        </span>
+        <br />
+
+        <label className="inline-block w-20">Location</label>
         <input
           className="input "
-          placeholder="Workout type"
-          {...register("type", { required: true })}
+          placeholder=""
+          {...register("location", { required: true })}
           type="text"
+          value={workout?.location}
         />
         <span className="ml-2 text-red-600">
-          {errors.type && <span>Type is required</span>}
+          {errors.location && <span>Location is required</span>}
+        </span>
+        <br />
+        <label className="inline-block w-20">Steps</label>
+        <input
+          className="input "
+          {...register("steps", { required: false, min: 0, max: 20000 })}
+          type="text"
+          value={workout?.steps}
+        />
+        <span className="ml-2 text-red-600">
+          {errors.steps && <span>Steps are required</span>}
+        </span>
+        <br />
+        <label className="inline-block w-20">Distance</label>
+        <input
+          className="input "
+          {...register("distance", { required: false, min: 0, max: 10000 })}
+          type="text"
+          step="0.01"
+          value={workout?.distance}
+        />
+        <span className="ml-2 text-red-600">
+          {errors.distance && <span>Distance is required</span>}
+        </span>
+        <br />
+        <label className="inline-block w-20">Calories</label>
+        <input
+          className="input "
+          {...register("calories", { required: false, min: 0, max: 2000 })}
+          type="text"
+          value={workout?.calories}
+        />
+        <span className="ml-2 text-red-600">
+          {errors.calories && <span>Calories is required</span>}
+        </span>
+        <br />
+        <label className="inline-block w-20 align-top">Notes</label>
+        <textarea
+          className="input "
+          placeholder="optional"
+          rows={4}
+          cols={50}
+          {...register("notes", { required: false })}
+        >
+          {workout?.notes}
+        </textarea>
+        <span className="ml-2 text-red-600">
+          {errors.notes && <span>Notes is required</span>}
         </span>
         <div className="mt-3">
           <input
@@ -231,7 +361,7 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
           />
           <button
             className="btn btn-secondary py-2 "
-            onClick={() => dispatch({ type: "hide_add_workout_form" })}
+            onClick={() => dispatch({ type: "hide_workout_form" })}
           >
             Cancel
           </button>
