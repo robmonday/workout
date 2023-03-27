@@ -45,6 +45,13 @@ export type Workout = {
   notes: string | null;
 };
 
+export type Badge = {
+  id: string;
+  type: string;
+  notes: string;
+  userId: string;
+};
+
 export type DeleteRequest = {
   id: string;
 };

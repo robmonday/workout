@@ -6,7 +6,7 @@ import React, {
   Reducer,
 } from "react";
 
-import { Workout } from "../types";
+import { Workout, Badge } from "../types";
 import { createWorkout, deleteWorkout } from "../api";
 
 // creating and typing initial state
@@ -16,6 +16,7 @@ type State = {
   selectedWorkout: Workout | undefined;
   filterText: string;
   detailPanelDisplay: "WorkoutDetail" | "WorkoutForm";
+  badges: Badge[];
 };
 
 const initialState: State = {
@@ -23,6 +24,7 @@ const initialState: State = {
   selectedWorkout: undefined,
   filterText: "",
   detailPanelDisplay: "WorkoutDetail",
+  badges: [],
 };
 
 // creating and typing reducer
@@ -33,6 +35,8 @@ const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case "fetch_workouts":
       return { ...state, workouts: action.payload };
+    case "fetch_badges":
+      return { ...state, badges: action.payload };
     case "select_workout":
       return { ...state, selectedWorkout: action.payload };
     case "show_add_workout_form":

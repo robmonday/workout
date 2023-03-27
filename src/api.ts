@@ -78,3 +78,11 @@ export const deleteWorkout = (id: string) => {
     body: { id },
   });
 };
+
+export const getAllBadges = () => {
+  const result = fetcher({
+    url: "http://localhost:5174/badge",
+    method: "GET",
+  });
+  return result;
+};

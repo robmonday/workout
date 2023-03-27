@@ -16,7 +16,7 @@ export default function WorkoutHistory() {
   const dispatch = useContext(DispatchContext);
 
   useEffect(() => {
-    getAllWorkouts().then((w: Workout[]) => {
+    getAllWorkouts().then((w) => {
       const sortedWorkouts = w.sort(
         (a: Workout, b: Workout) => Date.parse(b.start) - Date.parse(a.start)
       );
@@ -28,7 +28,7 @@ export default function WorkoutHistory() {
     <div className="px-2">
       <div className="p-2 text-2xl">Workout History</div>
       <div className="flex h-96">
-        <div className="m-2 w-1/4  rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 px-2 ">
+        <div className="m-2 w-1/4  rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 px-2">
           <WorkoutSearchBar />
           <WorkoutHistoryList />
         </div>
@@ -71,14 +71,14 @@ const WorkoutHistoryList = () => {
   });
 
   return (
-    <>
+    <div className="">
       <div
         onClick={() => dispatch({ type: "show_add_workout_form" })}
         className="text-gray-00 ml-1 inline-block rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
       >
         <Plus strokeWidth={0.75} />
       </div>
-      <div className="overflow-y-scroll">
+      <div className="h-60 overflow-y-auto ">
         {filteredWorkouts.map((w) => (
           <div
             key={w.id}
@@ -116,7 +116,7 @@ const WorkoutHistoryList = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
