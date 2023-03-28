@@ -71,6 +71,15 @@ export const createWorkout = (body: WorkoutRequest) => {
   });
 };
 
+export const updateWorkout = (id: string, body: WorkoutRequest) => {
+  const result = fetcher({
+    url: "http://localhost:5174/workout",
+    method: "PUT",
+    body: { ...body, id },
+  });
+  return result;
+};
+
 export const deleteWorkout = (id: string) => {
   return fetcher({
     url: "http://localhost:5174/workout",

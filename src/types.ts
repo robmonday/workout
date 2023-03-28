@@ -13,7 +13,7 @@ export type WorkoutRequest = {
   distance: number;
   steps: number;
   calories: number;
-  notes: string | null;
+  notes?: string | undefined;
   workoutTypeId: string;
 };
 
@@ -33,10 +33,10 @@ export type Workout = {
   location: string;
   start: string;
   end: string;
-  distance: string;
+  distance: number;
   steps: number;
   calories: number;
-  notes: string | null;
+  notes?: string | undefined;
   workoutType?: WorkoutTypeName;
 };
 
