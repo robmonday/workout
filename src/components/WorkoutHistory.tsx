@@ -16,7 +16,6 @@ import { Workout, WorkoutType } from "../types";
 import { dateToWeekdayDate, dateToTime } from "../util";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useNavigate, Link } from "react-router-dom";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -55,7 +54,7 @@ export default function WorkoutHistory() {
       </div>
 
       {/* Displays State on Page */}
-      <div className=" border bg-purple-400 p-2">
+      <div className="hidden border bg-purple-400 p-2">
         <div className="p-2">{JSON.stringify(state)}</div>
       </div>
     </div>
@@ -78,6 +77,7 @@ const WorkoutHistoryList = ({
         (a: Workout, b: Workout) => Date.parse(b.start) - Date.parse(a.start)
       );
       dispatch({ type: "set_workouts", payload: sortedWorkouts });
+      dispatch({ type: "select_workout" });
     });
   }, [state.updatedWorkout]);
 
@@ -265,19 +265,20 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
 
   const onSubmitNew: SubmitHandler<FormData> = async (data) => {
     dispatch({ type: "hide_workout_form" });
-    console.log("data from form", data);
+    // console.log("data from form", data);
     const newWorkout = await createWorkout(data);
-    console.log("newWorkout", newWorkout);
+    // console.log("newWorkout", newWorkout);
     dispatch({ type: "add_workout", payload: newWorkout });
   };
 
   const onSubmitEdit: SubmitHandler<FormData> = async (data) => {
     dispatch({ type: "hide_workout_form" });
-    console.log("data from form", data);
+    // console.log("data from form", data);
     if (workout) {
       const editedWorkout = await updateWorkout(workout.id, data);
-      console.log("editedWorkout", editedWorkout);
+      // console.log("editedWorkout", editedWorkout);
       dispatch({ type: "edit_workout", payload: editedWorkout });
+      // dispatch({ type: "select_workout", payload: editedWorkout.id });
     }
   };
 
@@ -312,7 +313,7 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
         <select
           className="input w-52"
           {...register("workoutTypeId")}
-          defaultValue={workout?.workoutType?.name}
+          defaultValue="Outdoor Walk"
         >
           {workoutTypes.map((t: WorkoutType) => (
             <option

@@ -17,8 +17,8 @@ export default function Badges() {
     <>
       <div className="px-2">
         <div className="p-2 text-2xl">Badges</div>
-        <div className="flex h-36">
-          <div className="m-2 flex w-full flex-wrap justify-evenly rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 px-2 ">
+        <div className="flex h-96">
+          <div className="m-2 flex w-full flex-wrap place-content-evenly rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 px-2 ">
             {state.badges.map((b) => (
               <Badge key={b.id} type={b.type} />
             ))}
