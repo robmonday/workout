@@ -9,8 +9,20 @@ const Layout = ({ name = "App" }) => {
           <div>{name}</div>
         </Link>
         <nav className="h-15 flex w-full justify-evenly ">
-          <div className="btn">
-            <a href="/login">Login/Signup</a>
+          <div className="nav-link">
+            <a href="/home">Home</a>
+          </div>
+          <div className="nav-link">
+            <a href="/data">Data Entry</a>
+          </div>
+          <div className="nav-link">
+            <a href="/workout">Workout</a>
+          </div>
+          <div className="nav-link">
+            <a href="/dashboard">Dashboard</a>
+          </div>
+          <div className="btn bg-purple-500 px-2 py-1 text-base text-white ">
+            <a href="/login">Log In / Sign Up</a>
           </div>
         </nav>
       </div>
