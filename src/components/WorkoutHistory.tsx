@@ -33,34 +33,36 @@ export default function WorkoutHistory() {
   };
 
   return (
-    <Panel title="Workout History">
-      <Panel>
-        <div className="m-2 w-auto ">
-          <WorkoutSearchBar />
-          <WorkoutHistoryList handleDeleteWorkout={handleDeleteWorkout} />
-        </div>
-      </Panel>
-      <Panel>
-        <div className="h-full  w-3/4">
-          {state.detailPanelDisplay === "WorkoutDetail" &&
-            state.workouts.length > 0 && (
-              <WorkoutDetail
-                workoutId={state.selectedWorkout || state.workouts[0].id}
-                handleDeleteWorkout={handleDeleteWorkout}
-              />
+    <div className="border inline-flex">
+      <Panel title="Workout History">
+        <Panel>
+          <div className="m-2 w-auto ">
+            <WorkoutSearchBar />
+            <WorkoutHistoryList handleDeleteWorkout={handleDeleteWorkout} />
+          </div>
+        </Panel>
+        <Panel>
+          <div className="h-full  w-3/4">
+            {state.detailPanelDisplay === "WorkoutDetail" &&
+              state.workouts.length > 0 && (
+                <WorkoutDetail
+                  workoutId={state.selectedWorkout || state.workouts[0].id}
+                  handleDeleteWorkout={handleDeleteWorkout}
+                />
+              )}
+            {state.detailPanelDisplay === "WorkoutFormAdd" && <WorkoutForm />}
+            {state.detailPanelDisplay === "WorkoutFormEdit" && (
+              <WorkoutForm workout={state.workoutToEdit} />
             )}
-          {state.detailPanelDisplay === "WorkoutFormAdd" && <WorkoutForm />}
-          {state.detailPanelDisplay === "WorkoutFormEdit" && (
-            <WorkoutForm workout={state.workoutToEdit} />
-          )}
+          </div>
+        </Panel>
+
+        {/* Displays State on Page */}
+        <div className="hidden border bg-purple-400 p-2">
+          <div className="p-2">{JSON.stringify(state)}</div>
         </div>
       </Panel>
-
-      {/* Displays State on Page */}
-      <div className="hidden border bg-purple-400 p-2">
-        <div className="p-2">{JSON.stringify(state)}</div>
-      </div>
-    </Panel>
+    </div>
   );
 }
 

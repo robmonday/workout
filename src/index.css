@@ -35,6 +35,18 @@ div {
     active:bg-gray-500;
   }
 
+  .btn-green {
+    @apply bg-green-300 px-5 py-3 text-green-800
+    hover:bg-green-300 
+    active:bg-green-500;
+  }
+
+  .btn-red {
+    @apply bg-red-300 px-5 py-3 text-red-800
+    hover:bg-red-300 
+    active:bg-red-500;
+  }
+
   .input {
     @apply mr-2 mb-4 rounded-lg border border-gray-300 px-3 py-2
     focus:ring-1 focus:ring-gray-500 focus:ring-opacity-50 focus:ring-offset-2;
