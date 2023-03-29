@@ -1,22 +1,21 @@
-import { PropsWithChildren } from "react";
 import { Outlet, Link } from "react-router-dom";
 
-const Layout = ({ name = "App" }) => {
+const Layout = () => {
   return (
     <>
       <div className="text-md fixed top-0 flex w-full bg-purple-300 px-5 py-3">
         <Link to="/" className="w-1/3 text-2xl">
-          <div>{name}</div>
+          <div>Workout App</div>
         </Link>
         <nav className="h-15 flex w-full justify-evenly ">
           <div className="nav-link">
             <a href="/home">Home</a>
           </div>
           <div className="nav-link">
-            <a href="/data">Data Entry</a>
+            <a href="/workout">Workout</a>
           </div>
           <div className="nav-link">
-            <a href="/workout">Workout</a>
+            <a href="/data">My Data</a>
           </div>
           <div className="nav-link">
             <a href="/dashboard">Dashboard</a>

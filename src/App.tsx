@@ -6,6 +6,9 @@ import LogInForm from "./components/LogInForm";
 import SignUpForm from "./components/SignUpForm";
 import Home from "./components/Home";
 import Main from "./components/Main";
+import DataEntryMode from "./components/DataEntryMode";
+import WorkoutMode from "./components/WorkoutMode";
+import Dashboard from "./components/Dashboard";
 import NotFound from "./components/NotFound";
 
 function App(): JSX.Element {
@@ -18,6 +21,9 @@ function App(): JSX.Element {
           <Route path="signup" element={<SignUpForm />} />
           <Route path="home" element={<Home />} />
           <Route path="main" element={<Main />} />
+          <Route path="data" element={<DataEntryMode />} />
+          <Route path="workout" element={<WorkoutMode />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

@@ -61,4 +61,10 @@ div {
   .panel {
     @apply m-2 rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 p-2;
   }
+
+  .nav-link {
+    @apply mx-1 rounded-t-lg border-x border-t py-1 px-2 text-base hover:shadow-md 
+    active:translate-y-0.5
+    active:bg-purple-400 lg:px-4;
+  }
 }

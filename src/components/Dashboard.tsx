@@ -1,7 +1,12 @@
+import ChartExample1 from "./ChartExample1";
+
 export default function Dashboard() {
   return (
     <div className="">
       <div className="p-2 text-xl">Dashboard</div>
+      <div className="panel w-max">
+        <ChartExample1 />
+      </div>
       <div className="panel flex justify-between">
         <DashPanel number={1} />
         <DashPanel number={2} />

@@ -31,7 +31,7 @@ export default function WorkoutHistory() {
 
   return (
     <>
-      <div className="p-2 text-2xl">Workout History</div>
+      <div className="p-2 text-2xl">My Data</div>
       <div className="panel">
         <div className="inline-block lg:w-1/3">
           <div className="rounded-lg border-2 border-purple-400 py-1 px-3">
