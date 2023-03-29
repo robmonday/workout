@@ -2,6 +2,8 @@ import { useContext, useEffect } from "react";
 import { getAllBadges } from "../api";
 import { DispatchContext, StateContext } from "./StateProvider";
 
+import Panel from "./Panel";
+
 export default function Badges() {
   const state = useContext(StateContext);
   const dispatch = useContext(DispatchContext);
@@ -14,18 +16,15 @@ export default function Badges() {
   }, []);
 
   return (
-    <>
-      <div className="px-2">
-        <div className="p-2 text-2xl">Badges</div>
-        <div className="flex h-96">
-          <div className="m-2 flex w-full flex-wrap place-content-evenly rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 px-2 ">
-            {state.badges.map((b) => (
-              <Badge key={b.id} type={b.type} />
-            ))}
-          </div>
+    <div>
+      <Panel title="Badges">
+        <div className="m-2 flex w-full flex-wrap place-content-evenly rounded-lg bg-gradient-to-br from-purple-200 to-purple-300 px-2 ">
+          {state.badges.map((b) => (
+            <Badge key={b.id} type={b.type} />
+          ))}
         </div>
-      </div>
-    </>
+      </Panel>
+    </div>
   );
 }
 

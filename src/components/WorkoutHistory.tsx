@@ -4,10 +4,12 @@ import { StateContext, DispatchContext } from "./StateProvider";
 import {
   createWorkout,
   getAllWorkouts,
-  getAllWorkoutTypes,
   deleteWorkout,
   updateWorkout,
+  getAllWorkoutTypes,
 } from "../api";
+
+import Panel from "./Panel";
 
 import { ArrowLeft, Plus, Edit2, Trash2 } from "react-feather";
 
@@ -31,14 +33,15 @@ export default function WorkoutHistory() {
   };
 
   return (
-    <div className="px-2">
-      <div className="p-2 text-2xl">Workout History</div>
-      <div className="flex h-auto">
-        <div className="m-2 w-1/4  rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 px-2">
+    <Panel title="Workout History">
+      <Panel>
+        <div className="m-2 w-auto ">
           <WorkoutSearchBar />
           <WorkoutHistoryList handleDeleteWorkout={handleDeleteWorkout} />
         </div>
-        <div className="m-2 h-auto  w-3/4 rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 p-4 ">
+      </Panel>
+      <Panel>
+        <div className="h-full  w-3/4">
           {state.detailPanelDisplay === "WorkoutDetail" &&
             state.workouts.length > 0 && (
               <WorkoutDetail
@@ -51,13 +54,13 @@ export default function WorkoutHistory() {
             <WorkoutForm workout={state.workoutToEdit} />
           )}
         </div>
-      </div>
+      </Panel>
 
       {/* Displays State on Page */}
       <div className="hidden border bg-purple-400 p-2">
         <div className="p-2">{JSON.stringify(state)}</div>
       </div>
-    </div>
+    </Panel>
   );
 }
 
@@ -160,7 +163,7 @@ const WorkoutSearchBar = () => {
             dispatch({ type: "update_filter_text", payload: e.target.value })
           }
           placeholder="Start typing to filter..."
-          className="input mt-4 w-full py-2 px-2 text-gray-500"
+          className="input mt-4 w-full text-gray-500"
         />
       </form>
     </>
