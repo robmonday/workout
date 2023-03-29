@@ -9,8 +9,6 @@ import {
   getAllWorkoutTypes,
 } from "../api";
 
-import Panel from "./Panel";
-
 import { ArrowLeft, Plus, Edit2, Trash2 } from "react-feather";
 
 import { Workout, WorkoutType } from "../types";
@@ -18,7 +16,6 @@ import { Workout, WorkoutType } from "../types";
 import { dateToWeekdayDate, dateToTime } from "../util";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -33,16 +30,17 @@ export default function WorkoutHistory() {
   };
 
   return (
-    <div className="border inline-flex">
-      <Panel title="Workout History">
-        <Panel>
-          <div className="m-2 w-auto ">
+    <>
+      <div className="p-2 text-2xl">Workout History</div>
+      <div className="panel">
+        <div className="inline-block lg:w-1/3">
+          <div className="rounded-lg border-2 border-purple-400 py-1 px-3">
             <WorkoutSearchBar />
             <WorkoutHistoryList handleDeleteWorkout={handleDeleteWorkout} />
           </div>
-        </Panel>
-        <Panel>
-          <div className="h-full  w-3/4">
+        </div>
+        <div className="inline-block align-top lg:w-2/3">
+          <div className="px-6 py-4">
             {state.detailPanelDisplay === "WorkoutDetail" &&
               state.workouts.length > 0 && (
                 <WorkoutDetail
@@ -55,14 +53,13 @@ export default function WorkoutHistory() {
               <WorkoutForm workout={state.workoutToEdit} />
             )}
           </div>
-        </Panel>
-
-        {/* Displays State on Page */}
-        <div className="hidden border bg-purple-400 p-2">
-          <div className="p-2">{JSON.stringify(state)}</div>
         </div>
-      </Panel>
-    </div>
+        {/* Displays State on Page
+      <div className="border bg-purple-400 p-2">
+        <div className="p-2">{JSON.stringify(state)}</div>
+      </div> */}
+      </div>
+    </>
   );
 }
 
@@ -104,7 +101,7 @@ const WorkoutHistoryList = ({
       >
         <Plus strokeWidth={0.75} />
       </div>
-      <div className="h-60 overflow-y-auto ">
+      <div className="h-96 overflow-y-auto">
         {filteredWorkouts.map((w) => (
           <div
             key={w.id}
@@ -165,7 +162,7 @@ const WorkoutSearchBar = () => {
             dispatch({ type: "update_filter_text", payload: e.target.value })
           }
           placeholder="Start typing to filter..."
-          className="input mt-4 w-full text-gray-500"
+          className="input mt-2 w-full text-gray-500"
         />
       </form>
     </>
@@ -253,22 +250,28 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
 
   const schema = z.object({
     workoutTypeId: z.string(),
-    location: z.string().min(3),
-    steps: z.number().min(0).max(100000),
-    distance: z.number().min(0).max(50),
-    calories: z.number().min(0).max(20000),
+    location: z.string().min(3, "Location name is too short"),
+    steps: z
+      .number()
+      .min(0, "Can't be negative")
+      .max(100000, "Number too high"),
+    distance: z.number().min(0, "Can't be negative").max(50, "Number too high"),
+    calories: z
+      .number()
+      .min(0, "Can't be negative")
+      .max(20000, "Number too high"),
     notes: z.string().optional(),
   });
 
-  type FormData = z.infer<typeof schema>;
+  type FormValues = z.infer<typeof schema>;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
-  const onSubmitNew: SubmitHandler<FormData> = async (data) => {
+  const onSubmitNew: SubmitHandler<FormValues> = async (data) => {
     dispatch({ type: "hide_workout_form" });
     // console.log("data from form", data);
     const newWorkout = await createWorkout(data);
@@ -276,7 +279,7 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
     dispatch({ type: "add_workout", payload: newWorkout });
   };
 
-  const onSubmitEdit: SubmitHandler<FormData> = async (data) => {
+  const onSubmitEdit: SubmitHandler<FormValues> = async (data) => {
     dispatch({ type: "hide_workout_form" });
     // console.log("data from form", data);
     if (workout) {
@@ -297,12 +300,12 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
     <>
       <div
         onClick={() => dispatch({ type: "hide_workout_form" })}
-        className="text-gray-00 mb-2 inline-block rounded py-1 pl-1 pr-2 hover:bg-purple-500 hover:text-white active:bg-purple-700"
+        className="text-gray-00 float-left mr-3 rounded py-1 pl-1 pr-2 hover:bg-purple-500 hover:text-white active:bg-purple-700"
       >
         <ArrowLeft className="inline-block" strokeWidth={0.75} />
-        <div className="inline-block font-light">Go Back</div>
+        <div className="inline-block font-light">Back</div>
       </div>
-      <div className="mt-3 text-2xl font-light">
+      <div className="text-2xl font-light">
         {workout ? "Edit Workout" : "Add Workout"}
       </div>
 
@@ -394,8 +397,8 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
         <textarea
           className="input "
           placeholder="optional"
-          rows={4}
-          cols={50}
+          rows={1}
+          cols={30}
           defaultValue={workout?.notes}
           {...register("notes")}
         />

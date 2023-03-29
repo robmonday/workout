@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import Panel from "./Panel";
 
 export default function Timer() {
   const [startTime, setStartTime] = useState<number | null>(null);
@@ -39,9 +38,10 @@ export default function Timer() {
   const hoursPassed = Math.floor(minutesPassed / 60);
 
   return (
-    <div className="inline-flex border">
-      <Panel title="Timer">
-        <div className="border px-6 py-4">
+    <div className="inline-block align-top ">
+      <div className="p-2 text-2xl">Timer</div>
+      <div className="panel">
+        <div className="px-6 py-4 text-center">
           {hoursPassed.toString().padStart(2, "0")}:
           {minutesPassed.toString().padStart(2, "0")}:
           {secondsPassed.toFixed(2).padStart(5, "0")}
@@ -60,7 +60,7 @@ export default function Timer() {
             Reset
           </div>
         </div>
-      </Panel>
+      </div>
     </div>
   );
 }

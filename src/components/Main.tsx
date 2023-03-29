@@ -5,17 +5,37 @@ import Timer from "./Timer";
 
 export default function Main() {
   return (
-    <>
-      <WorkoutHistory />
+    <div className="">
+      <DataEntryMode />
+      <WorkoutMode />
+      <Dashboard />
+    </div>
+  );
+}
+
+export const WorkoutMode = () => {
+  return (
+    <div className="">
       <Timer />
-      <div className="flex flex-wrap">
-        <div className="w-3/4">
-          <Dashboard />
+      <Badges />
+    </div>
+  );
+};
+
+export const DataEntryMode = () => {
+  return (
+    <>
+      <div className="flex">
+        <div className="md:w-3/4 lg:w-5/6 ">
+          <WorkoutHistory />
         </div>
-        <div className="w-1/4">
+        <div className="hidden md:block md:w-1/4 lg:w-1/6 ">
           <Badges />
         </div>
       </div>
+      <div className="block md:hidden">
+        <Badges />
+      </div>
     </>
   );
-}
+};

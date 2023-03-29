@@ -1,14 +1,27 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import { loginRequest } from "../api";
-import { LogInRequest } from "../types";
 
-type FormValues = LogInRequest & {
-  formLevelError: string;
-};
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function LogInForm() {
   const navigate = useNavigate();
+
+  const schema = z.object({
+    email: z.string().min(6, "Email is too short").email(),
+    password: z
+      .string()
+      .min(6, "Password is too short")
+      .regex(
+        /^(?=.*\d)(?=.*[!@#$%^&*?])(?=.*[a-z])(?=.*[A-Z]).{4,}$/,
+        "Password must include uppercase, lowercase, number, and a symbol (!@#$%^&*?)"
+      ),
+  });
+
+  type FormValues = z.infer<typeof schema> & {
+    formLevelError: string;
+  };
 
   const {
     register,
@@ -16,7 +29,7 @@ export default function LogInForm() {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const res = await loginRequest(data);
@@ -38,28 +51,34 @@ export default function LogInForm() {
       >
         <div className="text-2xl">Log In</div>
         <br />
+
         <input
           className="input w-64"
           placeholder="Email Address"
-          type="email"
+          type="text"
           {...register("email", { required: true })}
         />
-        <span className="ml-2 text-red-600">
-          {errors.email && <span>Email is required</span>}
-        </span>
+        {errors.email && (
+          <span className="ml-2 text-red-600">{errors.email.message}</span>
+        )}
         <br />
+
         <input
           className="input w-64"
           placeholder="Password"
           type="password"
           {...register("password", { required: true })}
         />
-        <span className="ml-2 text-red-600">
-          {errors.password && <span>Password is required</span>}
-        </span>
-        <p className="ml-2 mb-4 text-red-600">
-          {errors.formLevelError && errors.formLevelError.message}
-        </p>
+        {errors.password && (
+          <p className="ml-2 text-red-600">{errors.password.message}</p>
+        )}
+
+        {errors.formLevelError && (
+          <p className="ml-2 mb-4 text-red-600">
+            {errors.formLevelError.message}
+          </p>
+        )}
+
         <div className="mt-3">
           <input className="btn btn-primary" type="submit" value="Submit" />
           <Link to="/" className="btn btn-secondary">

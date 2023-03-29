@@ -1,19 +1,42 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import { signUpRequest } from "../api";
-import { SignUpRequest } from "../types";
+
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function SignUpForm() {
   const navigate = useNavigate();
+
+  const schema = z
+    .object({
+      firstName: z.string().min(2, "Too short"),
+      lastName: z.string().min(2, "Too short"),
+      email: z.string().email(),
+      confirmEmail: z.string().email(),
+      password: z
+        .string()
+        .min(6, "Too short")
+        .regex(
+          /^(?=.*\d)(?=.*[!@#$%^&*?])(?=.*[a-z])(?=.*[A-Z]).{4,}$/,
+          "Password must include uppercase, lowercase, number, and a symbol (!@#$%^&*?)"
+        ),
+    })
+    .refine((data) => data.email === data.confirmEmail, {
+      message: "Email addresses entered do not match",
+      path: ["confirmEmail"],
+    });
+
+  type FormValues = z.infer<typeof schema>;
 
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<SignUpRequest>();
+  } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
-  const onSubmit: SubmitHandler<SignUpRequest> = async (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const res = await signUpRequest(data);
     // console.log(JSON.stringify(res));
     if (res.serverError) {
@@ -35,50 +58,60 @@ export default function SignUpForm() {
       >
         <div className="text-2xl">Sign Up</div>
         <br />
+
         <input
           className="input"
           placeholder="First Name"
-          {...register("firstName", { required: true })}
+          {...register("firstName")}
         />
         <input
           className="input"
           placeholder="Last Name"
-          {...register("lastName", { required: true })}
+          {...register("lastName")}
         />
         <span className="ml-2 text-red-600">
           {(errors.firstName || errors.lastName) && (
-            <span>First and last name are required</span>
+            <span>{errors.firstName?.message || errors.lastName?.message}</span>
           )}
         </span>
         <br />
+
         <input
           className="input w-64"
-          placeholder="Email Address"
-          type="email"
-          {...register("email", {
-            required: true,
-            pattern: {
-              value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-              message: "Email is not valid.",
-            },
-          })}
+          placeholder="Email"
+          type="text"
+          {...register("email")}
         />
-        <span className="ml-2 text-red-600">
-          {errors.email &&
-            (errors.email.message ? errors.email.message : "Email is required")}
-        </span>
+        {errors.email && (
+          <span className="ml-2 text-red-600">{errors.email.message}</span>
+        )}
         <br />
+
+        <input
+          className="input w-64"
+          placeholder="Confirm Email"
+          type="text"
+          {...register("confirmEmail")}
+        />
+        {errors.confirmEmail && (
+          <span className="ml-2 text-red-600">
+            {errors.confirmEmail.message}
+          </span>
+        )}
+        <br />
+
         <input
           className="input w-64"
           placeholder="Password"
           type="password"
-          {...register("password", { required: true })}
+          {...register("password")}
         />
-        <span className="ml-2 text-red-600">
-          {errors.password && <span>Password is required</span>}
-        </span>
+
+        {errors.password && (
+          <span className="ml-2 text-red-600">{errors.password.message}</span>
+        )}
         <br />
-        <br />
+
         <input className="btn btn-primary" type="submit" value="Submit" />
         <Link to="/" className="btn btn-secondary">
           Cancel

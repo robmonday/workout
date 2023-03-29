@@ -5,10 +5,10 @@ const Layout = ({ name = "App" }) => {
   return (
     <>
       <div className="text-md fixed top-0 flex w-full bg-purple-300 px-5 py-3">
-        <Link to="/" className="w-1/3 border text-2xl">
+        <Link to="/" className="w-1/3 text-2xl">
           <div>{name}</div>
         </Link>
-        <nav className="h-15 flex w-full justify-evenly border">
+        <nav className="h-15 flex w-full justify-evenly ">
           <div className="btn">
             <a href="/login">Login/Signup</a>
           </div>

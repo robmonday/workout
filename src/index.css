@@ -18,31 +18,31 @@ div {
 
 @layer components {
   .btn {
-    @apply mr-4 inline-block transform rounded-lg border-2 border-white px-5 py-3 transition
+    @apply mr-4 inline-block transform rounded-lg border-2 border-white px-5 py-2 transition
     focus:ring-1 focus:ring-gray-500 focus:ring-opacity-50 focus:ring-offset-2 
     active:translate-y-0.5;
   }
 
   .btn-primary {
-    @apply bg-blue-500 px-5 py-3 font-semibold tracking-wide text-white shadow-lg 
+    @apply bg-blue-500 font-semibold tracking-wide text-white shadow-lg 
     hover:bg-blue-400 
     active:bg-blue-600;
   }
 
   .btn-secondary {
-    @apply bg-gray-300 px-5 py-3 text-gray-800
+    @apply bg-gray-300 text-gray-800
     hover:bg-gray-300 
     active:bg-gray-500;
   }
 
   .btn-green {
-    @apply bg-green-300 px-5 py-3 text-green-800
+    @apply bg-green-300 text-green-800
     hover:bg-green-300 
     active:bg-green-500;
   }
 
   .btn-red {
-    @apply bg-red-300 px-5 py-3 text-red-800
+    @apply bg-red-300 text-red-800
     hover:bg-red-300 
     active:bg-red-500;
   }
@@ -56,5 +56,9 @@ div {
     @apply mr-4 inline-block transform rounded-lg border-2 border-white px-5 py-3 transition
     focus:ring-1 focus:ring-gray-500 focus:ring-opacity-50 focus:ring-offset-2 
     active:translate-y-0.5;
+  }
+
+  .panel {
+    @apply m-2 rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 p-2;
   }
 }
