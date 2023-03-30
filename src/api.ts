@@ -39,7 +39,7 @@ export const fetcher = async ({ url, method, body, json = true }: Fetcher) => {
 export const loginRequest = (body: LogInRequest) => {
   // console.log("Request body passed to fetcher()", body);
   return fetcher({
-    url: "http://localhost:5174/user/login",
+    url: "http://localhost:5174/api/user/login",
     method: "POST",
     body,
   });
@@ -48,7 +48,7 @@ export const loginRequest = (body: LogInRequest) => {
 export const signUpRequest = (body: SignUpRequest) => {
   // console.log("Request body passed to fetcher()", body);
   return fetcher({
-    url: "http://localhost:5174/user/signup",
+    url: "http://localhost:5174/api/user/signup",
     method: "POST",
     body,
   });
@@ -56,7 +56,7 @@ export const signUpRequest = (body: SignUpRequest) => {
 
 export const getAllWorkouts = () => {
   const result = fetcher({
-    url: "http://localhost:5174/workout",
+    url: "http://localhost:5174/api/workout",
     method: "GET",
   });
   // console.log("getAllWorkouts() fetcher response:", result);
@@ -65,7 +65,7 @@ export const getAllWorkouts = () => {
 
 export const createWorkout = (body: WorkoutRequest) => {
   return fetcher({
-    url: "http://localhost:5174/workout",
+    url: "http://localhost:5174/api/workout",
     method: "POST",
     body,
   });
@@ -73,7 +73,7 @@ export const createWorkout = (body: WorkoutRequest) => {
 
 export const updateWorkout = (id: string, body: WorkoutRequest) => {
   const result = fetcher({
-    url: "http://localhost:5174/workout",
+    url: "http://localhost:5174/api/workout",
     method: "PUT",
     body: { ...body, id },
   });
@@ -82,7 +82,7 @@ export const updateWorkout = (id: string, body: WorkoutRequest) => {
 
 export const deleteWorkout = (id: string) => {
   return fetcher({
-    url: "http://localhost:5174/workout",
+    url: "http://localhost:5174/api/workout",
     method: "DELETE",
     body: { id },
   });
@@ -90,7 +90,7 @@ export const deleteWorkout = (id: string) => {
 
 export const getAllBadges = () => {
   const result = fetcher({
-    url: "http://localhost:5174/badge",
+    url: "http://localhost:5174/api/badge",
     method: "GET",
   });
   return result;
@@ -98,7 +98,15 @@ export const getAllBadges = () => {
 
 export const getAllWorkoutTypes = () => {
   const result = fetcher({
-    url: "http://localhost:5174/workout/type",
+    url: "http://localhost:5174/api/workout/type",
+    method: "GET",
+  });
+  return result;
+};
+
+export const getWorkoutsGrpByLoc = () => {
+  const result = fetcher({
+    url: "http://localhost:5174/api/workout/?groupBy=location",
     method: "GET",
   });
   return result;
