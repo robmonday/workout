@@ -46,7 +46,7 @@ const reducer = (state: State, action: Action) => {
     case "select_workout":
       return {
         ...state,
-        selectedWorkout: action.payload || state.workouts[0].id,
+        selectedWorkout: action.payload || state.workouts[0]?.id,
       };
     case "show_workout_form_blank":
       return { ...state, detailPanelDisplay: "WorkoutFormAdd" };

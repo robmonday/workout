@@ -36,7 +36,7 @@ export default function RunDistByWeek() {
         <h2 className="text-center text-gray-700">Running Distance by Week</h2>
         <Line
           data={chartData}
-          options={{ plugins: { legend: { display: false } } }}
+          options={{ plugins: { legend: { display: false } }, aspectRatio: 3 }}
         />
       </div>
     </div>

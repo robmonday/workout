@@ -1,22 +1,31 @@
 import RunDistByWeek from "./charts/RunDistByWeek";
-import Example from "./charts/Example";
+import GetWorksGrpByLoc from "./charts/GetWorksGrpByLoc";
+import { Suspense } from "react";
+import Loading from "./Loading";
+import TimeSeries from "./charts/TimeSeries";
 
 export default function Dashboard() {
   return (
     <div className="">
       <div className="p-2 text-xl">Dashboard</div>
-      <div className="inline-block w-1/2">
-        <Example />
+
+      <div>
+        <TimeSeries />
       </div>
-      <div className="inline-block w-1/2">
+      <div className="inline-block w-1/4">
+        <Suspense fallback={<Loading />}>
+          <GetWorksGrpByLoc />
+        </Suspense>
+      </div>
+      <div className="inline-block w-3/4">
         <RunDistByWeek />
       </div>
 
-      <div className="panel flex justify-between">
+      {/* <div className="panel flex justify-between">
         <DashPanel number={1} />
         <DashPanel number={2} />
         <DashPanel number={3} />
-      </div>
+      </div> */}
     </div>
   );
 }

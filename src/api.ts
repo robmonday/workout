@@ -63,6 +63,15 @@ export const getAllWorkouts = () => {
   return result;
 };
 
+export const getWorksTimeSeries = () => {
+  const result = fetcher({
+    url: "http://localhost:5174/api/workout/timeseries",
+    method: "GET",
+  });
+  // console.log("getAllWorkouts() fetcher response:", result);
+  return result;
+};
+
 export const createWorkout = (body: WorkoutRequest) => {
   return fetcher({
     url: "http://localhost:5174/api/workout",
@@ -104,7 +113,7 @@ export const getAllWorkoutTypes = () => {
   return result;
 };
 
-export const getWorkoutsGrpByLoc = () => {
+export const getWorksGrpByLoc = () => {
   const result = fetcher({
     url: "http://localhost:5174/api/workout/?groupBy=location",
     method: "GET",
