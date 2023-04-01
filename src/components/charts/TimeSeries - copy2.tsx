@@ -10,15 +10,27 @@ import { ChartData } from "chart.js/auto";
 
 import { getWorksTimeSeries } from "../../api";
 
+type TimeSeriesDay = {
+  calories: number | undefined;
+  createdAt: string | undefined;
+  day: string | undefined;
+  day_w_null: string | undefined;
+  distance: number | undefined;
+  end: string | undefined;
+  id: string | undefined;
+  location: string | undefined;
+  notes: string | undefined;
+  seconds: number | string;
+  start: string | undefined;
+  steps: number | undefined;
+  updatedAt: string | undefined;
+  userId: string | undefined;
+  workoutTypeId: string | undefined;
+};
+
 export default function TimeSeries() {
-  const [dataShown, setDataShown] = useState("steps");
-  const [chartData, setChartData] = useState<any>({
-    labels: [],
-    steps: [],
-    calories: [],
-    distance: [],
-    minutes: [],
-  });
+  const [timeSeriesData, setTimeSeriesData] = useState<TimeSeriesDay[]>([]);
+  const [chartData, setChartData] = useState<ChartData>();
 
   const getData = async () => {
     const data1 = await getWorksTimeSeries();
@@ -35,46 +47,49 @@ export default function TimeSeries() {
       }
       return accumulator;
     }, []);
-
+    console.log(data2);
     return data2;
   };
 
-  useEffect(() => {
-    getData().then((data) => {
-      console.log(data);
-      setChartData({
-        labels: data.map((element: any) => {
-          const dateToCorrect = new Date(element.day);
-          // this is needed because date was truncated in database for grouping
-          dateToCorrect.setDate(dateToCorrect.getDate() + 1);
-          const result = dateToCorrect.toLocaleDateString("en-US", {
-            weekday: "short",
-            month: "numeric",
-            day: "numeric",
-          });
-          return result;
-        }),
-        steps: data.map((element: any) => element.steps),
-        calories: data.map((element: any) => element.calories),
-        miles: data.map((element: any) => element.distance),
-        minutes: data.map((element: any) =>
-          Math.round(element.seconds / 60) === 0
-            ? null
-            : Math.round(element.seconds / 60)
-        ),
-      });
-    });
-  }, []);
+  const createChartData = (data: TimeSeriesDay[], metric: string) => {
+    const chartOutput = {
+      labels: data.map((element: any) => {
+        const dateToCorrect = new Date(element.day);
+        // this is needed because date was truncated in database for grouping
+        dateToCorrect.setDate(dateToCorrect.getDate() + 1);
+        const result = dateToCorrect.toLocaleDateString("en-US", {
+          weekday: "short",
+          month: "numeric",
+          day: "numeric",
+        });
+        return result;
+      }),
+      datasets: [
+        {
+          label: "Steps",
+          data: data.map((element: any) => element[metric.toLowerCase()]),
+        },
+      ],
+    };
+    return chartOutput;
+  };
 
-  console.log(chartData);
+  useEffect(() => {
+    getData().then((data) => setTimeSeriesData(data));
+  }, []);
 
   return (
     <div>
       <div className="panel w-full pt-3 pb-3 pl-4 pr-6">
         <div className="mx-4 my-2">
-          <div className="inline py-2 text-lg text-gray-700">Time Series</div>
+          <div className="inline py-2  text-gray-700">
+            <span className="mr-2 text-lg font-semibold">
+              {chartData.datasets[0]?.label}
+            </span>
+            <span className="text-lg">Over Past 30 Days</span>
+          </div>
           <select
-            onChange={(e) => setDataShown(e.target.value)}
+            onChange={(e) => setChartData({ ...chartData })}
             className="float-right inline rounded-md bg-gray-100 px-2 py-1 text-sm"
           >
             <option value="steps">Steps</option>
@@ -84,16 +99,13 @@ export default function TimeSeries() {
           </select>
         </div>
         <Bar
-          data={{
-            labels: chartData.labels,
-            datasets: [{ label: chartData.labels, data: chartData[dataShown] }],
-          }}
+          data={chartData}
           options={{
             plugins: {
-              tooltip: { enabled: false },
+              tooltip: { enabled: true },
               legend: { display: true, position: "bottom" },
               datalabels: {
-                display: true,
+                display: false,
                 formatter: function (value: string, context: any) {
                   return (
                     // context.chart.data.labels[context.dataIndex] + "\n" +
@@ -101,7 +113,7 @@ export default function TimeSeries() {
                   );
                 },
                 color: "black",
-                anchor: "center",
+                anchor: "end",
                 textAlign: "center",
                 font: { size: 14 },
                 offset: 0,

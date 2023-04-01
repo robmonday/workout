@@ -7,8 +7,6 @@ export default function Main() {
   return (
     <div className="">
       <DataEntryMode />
-      <WorkoutMode />
-      <Dashboard />
     </div>
   );
 }
