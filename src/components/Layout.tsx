@@ -43,10 +43,12 @@ const Layout = () => {
             Dashboard
           </Link>
 
-          {state.userObj ? (
+          {state.token ? (
             <div className="flex py-1">
               <div className="pr-4 italic">
-                Welcome, {state.userObj.firstName}!
+                {state.userObj && (
+                  <span>Welcome, {state.userObj.firstName}!</span>
+                )}
               </div>
               <div className="btn group flex bg-purple-500 py-1 ">
                 <div className="relative cursor-pointer px-2 text-white ">
@@ -90,6 +92,12 @@ const Layout = () => {
 
       <div className="mx-6 mt-20 mb-6">
         <Outlet />
+        {/* Displays State on Page */}
+        <div className="border bg-purple-400 p-2">
+          <div className="overflow-y-auto break-words p-2">
+            {JSON.stringify(state)}
+          </div>
+        </div>
       </div>
 
       <footer className="fixed bottom-2 right-2 w-full text-end text-sm">

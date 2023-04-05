@@ -42,7 +42,7 @@ export default function WorkoutHistory() {
         <div className="inline-block align-top lg:w-2/3">
           <div className="px-6 py-4">
             {state.detailPanelDisplay === "WorkoutDetail" &&
-              state.workouts.length > 0 && (
+              state.workouts?.length > 0 && (
                 <WorkoutDetail
                   workoutId={state.selectedWorkout || state.workouts[0].id}
                   handleDeleteWorkout={handleDeleteWorkout}
@@ -54,10 +54,6 @@ export default function WorkoutHistory() {
             )}
           </div>
         </div>
-        {/* Displays State on Page
-      <div className="border bg-purple-400 p-2">
-        <div className="p-2">{JSON.stringify(state)}</div>
-      </div> */}
       </div>
     </>
   );
@@ -83,7 +79,7 @@ const WorkoutHistoryList = ({
     });
   }, [state.updatedWorkout]);
 
-  const filteredWorkouts = state.workouts.filter((w) => {
+  const filteredWorkouts = state.workouts?.filter((w) => {
     return (
       w.notes?.toLowerCase().includes(state.filterText.toLowerCase()) ||
       w.workoutType?.name

@@ -98,11 +98,7 @@ const reducer = (state: State, action: Action) => {
         token: action.payload.token,
       };
     case "log_out":
-      return {
-        ...state, 
-        userObj: undefined,
-        token: undefined
-      };
+      return {};
     default:
       console.error("Unknown action dispatched to reducer.");
       return state;

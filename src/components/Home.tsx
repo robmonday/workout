@@ -7,10 +7,7 @@ const Home = () => {
   return (
     <>
       <div>This is the home page!</div>
-      {/* Displays State on Page */}
-      <div className="border bg-purple-400 p-2">
-        <div className="p-2">{JSON.stringify(state)}</div>
-      </div>
+      <br />
     </>
   );
 };
