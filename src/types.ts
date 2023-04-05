@@ -50,3 +50,11 @@ export type Badge = {
 export type DeleteRequest = {
   id: string;
 };
+
+export type UserObj = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  token: string;
+};

@@ -10,7 +10,7 @@ import { ChartData } from "chart.js/auto";
 
 import { getWorksGrpByLoc } from "../../api";
 
-export default function Example() {
+export default function WorksByLoc() {
   const [chartData, setChartData] = useState<ChartData<"doughnut">>({
     datasets: [],
   });
@@ -36,8 +36,8 @@ export default function Example() {
   }, []);
 
   return (
-    <div>
-      <div className="panel pt-3 pb-3 pl-4 pr-6">
+    <>
+      <div className="panel pt-3 pb-3">
         <h2 className="mb-4 text-center text-gray-700">Workouts By Location</h2>
         <Doughnut
           data={chartData}
@@ -63,6 +63,6 @@ export default function Example() {
           }}
         />
       </div>
-    </div>
+    </>
   );
 }

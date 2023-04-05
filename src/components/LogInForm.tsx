@@ -4,9 +4,13 @@ import { loginRequest } from "../api";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useContext } from "react";
+import { DispatchContext } from "./StateProvider";
 
 export default function LogInForm() {
   const navigate = useNavigate();
+
+  const dispatch = useContext(DispatchContext);
 
   const schema = z.object({
     email: z.string().min(6, "Email is too short").email(),
@@ -36,10 +40,11 @@ export default function LogInForm() {
     // console.log(JSON.stringify(res));
     if (res.serverError) {
       setError("formLevelError", { type: "custom", message: res.message });
-      setTimeout(() => clearErrors(), 3000);
+      setTimeout(() => clearErrors(), 4000);
     } else {
+      window.localStorage.setItem("user", JSON.stringify(res));
+      dispatch({ type: "log_in", payload: res });
       navigate("/main");
-      window.localStorage.setItem("userToken", res.token);
     }
   };
 
@@ -70,13 +75,18 @@ export default function LogInForm() {
           {...register("password", { required: true })}
         />
         {errors.password && (
-          <p className="ml-2 text-red-600">{errors.password.message}</p>
+          <span className="ml-2 text-red-600">{errors.password.message}</span>
         )}
 
         {errors.formLevelError && (
-          <p className="ml-2 mb-4 text-red-600">
-            {errors.formLevelError.message}
-          </p>
+          <div>
+            <span className="mx-2 mb-4 text-red-600">
+              {errors.formLevelError.message}
+            </span>
+            <span className="text-blue-500 hover:underline hover:underline-offset-8">
+              <Link to="/forgot">Forgot password?</Link>
+            </span>
+          </div>
         )}
 
         <div className="mt-3">

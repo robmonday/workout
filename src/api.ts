@@ -68,7 +68,15 @@ export const getWorksTimeSeries = () => {
     url: "http://localhost:5174/api/workout/timeseries",
     method: "GET",
   });
-  // console.log("getAllWorkouts() fetcher response:", result);
+  return result;
+};
+
+export const getAvgsByWorkType = () => {
+  const result = fetcher({
+    url: "http://localhost:5174/api/workout/averages",
+    method: "GET",
+  });
+  // console.log("averages", result);
   return result;
 };
 

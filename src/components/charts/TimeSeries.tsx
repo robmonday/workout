@@ -69,8 +69,8 @@ export default function TimeSeries() {
   console.log(chartData);
 
   return (
-    <div>
-      <div className="panel w-full pt-3 pb-3 pl-4 pr-6">
+    <>
+      <div className="panel pt-3 pb-3 pl-4 pr-6">
         <div className="mx-4 my-2">
           <div className="inline py-2 text-lg text-gray-700">Time Series</div>
           <select
@@ -91,7 +91,7 @@ export default function TimeSeries() {
           options={{
             plugins: {
               tooltip: { enabled: false },
-              legend: { display: true, position: "bottom" },
+              legend: { display: false, position: "top" },
               datalabels: {
                 display: true,
                 formatter: function (value: string, context: any) {
@@ -114,6 +114,6 @@ export default function TimeSeries() {
           }}
         />
       </div>
-    </div>
+    </>
   );
 }

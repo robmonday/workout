@@ -9,6 +9,7 @@ import Main from "./components/Main";
 import DataEntryMode from "./components/DataEntryMode";
 import WorkoutMode from "./components/WorkoutMode";
 import Dashboard from "./components/Dashboard";
+import Settings from "./components/Settings";
 import NotFound from "./components/NotFound";
 
 function App(): JSX.Element {
@@ -19,11 +20,13 @@ function App(): JSX.Element {
           <Route index element={<Home />} />
           <Route path="login" element={<LogInForm />} />
           <Route path="signup" element={<SignUpForm />} />
+          <Route path="forgot" element={<SignUpForm />} />
           <Route path="home" element={<Home />} />
           <Route path="main" element={<Main />} />
           <Route path="data" element={<DataEntryMode />} />
           <Route path="workout" element={<WorkoutMode />} />
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
