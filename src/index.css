@@ -18,7 +18,7 @@ div {
 
 @layer components {
   .btn {
-    @apply mr-4 inline-block transform rounded-lg border-2 border-white px-5 py-2 transition
+    @apply mr-4 inline-block transform cursor-pointer rounded-lg border-2 border-white px-5 py-2 transition
     focus:ring-1 focus:ring-gray-500 focus:ring-opacity-50 focus:ring-offset-2 
     active:translate-y-0.5;
   }
@@ -37,14 +37,20 @@ div {
 
   .btn-green {
     @apply bg-green-300 text-green-800
-    hover:bg-green-300 
-    active:bg-green-500;
+    hover:bg-green-500 hover:text-white
+    active:bg-green-400;
   }
 
   .btn-red {
     @apply bg-red-300 text-red-800
-    hover:bg-red-300 
-    active:bg-red-500;
+    hover:bg-red-500 hover:text-white
+    active:bg-red-400;
+  }
+
+  .btn-purple {
+    @apply bg-purple-300 text-purple-800
+    hover:bg-purple-500 hover:text-white
+    active:bg-purple-400;
   }
 
   .input {

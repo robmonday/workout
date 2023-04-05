@@ -58,3 +58,11 @@ export type UserObj = {
   email: string;
   token: string;
 };
+
+export type UserInfo = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  emailConfirmed: boolean;
+};

@@ -128,3 +128,11 @@ export const getWorksGrpByLoc = () => {
   });
   return result;
 };
+
+export const getUser = (id: string) => {
+  const result = fetcher({
+    url: `http://localhost:5174/api/user/${id}`,
+    method: "GET",
+  });
+  return result;
+};

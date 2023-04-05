@@ -12,24 +12,26 @@ import { Workout, Badge, UserObj } from "../types";
 
 type State = {
   workouts: Workout[];
-  selectedWorkout: string | undefined;
+  selectedWorkout: string;
   filterText: string;
   detailPanelDisplay: "WorkoutDetail" | "WorkoutFormAdd" | "WorkoutFormEdit";
   workoutToEdit: Workout | undefined;
   updatedWorkout: Workout | undefined;
   badges: Badge[];
   userObj: UserObj | undefined;
+  token: string;
 };
 
 const initialState: State = {
   workouts: [],
-  selectedWorkout: undefined,
+  selectedWorkout: "",
   filterText: "",
   detailPanelDisplay: "WorkoutDetail",
   workoutToEdit: undefined,
   updatedWorkout: undefined,
   badges: [],
   userObj: undefined,
+  token: "",
 };
 
 // creating and typing reducer
@@ -90,9 +92,17 @@ const reducer = (state: State, action: Action) => {
     case "filter_workouts":
       return { ...state, workouts: action.payload };
     case "log_in":
-      return { ...state, userObj: action.payload };
+      return {
+        ...state,
+        userObj: action.payload.userObj,
+        token: action.payload.token,
+      };
     case "log_out":
-      return { ...state, userObj: undefined };
+      return {
+        ...state, 
+        userObj: undefined,
+        token: undefined
+      };
     default:
       console.error("Unknown action dispatched to reducer.");
       return state;

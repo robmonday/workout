@@ -1,11 +1,12 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useContext } from "react";
+import { DispatchContext } from "./StateProvider";
+
 import { useNavigate, Link } from "react-router-dom";
 import { loginRequest } from "../api";
 
+import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
-import { DispatchContext } from "./StateProvider";
 
 export default function LogInForm() {
   const navigate = useNavigate();
@@ -42,7 +43,8 @@ export default function LogInForm() {
       setError("formLevelError", { type: "custom", message: res.message });
       setTimeout(() => clearErrors(), 4000);
     } else {
-      window.localStorage.setItem("user", JSON.stringify(res));
+      window.localStorage.setItem("user", JSON.stringify(res.userObj));
+      window.localStorage.setItem("token", JSON.stringify(res.token));
       dispatch({ type: "log_in", payload: res });
       navigate("/main");
     }
@@ -61,7 +63,7 @@ export default function LogInForm() {
           className="input w-64"
           placeholder="Email Address"
           type="text"
-          {...register("email", { required: true })}
+          {...register("email")}
         />
         {errors.email && (
           <span className="ml-2 text-red-600">{errors.email.message}</span>
@@ -72,7 +74,7 @@ export default function LogInForm() {
           className="input w-64"
           placeholder="Password"
           type="password"
-          {...register("password", { required: true })}
+          {...register("password")}
         />
         {errors.password && (
           <span className="ml-2 text-red-600">{errors.password.message}</span>
