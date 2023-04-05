@@ -30,18 +30,18 @@ const Layout = () => {
           <div>Workout App</div>
         </Link>
         <nav className="h-15 flex w-full justify-between ">
-          <div className="nav-link">
-            <Link to="/home">Home</Link>
-          </div>
-          <div className="nav-link">
-            <Link to="/workout">Workout</Link>
-          </div>
-          <div className="nav-link">
-            <Link to="/data">My Data</Link>
-          </div>
-          <div className="nav-link">
-            <Link to="/dashboard">Dashboard</Link>
-          </div>
+          <Link to="/home" className="nav-link">
+            Home
+          </Link>
+          <Link to="/workout" className="nav-link">
+            Workout
+          </Link>
+          <Link to="/data" className="nav-link">
+            My Data
+          </Link>
+          <Link to="/dashboard" className="nav-link">
+            Dashboard
+          </Link>
 
           {state.userObj ? (
             <div className="flex py-1">
@@ -54,12 +54,15 @@ const Layout = () => {
                   <div className="absolute -right-5 top-7 hidden h-auto group-hover:block group-focus:block group-active:block">
                     <ul className="top-0 w-48 bg-white px-6 py-2 shadow">
                       <li className="py-1">
-                        <a className="block cursor-pointer text-base text-gray-800 hover:text-purple-800">
+                        <Link
+                          to="/settings"
+                          className="block cursor-pointer text-base text-gray-800 hover:text-purple-800"
+                        >
                           <div className="flex">
                             <Settings strokeWidth={0.75} />
                             <span className="ml-4">Settings</span>
                           </div>
-                        </a>
+                        </Link>
                       </li>
                       <li
                         onClick={handleLogout}
