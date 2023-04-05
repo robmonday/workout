@@ -91,6 +91,11 @@ const reducer = (state: State, action: Action) => {
       return { ...state, filterText: action.payload };
     case "filter_workouts":
       return { ...state, workouts: action.payload };
+    case "update_account_details":
+      return {
+        ...state,
+        userObj: action.payload.userObj,
+      };
     case "log_in":
       return {
         ...state,

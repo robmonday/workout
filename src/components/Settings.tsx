@@ -46,7 +46,7 @@ export function AccountDetails() {
     if (userObj) {
       getUser(userObj.id).then((userObj) => {
         console.log("user", userObj);
-        dispatch({ type: "log_in", payload: { userObj } });
+        dispatch({ type: "update_account_details", payload: { userObj } });
       });
     }
   }, []);
