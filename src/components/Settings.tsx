@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { getUser } from "../api";
+import { getAllWorkoutTypes, getUser } from "../api";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -8,8 +8,9 @@ import { UserInfo } from "../types";
 import { StateContext } from "./StateProvider";
 import { DispatchContext } from "./StateProvider";
 
+import Notification from "./ToastMessage";
+
 export default function Settings() {
-  const state = useContext(StateContext);
   return (
     <>
       <div className="p-2 text-xl">Settings</div>
@@ -20,12 +21,12 @@ export default function Settings() {
         <div className="panel w-1/3 px-4 py-3">
           <WorkoutSettings />
         </div>
-        <div className="panel w-1/3 px-4 py-3">
+        <div className="panel -z-20 w-1/3 px-4 py-3">
           <div className="flex justify-between">
             <div className="p mb-4 text-lg">Sharing Settings</div>
             <div
               onClick={() => alert("Edit")}
-              className="btn btn-purple m-0 h-fit px-2 py-0.5"
+              className="btn btn-purple -z-10 m-0 h-fit px-2 py-0.5"
             >
               Edit
             </div>
@@ -40,6 +41,7 @@ export function AccountDetails() {
   const userObjJSON = localStorage.getItem("user");
   const userObj = userObjJSON && JSON.parse(userObjJSON);
 
+  const state = useContext(StateContext);
   const dispatch = useContext(DispatchContext);
 
   useEffect(() => {
@@ -83,36 +85,45 @@ export function AccountDetails() {
         </div>
       </div>
       <div className="grid-gap-4 grid grid-cols-3">
-        <label className="input">First Name</label>
+        <label className="input border-0">First Name</label>
         <input
           className="input col-span-2 bg-purple-200"
           value={userObj?.firstName}
           {...register("firstName")}
         />
-        <label className="input">Last Name</label>
+        <label className="input border-0">Last Name</label>
         <input
           className="input col-span-2 bg-purple-200"
           value={userObj?.lastName}
           {...register("lastName")}
         />
-        <label className="input">Email</label>
+        <label className="input border-0">Email</label>
         <input
           className="input col-span-2 bg-purple-200"
           value={userObj?.email}
           {...register("email")}
         />
-        <label className="input">Confirm Email</label>
+        {/* <label className="input border-0">Confirm Email</label>
         <input
           className="input col-span-2 bg-purple-200"
           value={userObj?.email}
           {...register("confirmEmail")}
-        />
+        /> */}
       </div>
     </>
   );
 }
 
 export function WorkoutSettings() {
+  const state = useContext(StateContext);
+  const dispatch = useContext(DispatchContext);
+
+  useEffect(() => {
+    getAllWorkoutTypes().then((workoutTypes) => {
+      dispatch({ type: "get_workout_types", payload: workoutTypes });
+    });
+  }, []);
+
   return (
     <>
       <div className="flex justify-between">
@@ -124,7 +135,13 @@ export function WorkoutSettings() {
           Edit
         </div>
       </div>
-      Current workout types
+      <p className="p-2">Current Workout Type Categories:</p>
+      <ul>
+        {state.workoutTypes &&
+          state.workoutTypes.map((workoutType) => (
+            <div className="py-2 pl-6">{workoutType.name}</div>
+          ))}
+      </ul>
     </>
   );
 }

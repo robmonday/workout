@@ -98,7 +98,7 @@ const WorkoutHistoryList = ({
         <Plus strokeWidth={0.75} />
       </div>
       <div className="h-96 overflow-y-auto">
-        {filteredWorkouts.map((w) => (
+        {filteredWorkouts?.map((w) => (
           <div
             key={w.id}
             className={`my-2 flex justify-between rounded-lg border border-purple-500 p-2 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5 active:bg-purple-400 ${

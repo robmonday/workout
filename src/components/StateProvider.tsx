@@ -6,7 +6,7 @@ import React, {
   Reducer,
 } from "react";
 
-import { Workout, Badge, UserObj } from "../types";
+import { Workout, Badge, UserObj, WorkoutType, Notification } from "../types";
 
 // creating and typing initial state
 
@@ -20,6 +20,8 @@ type State = {
   badges: Badge[];
   userObj: UserObj | undefined;
   token: string;
+  workoutTypes: WorkoutType[] | undefined;
+  openNotifications: Notification[] | undefined;
 };
 
 const initialState: State = {
@@ -32,6 +34,8 @@ const initialState: State = {
   badges: [],
   userObj: undefined,
   token: "",
+  workoutTypes: undefined,
+  openNotifications: undefined,
 };
 
 // creating and typing reducer
@@ -104,6 +108,10 @@ const reducer = (state: State, action: Action) => {
       };
     case "log_out":
       return {};
+    case "get_workout_types":
+      return { ...state, workoutTypes: action.payload };
+    case "set_open_notifications":
+      return { ...state, openNotifications: action.payload };
     default:
       console.error("Unknown action dispatched to reducer.");
       return state;

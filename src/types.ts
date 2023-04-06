@@ -57,6 +57,7 @@ export type UserObj = {
   lastName: string;
   email: string;
   token: string;
+  emailConfirmed: boolean;
 };
 
 export type UserInfo = {
@@ -65,4 +66,13 @@ export type UserInfo = {
   lastName: string;
   email: string;
   emailConfirmed: boolean;
+};
+
+export type Notification = {
+  id: string;
+  message: string;
+  read: boolean;
+  dismissed: boolean;
+  userId: string;
+  createdAt: string;
 };

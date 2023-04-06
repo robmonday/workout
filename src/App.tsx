@@ -11,6 +11,8 @@ import WorkoutMode from "./components/WorkoutMode";
 import Dashboard from "./components/Dashboard";
 import Settings from "./components/Settings";
 import NotFound from "./components/NotFound";
+import EmailConfirm from "./components/ConfirmEmail";
+import Notifications from "./components/Notifications";
 
 function App(): JSX.Element {
   return (
@@ -27,6 +29,9 @@ function App(): JSX.Element {
           <Route path="workout" element={<WorkoutMode />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="notifications" element={<Notifications />} />
+
+          <Route path="emailconfirm" element={<EmailConfirm />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

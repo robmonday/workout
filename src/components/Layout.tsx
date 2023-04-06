@@ -1,7 +1,10 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
-import { User, LogOut, Settings } from "react-feather";
+import { User, LogOut, Settings, MessageSquare } from "react-feather";
 import { useContext, useEffect } from "react";
 import { DispatchContext, StateContext } from "./StateProvider";
+
+import Notification from "./ToastMessage";
+import { getOpenNotifications } from "../api";
 
 const Layout = () => {
   const state = useContext(StateContext);
@@ -15,6 +18,16 @@ const Layout = () => {
       const parsedUserObj = userJSON && JSON.parse(userJSON);
       dispatch({ type: "log_in", payload: parsedUserObj });
     }
+  }, []);
+
+  useEffect(() => {
+    getOpenNotifications().then((openNotifications) => {
+      openNotifications &&
+        dispatch({
+          type: "set_open_notifications",
+          payload: openNotifications,
+        });
+    });
   }, []);
 
   const handleLogout = () => {
@@ -53,22 +66,42 @@ const Layout = () => {
               <div className="btn group flex bg-purple-500 py-1 ">
                 <div className="relative cursor-pointer px-2 text-white ">
                   <User />
-                  <div className="absolute -right-5 top-7 hidden h-auto group-hover:block group-focus:block group-active:block">
-                    <ul className="top-0 w-48 bg-white px-6 py-2 shadow">
+                  {state.openNotifications &&
+                    state.openNotifications.length > 0 && (
+                      <div className="fixed left-16 bottom-4 rounded-md border-2 border-red-600 bg-white px-2 text-sm font-semibold text-red-600 ring-2 ring-white">
+                        {state.openNotifications?.length}
+                      </div>
+                    )}
+                  <div className="absolute -right-5 top-7 z-50 hidden h-auto group-hover:block group-focus:block group-active:block">
+                    <ul className="top-0 w-56 bg-white px-6 py-2 shadow">
                       <li className="py-1">
                         <Link
                           to="/settings"
                           className="block cursor-pointer text-base text-gray-800 hover:text-purple-800"
                         >
-                          <div className="flex">
+                          <div className="flex px-2 py-1">
                             <Settings strokeWidth={0.75} />
                             <span className="ml-4">Settings</span>
                           </div>
                         </Link>
                       </li>
+
+                      {!state.userObj?.emailConfirmed && (
+                        <li className="py-1">
+                          <Link
+                            to="/notifications"
+                            className="block cursor-pointer text-base text-black hover:text-white"
+                          >
+                            <div className="justify-cente flex rounded-md border-2 border-red-600 bg-white px-2 py-2 text-red-600 ">
+                              <MessageSquare strokeWidth={0.75} />
+                              <span className="ml-4">Notifications</span>
+                            </div>
+                          </Link>
+                        </li>
+                      )}
                       <li
                         onClick={handleLogout}
-                        className="block cursor-pointer py-1 text-base text-gray-800 hover:text-purple-800"
+                        className="block cursor-pointer py-1 px-2 text-base text-gray-800 hover:text-purple-800"
                       >
                         <div className="flex">
                           <LogOut strokeWidth={0.75} />
@@ -78,8 +111,6 @@ const Layout = () => {
                     </ul>
                   </div>
                 </div>
-
-                {/* Account */}
               </div>
             </div>
           ) : (

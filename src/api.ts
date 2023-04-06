@@ -136,3 +136,20 @@ export const getUser = (id: string) => {
   });
   return result;
 };
+
+export const getOpenNotifications = () => {
+  const result = fetcher({
+    url: "http://localhost:5174/api/notification/open",
+    method: "GET",
+  });
+  return result;
+};
+
+// export const emailConfirm = (id: string, body: WorkoutRequest) => {
+//   const result = fetcher({
+//     url: "http://localhost:5174/api/user",
+//     method: "PUT",
+//     body: { ...body, id },
+//   });
+//   return result;
+// };
