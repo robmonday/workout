@@ -12,7 +12,6 @@ const Layout = () => {
   const navigate = useNavigate();
 
   const userJSON = localStorage.getItem("user");
-  // console.log("userJSON obtained from local storage", userJSON);
   const userObj = userJSON && JSON.parse(userJSON);
 
   useEffect(() => {

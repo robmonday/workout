@@ -4,6 +4,8 @@ import {
   DeleteRequest,
   WorkoutRequest,
   NotificationRequest,
+  EmailConfirm,
+  UserObj,
 } from "./types";
 
 type RequestBody =
@@ -160,6 +162,15 @@ export const dismissNotification = (id: string) => {
     url: "http://localhost:5174/api/notification/open",
     method: "PUT",
     body: { id },
+  });
+  return result;
+};
+
+export const sendEmailConfirm = (userObj: UserObj) => {
+  const result = fetcher({
+    url: "http://localhost:5174/api/email/emailConfirm",
+    method: "POST",
+    body: userObj,
   });
   return result;
 };

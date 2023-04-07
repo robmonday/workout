@@ -122,6 +122,12 @@ export function WorkoutSettings() {
     });
   }, []);
 
+  const workoutTypes =
+    state.workoutTypes &&
+    state.workoutTypes.sort(
+      (a, b) => Number(b.sortOrder) - Number(a.sortOrder)
+    );
+
   return (
     <>
       <div className="flex justify-between">
@@ -135,10 +141,14 @@ export function WorkoutSettings() {
       </div>
       <p className="p-2">Current Workout Type Categories:</p>
       <ul>
-        {state.workoutTypes &&
-          state.workoutTypes.map((workoutType) => (
-            <div className="py-2 pl-6">{workoutType.name}</div>
-          ))}
+        {workoutTypes &&
+          workoutTypes
+            .sort((a, b) => Number(b.sortOrder) - Number(a.sortOrder))
+            .map((workoutType) => (
+              <div id={workoutType.id} className="py-2 pl-6">
+                {workoutType.name}
+              </div>
+            ))}
       </ul>
     </>
   );

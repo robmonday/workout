@@ -84,3 +84,9 @@ export type NotificationRequest = {
   dismissable?: boolean;
   buttonUrl?: string;
 };
+
+export type EmailConfirm = {
+  to: string;
+  user?: UserInfo;
+  token?: string;
+};

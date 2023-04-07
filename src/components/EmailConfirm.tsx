@@ -1,8 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import { Mail } from "react-feather";
+import { sendEmailConfirm } from "../api";
+import { UserObj } from "../types";
+import { useState } from "react";
+import { set } from "react-hook-form";
 
 export default function EmailConfirm() {
   const navigate = useNavigate();
+
+  const [buttonActive, setButtonActive] = useState(true);
+
+  const userJSON = localStorage.getItem("user");
+  const userObj = userJSON && JSON.parse(userJSON);
+  // console.log(userObj);
+
+  const handleEmailConfirm = (userObj: UserObj) => {
+    sendEmailConfirm(userObj);
+    setButtonActive(false);
+    setTimeout(() => setButtonActive(true), 1000 * 60 * 2);
+  };
 
   return (
     <>
@@ -25,9 +41,25 @@ export default function EmailConfirm() {
             >
               I received the email and confirmed.
             </div>
-            <div onClick={() => alert("click")} className="btn btn-red my-1">
-              I didn't receive the email. Please resend.
-            </div>
+            {buttonActive ? (
+              <div
+                onClick={() => handleEmailConfirm(userObj)}
+                className="btn btn-red my-1"
+              >
+                I didn't receive the email. Please resend.
+              </div>
+            ) : (
+              <div
+                onClick={() =>
+                  alert(
+                    "Please check your inbox again.  Sorry for the delay and thank you for your patience!"
+                  )
+                }
+                className="btn btn-secondary my-1"
+              >
+                Must wait 2 minutes to resend again.
+              </div>
+            )}
           </div>
         </div>
       </div>
