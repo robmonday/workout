@@ -11,7 +11,7 @@ import WorkoutMode from "./components/WorkoutMode";
 import Dashboard from "./components/Dashboard";
 import Settings from "./components/Settings";
 import NotFound from "./components/NotFound";
-import EmailConfirm from "./components/ConfirmEmail";
+import EmailConfirm from "./components/EmailConfirm";
 import Notifications from "./components/Notifications";
 
 function App(): JSX.Element {

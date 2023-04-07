@@ -3,7 +3,6 @@ import { User, LogOut, Settings, MessageSquare } from "react-feather";
 import { useContext, useEffect } from "react";
 import { DispatchContext, StateContext } from "./StateProvider";
 
-import Notification from "./ToastMessage";
 import { getOpenNotifications } from "../api";
 
 const Layout = () => {
@@ -12,13 +11,9 @@ const Layout = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const userJSON = localStorage.getItem("user");
-    if (userJSON) {
-      const parsedUserObj = userJSON && JSON.parse(userJSON);
-      dispatch({ type: "log_in", payload: parsedUserObj });
-    }
-  }, []);
+  const userJSON = localStorage.getItem("user");
+  // console.log("userJSON obtained from local storage", userJSON);
+  const userObj = userJSON && JSON.parse(userJSON);
 
   useEffect(() => {
     getOpenNotifications().then((openNotifications) => {
@@ -32,7 +27,7 @@ const Layout = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    dispatch({ type: "log_out" });
+    localStorage.removeItem("token");
     navigate("login");
   };
 
@@ -56,20 +51,23 @@ const Layout = () => {
             Dashboard
           </Link>
 
-          {state.token ? (
+          {userObj ? (
             <div className="flex py-1">
               <div className="pr-4 italic">
-                {state.userObj && (
-                  <span>Welcome, {state.userObj.firstName}!</span>
-                )}
+                {<span>Welcome, {userObj?.firstName}!</span>}
               </div>
               <div className="btn group flex bg-purple-500 py-1 ">
                 <div className="relative cursor-pointer px-2 text-white ">
                   <User />
                   {state.openNotifications &&
                     state.openNotifications.length > 0 && (
-                      <div className="fixed left-16 bottom-4 rounded-md border-2 border-red-600 bg-white px-2 text-sm font-semibold text-red-600 ring-2 ring-white">
-                        {state.openNotifications?.length}
+                      <div>
+                        <div className="fixed left-16 bottom-4 animate-ping rounded-md bg-white px-2 text-sm font-semibold">
+                          1
+                        </div>
+                        <div className="fixed left-16 bottom-4 rounded-md border-2 border-red-600 bg-white px-2 text-sm font-semibold text-red-600 ring-2 ring-white">
+                          {state.openNotifications.length}
+                        </div>
                       </div>
                     )}
                   <div className="absolute -right-5 top-7 z-50 hidden h-auto group-hover:block group-focus:block group-active:block">
@@ -86,19 +84,20 @@ const Layout = () => {
                         </Link>
                       </li>
 
-                      {!state.userObj?.emailConfirmed && (
-                        <li className="py-1">
-                          <Link
-                            to="/notifications"
-                            className="block cursor-pointer text-base text-black hover:text-white"
-                          >
-                            <div className="justify-cente flex rounded-md border-2 border-red-600 bg-white px-2 py-2 text-red-600 ">
-                              <MessageSquare strokeWidth={0.75} />
-                              <span className="ml-4">Notifications</span>
-                            </div>
-                          </Link>
-                        </li>
-                      )}
+                      {state.openNotifications &&
+                        state.openNotifications.length > 0 && (
+                          <li className="py-1">
+                            <Link
+                              to="/notifications"
+                              className="block cursor-pointer text-base text-black hover:text-white"
+                            >
+                              <div className="justify-cente flex rounded-md border-2 border-red-600 bg-white px-2 py-2 text-red-600 ">
+                                <MessageSquare strokeWidth={0.75} />
+                                <span className="ml-4">Notifications</span>
+                              </div>
+                            </Link>
+                          </li>
+                        )}
                       <li
                         onClick={handleLogout}
                         className="block cursor-pointer py-1 px-2 text-base text-gray-800 hover:text-purple-800"

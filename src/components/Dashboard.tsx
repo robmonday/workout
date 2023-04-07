@@ -11,6 +11,10 @@ export default function Dashboard() {
     <div className="">
       <div className="p-2 text-xl">Dashboard</div>
 
+      <div className="py-2">
+        <TimeSeries />
+      </div>
+
       <div className="flex py-2">
         <div className="w-1/4">
           <WorksByLoc />
@@ -20,11 +24,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="py-2">
-        <TimeSeries />
-      </div>
-
-      <div className="py-2 flex">
+      <div className="flex py-2">
         <div className="w-1/3">
           <AvgsByWorkType metric="steps" />
         </div>

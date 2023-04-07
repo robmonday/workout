@@ -11,9 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 export default function LogInForm() {
   const navigate = useNavigate();
 
-  const dispatch = useContext(DispatchContext);
-  const state = useContext(StateContext);
-
   const schema = z.object({
     email: z.string().min(6, "Email is too short").email(),
     password: z
@@ -39,14 +36,13 @@ export default function LogInForm() {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const res = await loginRequest(data);
-    // console.log(JSON.stringify(res));
+    console.log("data returned from login request", JSON.stringify(res));
     if (res.serverError) {
       setError("formLevelError", { type: "custom", message: res.message });
       setTimeout(() => clearErrors(), 4000);
     } else {
       window.localStorage.setItem("user", JSON.stringify(res.userObj));
       window.localStorage.setItem("token", JSON.stringify(res.token));
-      dispatch({ type: "log_in", payload: res });
       navigate("/main");
     }
   };

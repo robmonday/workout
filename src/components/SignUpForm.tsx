@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
-import { signUpRequest } from "../api";
+import { signUpRequest, createNotification } from "../api";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,17 +37,21 @@ export default function SignUpForm() {
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const res = await signUpRequest(data);
+    const signupRes = await signUpRequest(data);
     // console.log(JSON.stringify(res));
-    if (res.serverError) {
+    if (signupRes.serverError) {
       setError(
         "email",
-        { type: "custom", message: res.message },
+        { type: "custom", message: signupRes.message },
         { shouldFocus: true }
       );
-    } else {
-      navigate("/login");
     }
+    const notificationRes = await createNotification({
+      message: "here is a message for the test notification",
+      dismissable: false,
+      buttonUrl: "/emailconfirm",
+    });
+    navigate("/login");
   };
 
   return (

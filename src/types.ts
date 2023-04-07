@@ -75,4 +75,12 @@ export type Notification = {
   dismissed: boolean;
   userId: string;
   createdAt: string;
+  dismissable: boolean;
+  buttonUrl: string;
+};
+
+export type NotificationRequest = {
+  message: string;
+  dismissable?: boolean;
+  buttonUrl?: string;
 };

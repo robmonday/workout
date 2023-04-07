@@ -18,8 +18,6 @@ type State = {
   workoutToEdit: Workout | undefined;
   updatedWorkout: Workout | undefined;
   badges: Badge[];
-  userObj: UserObj | undefined;
-  token: string;
   workoutTypes: WorkoutType[] | undefined;
   openNotifications: Notification[] | undefined;
 };
@@ -32,8 +30,6 @@ const initialState: State = {
   workoutToEdit: undefined,
   updatedWorkout: undefined,
   badges: [],
-  userObj: undefined,
-  token: "",
   workoutTypes: undefined,
   openNotifications: undefined,
 };
@@ -100,18 +96,17 @@ const reducer = (state: State, action: Action) => {
         ...state,
         userObj: action.payload.userObj,
       };
-    case "log_in":
-      return {
-        ...state,
-        userObj: action.payload.userObj,
-        token: action.payload.token,
-      };
-    case "log_out":
-      return {};
     case "get_workout_types":
       return { ...state, workoutTypes: action.payload };
     case "set_open_notifications":
       return { ...state, openNotifications: action.payload };
+    case "dismiss_notification":
+      return {
+        ...state,
+        openNotifications:
+          state.openNotifications &&
+          state.openNotifications.filter((n) => n.id !== action.payload.id),
+      };
     default:
       console.error("Unknown action dispatched to reducer.");
       return state;

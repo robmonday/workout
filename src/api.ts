@@ -3,13 +3,15 @@ import {
   LogInRequest,
   DeleteRequest,
   WorkoutRequest,
+  NotificationRequest,
 } from "./types";
 
 type RequestBody =
   | SignUpRequest
   | LogInRequest
   | WorkoutRequest
-  | DeleteRequest;
+  | DeleteRequest
+  | NotificationRequest;
 
 type Fetcher = {
   url: string;
@@ -25,10 +27,9 @@ export const fetcher = async ({ url, method, body, json = true }: Fetcher) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${window.localStorage.getItem("userToken")}`,
+      Authorization: `bearer ${window.localStorage.getItem("token")}`,
     },
   });
-  // console.log(window.localStorage.getItem("userToken"));
 
   if (json) {
     const data = await res.json();
@@ -49,6 +50,15 @@ export const signUpRequest = (body: SignUpRequest) => {
   // console.log("Request body passed to fetcher()", body);
   return fetcher({
     url: "http://localhost:5174/api/user/signup",
+    method: "POST",
+    body,
+  });
+};
+
+export const createNotification = (body: NotificationRequest) => {
+  // console.log("Request body passed to fetcher()", body);
+  return fetcher({
+    url: "http://localhost:5174/api/notification",
     method: "POST",
     body,
   });
@@ -145,11 +155,11 @@ export const getOpenNotifications = () => {
   return result;
 };
 
-// export const emailConfirm = (id: string, body: WorkoutRequest) => {
-//   const result = fetcher({
-//     url: "http://localhost:5174/api/user",
-//     method: "PUT",
-//     body: { ...body, id },
-//   });
-//   return result;
-// };
+export const dismissNotification = (id: string) => {
+  const result = fetcher({
+    url: "http://localhost:5174/api/notification/open",
+    method: "PUT",
+    body: { id },
+  });
+  return result;
+};
