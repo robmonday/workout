@@ -71,7 +71,7 @@ const WorkoutHistoryList = ({
 
   useEffect(() => {
     getAllWorkouts().then((workouts: Workout[]) => {
-      const sortedWorkouts = workouts.sort(
+      const sortedWorkouts = workouts && workouts.sort(
         (a: Workout, b: Workout) => Date.parse(b.start) - Date.parse(a.start)
       );
       dispatch({ type: "set_workouts", payload: sortedWorkouts });

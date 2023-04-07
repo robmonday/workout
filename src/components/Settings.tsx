@@ -8,8 +8,6 @@ import { UserInfo } from "../types";
 import { StateContext } from "./StateProvider";
 import { DispatchContext } from "./StateProvider";
 
-import Notification from "./TempToastMessage";
-
 export default function Settings() {
   return (
     <>

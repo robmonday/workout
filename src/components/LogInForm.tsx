@@ -42,7 +42,7 @@ export default function LogInForm() {
       setTimeout(() => clearErrors(), 4000);
     } else {
       window.localStorage.setItem("user", JSON.stringify(res.userObj));
-      window.localStorage.setItem("token", JSON.stringify(res.token));
+      window.localStorage.setItem("token", res.token);
       navigate("/main");
     }
   };
