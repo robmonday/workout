@@ -36,15 +36,12 @@ export default function Settings() {
 }
 
 export function AccountDetails() {
-  const userObjJSON = localStorage.getItem("user");
-  const userObj = userObjJSON && JSON.parse(userObjJSON);
-
   const state = useContext(StateContext);
   const dispatch = useContext(DispatchContext);
 
   useEffect(() => {
-    if (userObj) {
-      getUser(userObj.id).then((userObj) => {
+    if (state.user) {
+      getUser(state.user.id).then((userObj) => {
         console.log("user", userObj);
         dispatch({ type: "update_account_details", payload: { userObj } });
       });
@@ -86,19 +83,19 @@ export function AccountDetails() {
         <label className="input border-0">First Name</label>
         <input
           className="input col-span-2 bg-purple-200"
-          value={userObj?.firstName}
+          value={state.user?.firstName}
           {...register("firstName")}
         />
         <label className="input border-0">Last Name</label>
         <input
           className="input col-span-2 bg-purple-200"
-          value={userObj?.lastName}
+          value={state.user?.lastName}
           {...register("lastName")}
         />
         <label className="input border-0">Email</label>
         <input
           className="input col-span-2 bg-purple-200"
-          value={userObj?.email}
+          value={state.user?.email}
           {...register("email")}
         />
         {/* <label className="input border-0">Confirm Email</label>
