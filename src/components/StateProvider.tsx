@@ -116,7 +116,7 @@ const reducer = (state: State, action: Action) => {
     case "log_in_set_token":
       return { ...state, token: action.payload };
     case "log_out":
-      return {};
+      return initialState;
     default:
       console.error("Unknown action dispatched to reducer.");
       return state;
