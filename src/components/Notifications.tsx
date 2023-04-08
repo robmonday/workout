@@ -86,7 +86,7 @@ export const NotificationLine = ({ notification }: NotificationProps) => {
               onClick={() => navigate(notification.buttonUrl)}
               className="btn btn-green ml-2 mr-0 animate-pulse px-3 py-1 "
             >
-              Do it!
+              Go
             </div>
           )}
         </div>

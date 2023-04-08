@@ -50,7 +50,7 @@ export default function EmailConfirm() {
                 onClick={() => handleEmailConfirm(state.user)}
                 className="btn btn-purple my-1"
               >
-                Send me the email
+                Send email to {state.user.email}
               </div>
             </div>
           )}

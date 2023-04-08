@@ -13,6 +13,7 @@ import Settings from "./components/Settings";
 import NotFound from "./components/NotFound";
 import EmailConfirm from "./components/EmailConfirm";
 import Notifications from "./components/Notifications";
+import Badges from "./components/Badges";
 
 function App(): JSX.Element {
   return (
@@ -27,6 +28,7 @@ function App(): JSX.Element {
           <Route path="main" element={<Main />} />
           <Route path="data" element={<DataEntryMode />} />
           <Route path="workout" element={<WorkoutMode />} />
+          <Route path="badges" element={<Badges />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="settings" element={<Settings />} />
           <Route path="notifications" element={<Notifications />} />

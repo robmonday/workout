@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   PropsWithChildren,
   useReducer,
@@ -6,7 +6,7 @@ import React, {
   Reducer,
 } from "react";
 
-import { Workout, Badge, UserObj, WorkoutType, Notification } from "../types";
+import { Workout, Badge, WorkoutType, Notification } from "../types";
 
 // creating and typing initial state
 
@@ -71,17 +71,12 @@ const reducer = (state: State, action: Action) => {
         ...state,
         selectedWorkout: action.payload.id,
         updatedWorkout: action.payload, // causes re-render
-        // workouts: [...state.workouts, action.payload],
       };
     case "edit_workout":
-      // const workoutsOldRemoved = state.workouts.filter(
-      //   (w) => w.id !== action.payload
-      // );
       return {
         ...state,
         selectedWorkout: action.payload,
         updatedWorkout: action.payload, // causes re-render
-        // workouts: [...workoutsOldRemoved, action.payload],
       };
     case "delete_workout":
       const workoutsAfterDelete = state.workouts.filter(

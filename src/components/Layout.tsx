@@ -40,6 +40,11 @@ const Layout = () => {
     navigate("login");
   };
 
+  const redFormatting =
+    state.openNotifications && state.openNotifications.length > 0
+      ? "border-2 border-red-600 text-red-600 hover:text-black"
+      : "";
+
   return (
     <>
       <div className="text-md fixed top-0 flex w-full bg-purple-300 px-5 py-3">
@@ -93,20 +98,19 @@ const Layout = () => {
                         </Link>
                       </li>
 
-                      {state.openNotifications &&
-                        state.openNotifications.length > 0 && (
-                          <li className="py-1">
-                            <Link
-                              to="/notifications"
-                              className="block cursor-pointer text-base text-black hover:text-white"
-                            >
-                              <div className="justify-cente flex rounded-md border-2 border-red-600 bg-white px-2 py-2 text-red-600 ">
-                                <MessageSquare strokeWidth={0.75} />
-                                <span className="ml-4">Notifications</span>
-                              </div>
-                            </Link>
-                          </li>
-                        )}
+                      <li className="py-1">
+                        <Link
+                          to="/notifications"
+                          className="block cursor-pointer text-base text-black hover:text-white"
+                        >
+                          <div
+                            className={`flex rounded-md px-2 py-2 hover:text-purple-800 ${redFormatting}`}
+                          >
+                            <MessageSquare strokeWidth={0.75} />
+                            <span className="ml-4">Notifications</span>
+                          </div>
+                        </Link>
+                      </li>
                       <li
                         onClick={handleLogout}
                         className="block cursor-pointer py-1 px-2 text-base text-gray-800 hover:text-purple-800"

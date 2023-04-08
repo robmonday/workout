@@ -46,11 +46,6 @@ export default function SignUpForm() {
         { shouldFocus: true }
       );
     }
-    const notificationRes = await createNotification({
-      message: "here is a message for the test notification",
-      dismissable: false,
-      buttonUrl: "/emailconfirm",
-    });
     navigate("/login");
   };
 
