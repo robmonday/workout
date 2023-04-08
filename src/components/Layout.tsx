@@ -36,7 +36,7 @@ const Layout = () => {
   const handleLogout = () => {
     localStorage.removeItem("loggedWorkoutAppUser");
     localStorage.removeItem("loggedWorkoutAppToken");
-    dispatch({ type: "log_out_clear_user_token" });
+    dispatch({ type: "log_out" });
     navigate("login");
   };
 
