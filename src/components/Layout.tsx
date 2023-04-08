@@ -31,7 +31,7 @@ const Layout = () => {
           payload: openNotifications,
         });
     });
-  }, []);
+  }, [state.token]);
 
   const handleLogout = () => {
     localStorage.removeItem("loggedWorkoutAppUser");

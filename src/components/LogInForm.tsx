@@ -12,6 +12,7 @@ export default function LogInForm() {
   const navigate = useNavigate();
 
   const dispatch = useContext(DispatchContext);
+  const state = useContext(StateContext);
 
   const schema = z.object({
     email: z.string().min(6, "Email is too short").email(),
