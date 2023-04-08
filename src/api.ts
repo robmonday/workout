@@ -29,7 +29,9 @@ export const fetcher = async ({ url, method, body, json = true }: Fetcher) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `bearer ${window.localStorage.getItem("token")}`,
+      Authorization: `bearer ${window.localStorage.getItem(
+        "loggedWorkoutAppToken"
+      )}`,
     },
   });
 

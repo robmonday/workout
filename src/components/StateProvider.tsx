@@ -20,6 +20,8 @@ type State = {
   badges: Badge[];
   workoutTypes: WorkoutType[] | undefined;
   openNotifications: Notification[] | undefined;
+  user: any;
+  token: string;
 };
 
 const initialState: State = {
@@ -32,6 +34,8 @@ const initialState: State = {
   badges: [],
   workoutTypes: undefined,
   openNotifications: undefined,
+  user: undefined,
+  token: "",
 };
 
 // creating and typing reducer
@@ -107,6 +111,12 @@ const reducer = (state: State, action: Action) => {
           state.openNotifications &&
           state.openNotifications.filter((n) => n.id !== action.payload.id),
       };
+    case "log_in_set_user":
+      return { ...state, user: action.payload };
+    case "log_in_set_token":
+      return { ...state, token: action.payload };
+    case "log_out_clear_user_token":
+      return { ...state, user: undefined, token: undefined };
     default:
       console.error("Unknown action dispatched to reducer.");
       return state;

@@ -11,6 +11,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 export default function LogInForm() {
   const navigate = useNavigate();
 
+  const dispatch = useContext(DispatchContext);
+
   const schema = z.object({
     email: z.string().min(6, "Email is too short").email(),
     password: z
@@ -41,14 +43,19 @@ export default function LogInForm() {
       setError("formLevelError", { type: "custom", message: res.message });
       setTimeout(() => clearErrors(), 4000);
     } else {
-      window.localStorage.setItem("user", JSON.stringify(res.userObj));
-      window.localStorage.setItem("token", res.token);
+      window.localStorage.setItem(
+        "loggedWorkoutAppUser",
+        JSON.stringify(res.userObj)
+      );
+      window.localStorage.setItem("loggedWorkoutAppToken", res.token);
+      dispatch({ type: "log_in_set_user", payload: res.userObj });
+      dispatch({ type: "log_in_set_token", payload: res.token });
       navigate("/main");
     }
   };
 
   return (
-    <div className="shaddow-xlg">
+    <>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="m-5 w-auto rounded-xl bg-gradient-to-br from-gray-100 px-7 py-5 shadow-lg md:w-2/3 lg:w-1/2 2xl:w-1/3"
@@ -104,6 +111,6 @@ export default function LogInForm() {
           </Link>
         </div>
       </form>
-    </div>
+    </>
   );
 }

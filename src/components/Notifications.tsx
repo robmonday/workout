@@ -2,9 +2,8 @@ import { useContext } from "react";
 import { DispatchContext, StateContext } from "./StateProvider";
 import { dismissNotification } from "../api";
 import { useNavigate } from "react-router-dom";
-import { sendEmailConfirm } from "../api";
 
-import { Notification, UserObj } from "../types";
+import { Notification } from "../types";
 
 export default function Notifications() {
   const state = useContext(StateContext);
@@ -47,10 +46,7 @@ type NotificationProps = {
 
 export const NotificationLine = ({ notification }: NotificationProps) => {
   const dispatch = useContext(DispatchContext);
-
-  const userJSON = localStorage.getItem("user");
-  const userObj = userJSON && JSON.parse(userJSON);
-  // console.log(userObj);
+  const state = useContext(StateContext);
 
   const navigate = useNavigate();
 
@@ -59,11 +55,6 @@ export const NotificationLine = ({ notification }: NotificationProps) => {
       dismissNotification(id);
       dispatch({ type: "dismiss_notification", payload: { id } });
     }
-  };
-
-  const handleEmailConfirm = (userObj: UserObj) => {
-    sendEmailConfirm(userObj);
-    navigate("/emailconfirm");
   };
 
   return (
@@ -92,7 +83,7 @@ export const NotificationLine = ({ notification }: NotificationProps) => {
           )}
           {notification.buttonUrl && (
             <div
-              onClick={() => handleEmailConfirm(userObj)}
+              onClick={() => navigate(notification.buttonUrl)}
               className="btn btn-green ml-2 mr-0 animate-pulse px-3 py-1 "
             >
               Do it!

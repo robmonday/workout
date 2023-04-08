@@ -11,8 +11,17 @@ const Layout = () => {
 
   const navigate = useNavigate();
 
-  const userJSON = localStorage.getItem("user");
-  const userObj = userJSON && JSON.parse(userJSON);
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem("loggedWorkoutAppUser");
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      dispatch({ type: "log_in_set_user", payload: user });
+    }
+    const loggedToken = window.localStorage.getItem("loggedWorkoutAppToken");
+    if (loggedToken) {
+      dispatch({ type: "log_in_set_token", payload: loggedToken });
+    }
+  }, []);
 
   useEffect(() => {
     getOpenNotifications().then((openNotifications) => {
@@ -25,8 +34,9 @@ const Layout = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    localStorage.removeItem("loggedWorkoutAppUser");
+    localStorage.removeItem("loggedWorkoutAppToken");
+    dispatch({ type: "log_out_clear_user_token" });
     navigate("login");
   };
 
@@ -50,10 +60,10 @@ const Layout = () => {
             Dashboard
           </Link>
 
-          {userObj ? (
+          {state.user ? (
             <div className="flex py-1">
               <div className="pr-4 italic">
-                {<span>Welcome, {userObj?.firstName}!</span>}
+                {<span>Welcome, {state.user?.firstName}!</span>}
               </div>
               <div className="btn group flex bg-purple-500 py-1 ">
                 <div className="relative cursor-pointer px-2 text-white ">
