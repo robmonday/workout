@@ -1,5 +1,8 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import { useContext } from "react";
+
+import { StateContext } from "./components/StateProvider";
 
 import Layout from "./components/Layout";
 import LogInForm from "./components/LogInForm";
@@ -16,6 +19,7 @@ import Notifications from "./components/Notifications";
 import Badges from "./components/Badges";
 
 function App(): JSX.Element {
+  const state = useContext(StateContext);
   return (
     <>
       <Routes>
@@ -24,17 +28,41 @@ function App(): JSX.Element {
           <Route path="login" element={<LogInForm />} />
           <Route path="signup" element={<SignUpForm />} />
           <Route path="forgot" element={<SignUpForm />} />
-          <Route path="home" element={<Home />} />
-          <Route path="main" element={<Main />} />
-          <Route path="data" element={<DataEntryMode />} />
-          <Route path="workout" element={<WorkoutMode />} />
-          <Route path="badges" element={<Badges />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="notifications" element={<Notifications />} />
+          <Route path="home" element={state.token ? <Home /> : <LogInForm />} />
+          <Route path="main" element={state.token ? <Main /> : <LogInForm />} />
+          <Route
+            path="data"
+            element={state.token ? <DataEntryMode /> : <LogInForm />}
+          />
+          <Route
+            path="workout"
+            element={state.token ? <WorkoutMode /> : <LogInForm />}
+          />
+          <Route
+            path="badges"
+            element={state.token ? <Badges /> : <LogInForm />}
+          />
+          <Route
+            path="dashboard"
+            element={state.token ? <Dashboard /> : <LogInForm />}
+          />
+          <Route
+            path="settings"
+            element={state.token ? <Settings /> : <LogInForm />}
+          />
+          <Route
+            path="notifications"
+            element={state.token ? <Notifications /> : <LogInForm />}
+          />
 
-          <Route path="emailconfirm" element={<EmailConfirm />} />
-          <Route path="*" element={<NotFound />} />
+          <Route
+            path="emailconfirm"
+            element={state.token ? <EmailConfirm /> : <LogInForm />}
+          />
+          <Route
+            path="*"
+            element={state.token ? <NotFound /> : <LogInForm />}
+          />
         </Route>
       </Routes>
     </>
