@@ -7,6 +7,12 @@
   
 } */
 
+/* 
+* {
+  box-sizing: border-box;
+}
+ */
+
 /* Temporary framing */
 div {
   /* border: 1px solid black; */
@@ -65,7 +71,7 @@ div {
   }
 
   .panel {
-    @apply m-2 rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 p-2;
+    @apply rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 p-2;
   }
 
   .nav-link {

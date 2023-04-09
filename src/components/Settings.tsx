@@ -12,9 +12,12 @@ export default function Settings() {
   return (
     <>
       <div className="p-2 text-xl">Settings</div>
-      <div className="flex">
+      <div className="flex flex-wrap">
         <div className="panel w-1/3 px-4 py-3">
           <AccountDetails />
+        </div>
+        <div className="panel w-1/3 px-4 py-3">
+          <PersonalDetails />
         </div>
         <div className="panel w-1/3 px-4 py-3">
           <WorkoutSettings />
@@ -104,6 +107,49 @@ export function AccountDetails() {
           value={userObj?.email}
           {...register("confirmEmail")}
         /> */}
+      </div>
+    </>
+  );
+}
+
+export function PersonalDetails() {
+  const state = useContext(StateContext);
+  return (
+    <>
+      <div className="flex justify-between">
+        <div className="p mb-4 text-lg">Personal Details</div>
+        <div
+          onClick={() => alert("Edit")}
+          className="btn btn-purple m-0 h-fit px-2 py-0.5"
+        >
+          Edit
+        </div>
+      </div>
+      <div className="grid-gap-4 grid grid-cols-3">
+        <label className="input border-0">Height (inches)</label>
+        <input
+          className="input col-span-2 bg-purple-200"
+          value={state.user?.inches}
+          // {...register("")}
+        />
+        <label className="input border-0">Weight (lbs)</label>
+        <input
+          className="input col-span-2 bg-purple-200"
+          value={state.user?.lbs}
+          // {...register("")}
+        />
+        <label className="input border-0">Date of Birth</label>
+        <input
+          className="input col-span-2 bg-purple-200"
+          value={state.user?.DOB}
+          // {...register("")}
+        />
+        <label className="input border-0">Gender</label>
+        <input
+          className="input col-span-2 bg-purple-200"
+          value={state.user?.gender}
+          // {...register("")}
+        />
       </div>
     </>
   );
