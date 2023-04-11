@@ -71,13 +71,13 @@ div {
   }
 
   .panel {
-    @apply rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 p-3 m-3;
+    @apply m-3 rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 p-3;
   }
 
   .nav-link {
-    @apply mx-1 rounded-t-lg border-x border-t py-1 px-2 text-base hover:shadow-md 
-    active:translate-y-0.5
-    active:bg-purple-400 lg:px-4;
+    @apply h-12 overflow-hidden truncate rounded-t-lg border-x border-t py-1 px-1 text-base hover:shadow-md active:translate-y-0.5 active:bg-purple-400
+    md:mx-1
+    md:px-2 lg:px-4;
   }
 
   .body-link {

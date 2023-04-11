@@ -5,7 +5,6 @@ export default function WorkoutMode() {
   return (
     <div className="">
       <Timer />
-      <Badges />
     </div>
   );
 }
