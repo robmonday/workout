@@ -24,7 +24,7 @@ div {
 
 @layer components {
   .btn {
-    @apply mr-4 inline-block transform cursor-pointer rounded-lg border-2 border-white px-5 py-2 transition
+    @apply my-2 mr-4 inline-block transform cursor-pointer rounded-lg border-2 border-white px-5 py-2 transition
     focus:ring-1 focus:ring-gray-500 focus:ring-opacity-50 focus:ring-offset-2 
     active:translate-y-0.5;
   }

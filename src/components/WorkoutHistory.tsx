@@ -33,13 +33,13 @@ export default function WorkoutHistory() {
     <>
       <div className="p-2 text-2xl">My Data</div>
       <div className="panel flex">
-        <div className="w-1/2 lg:w-1/3">
-          <div className="rounded-lg border-2 border-purple-400 py-1 px-3">
+        <div className="flex w-1/2 lg:w-1/3 ">
+          <div className="flex w-full flex-col rounded-lg border-2 border-purple-400 py-1 px-3">
             <WorkoutSearchBar />
             <WorkoutHistoryList handleDeleteWorkout={handleDeleteWorkout} />
           </div>
         </div>
-        <div className="align-top w-1/2 lg:w-2/3">
+        <div className="w-1/2 align-top lg:w-2/3">
           <div className="px-6 py-4">
             {state.detailPanelDisplay === "WorkoutDetail" &&
               state.workouts?.length > 0 && (
@@ -71,9 +71,11 @@ const WorkoutHistoryList = ({
 
   useEffect(() => {
     getAllWorkouts().then((workouts: Workout[]) => {
-      const sortedWorkouts = workouts && workouts.sort(
-        (a: Workout, b: Workout) => Date.parse(b.start) - Date.parse(a.start)
-      );
+      const sortedWorkouts =
+        workouts &&
+        workouts.sort(
+          (a: Workout, b: Workout) => Date.parse(b.start) - Date.parse(a.start)
+        );
       dispatch({ type: "set_workouts", payload: sortedWorkouts });
       dispatch({ type: "select_workout" });
     });
@@ -97,7 +99,7 @@ const WorkoutHistoryList = ({
       >
         <Plus strokeWidth={0.75} />
       </div>
-      <div className="h-96 overflow-y-auto">
+      <div className="h-72 overflow-y-auto">
         {filteredWorkouts?.map((w) => (
           <div
             key={w.id}
@@ -112,7 +114,7 @@ const WorkoutHistoryList = ({
               }
             >
               <div className="inline-block">{w.workoutType?.name}</div>
-              <div className="inline-block font-light text-purple-700">
+              <div className="hidden sm:inline-block font-light text-purple-700">
                 <div className="ml-3 inline">
                   {w.start && dateToWeekdayDate(w.start)}
                 </div>

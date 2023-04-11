@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Chart, ChartData, ChartOptions } from "chart.js/auto";
+import { ChartData, ChartOptions } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
 import { getAvgsByWorkType } from "../../api";
@@ -38,7 +38,7 @@ export default function AvgByWorkType({
     datasets: [
       {
         label: "Average By Workout Type",
-        data: data.map((t) => t[metric]),
+        data: data.map((t) => parseFloat(t[metric]).toFixed(2).toString()),
         backgroundColor: "rgba(255, 255, 0, 0.5)",
       },
     ],

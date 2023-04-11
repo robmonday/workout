@@ -58,7 +58,7 @@ const Layout = () => {
                 Home
               </Link> */}
               <Link to="/workout" className="nav-link">
-                Workout
+                Start Now
               </Link>
               <Link to="/data" className="nav-link">
                 My Data
