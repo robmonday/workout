@@ -32,14 +32,14 @@ export default function WorkoutHistory() {
   return (
     <>
       <div className="p-2 text-2xl">My Data</div>
-      <div className="panel">
-        <div className="inline-block lg:w-1/3">
+      <div className="panel flex">
+        <div className="w-1/2 lg:w-1/3">
           <div className="rounded-lg border-2 border-purple-400 py-1 px-3">
             <WorkoutSearchBar />
             <WorkoutHistoryList handleDeleteWorkout={handleDeleteWorkout} />
           </div>
         </div>
-        <div className="inline-block align-top lg:w-2/3">
+        <div className="align-top w-1/2 lg:w-2/3">
           <div className="px-6 py-4">
             {state.detailPanelDisplay === "WorkoutDetail" &&
               state.workouts?.length > 0 && (
