@@ -42,6 +42,8 @@ export type Workout = {
 
 export type Badge = {
   id: string;
+  createdAt: Date;
+  updatedAt: Date;
   type: string;
   notes: string;
   userId: string;

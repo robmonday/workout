@@ -24,7 +24,7 @@ export default function Settings() {
         <div className="-z-20 w-1/2">
           <div className="panel">
             <div className="flex justify-start">
-              <div className="p mb-4 text-lg h-56">Sharing Settings</div>
+              <div className="p mb-4 h-56 text-lg">Sharing & Privacy</div>
               <div
                 onClick={() => alert("Edit")}
                 className="btn btn-purple -z-10 m-0 mx-2 h-fit px-2 py-0.5"

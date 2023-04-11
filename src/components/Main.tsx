@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { StateContext } from "./StateProvider";
 
-import Badges from "./Badges";
+import { MyBadges } from "./Badges";
 import TempToastMessage from "./TempToastMessage";
 
 export default function Main() {
@@ -24,7 +24,7 @@ export default function Main() {
           </div>
         </div>
         <div className="w-1/3">
-          <Badges />
+          <MyBadges />
         </div>
       </div>
       <TempToastMessage>

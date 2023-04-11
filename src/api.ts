@@ -128,6 +128,14 @@ export const getAllBadges = () => {
   return result;
 };
 
+export const getBadgeGallery = () => {
+  const result = fetcher({
+    url: "http://localhost:5174/api/badge?gallery=true",
+    method: "GET",
+  });
+  return result;
+};
+
 export const getAllWorkoutTypes = () => {
   const result = fetcher({
     url: "http://localhost:5174/api/workout/type",

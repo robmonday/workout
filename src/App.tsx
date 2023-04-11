@@ -17,6 +17,7 @@ import NotFound from "./components/NotFound";
 import EmailConfirm from "./components/EmailConfirm";
 import Notifications from "./components/Notifications";
 import Badges from "./components/Badges";
+import Friends from "./components/Friends";
 
 function App(): JSX.Element {
   const state = useContext(StateContext);
@@ -60,9 +61,10 @@ function App(): JSX.Element {
             element={state.token ? <EmailConfirm /> : <LogInForm />}
           />
           <Route
-            path="*"
-            element={state.token ? <NotFound /> : <LogInForm />}
+            path="friends"
+            element={state.token ? <Friends /> : <LogInForm />}
           />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </>

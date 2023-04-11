@@ -1,5 +1,5 @@
 import WorkoutHistory from "./WorkoutHistory";
-import Badges from "./Badges";
+import { MyBadges } from "./Badges";
 
 export default function DataEntryMode() {
   return (
@@ -9,11 +9,11 @@ export default function DataEntryMode() {
           <WorkoutHistory />
         </div>
         <div className="hidden md:block md:w-1/4 lg:w-1/6 ">
-          <Badges />
+          <MyBadges />
         </div>
       </div>
       <div className="block md:hidden">
-        <Badges />
+        <MyBadges />
       </div>
     </>
   );

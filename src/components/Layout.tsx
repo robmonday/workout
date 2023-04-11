@@ -1,5 +1,5 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
-import { User, LogOut, Settings, MessageSquare } from "react-feather";
+import { User, Users, LogOut, Settings, MessageSquare } from "react-feather";
 import { useContext, useEffect } from "react";
 import { DispatchContext, StateContext } from "./StateProvider";
 
@@ -53,18 +53,21 @@ const Layout = () => {
         </Link>
         {state.token && (
           <div className="">
-            <nav className="h-15 flex justify-around md:w-[300px] lg:w-[600px] ">
-              {/* <Link to="/home" className="nav-link">
-                Home
-              </Link> */}
+            <nav className="h-15 flex justify-around ">
+              <Link to="/main" className="nav-link">
+                Main
+              </Link>
               <Link to="/workout" className="nav-link">
-                Start Now
+                Workout
               </Link>
               <Link to="/data" className="nav-link">
                 My Data
               </Link>
               <Link to="/dashboard" className="nav-link">
                 Dashboard
+              </Link>
+              <Link to="/badges" className="nav-link">
+                Badges
               </Link>
             </nav>
           </div>
@@ -92,18 +95,6 @@ const Layout = () => {
                   <ul className="top-0 w-56 bg-white px-6 py-2 shadow">
                     <li className="py-1">
                       <Link
-                        to="/settings"
-                        className="block cursor-pointer text-base text-gray-800 hover:text-purple-800"
-                      >
-                        <div className="flex px-2 py-1">
-                          <Settings strokeWidth={0.75} />
-                          <span className="ml-4">Settings</span>
-                        </div>
-                      </Link>
-                    </li>
-
-                    <li className="py-1">
-                      <Link
                         to="/notifications"
                         className="block cursor-pointer text-base text-black hover:text-white"
                       >
@@ -115,6 +106,31 @@ const Layout = () => {
                         </div>
                       </Link>
                     </li>
+
+                    <li className="py-1">
+                      <Link
+                        to="/friends"
+                        className="block cursor-pointer text-base text-gray-800 hover:text-purple-800"
+                      >
+                        <div className="flex px-2 py-1">
+                          <Users strokeWidth={0.75} />
+                          <span className="ml-4">Find Friends</span>
+                        </div>
+                      </Link>
+                    </li>
+
+                    <li className="py-1">
+                      <Link
+                        to="/settings"
+                        className="block cursor-pointer text-base text-gray-800 hover:text-purple-800"
+                      >
+                        <div className="flex px-2 py-1">
+                          <Settings strokeWidth={0.75} />
+                          <span className="ml-4">Settings</span>
+                        </div>
+                      </Link>
+                    </li>
+
                     <li
                       onClick={handleLogout}
                       className="block cursor-pointer py-1 px-2 text-base text-gray-800 hover:text-purple-800"
