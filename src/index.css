@@ -71,7 +71,7 @@ div {
   }
 
   .panel {
-    @apply rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 p-2;
+    @apply rounded-lg border bg-gradient-to-br from-purple-200 to-purple-300 p-3 m-3;
   }
 
   .nav-link {

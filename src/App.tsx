@@ -28,7 +28,7 @@ function App(): JSX.Element {
           <Route path="login" element={<LogInForm />} />
           <Route path="signup" element={<SignUpForm />} />
           <Route path="forgot" element={<SignUpForm />} />
-          <Route path="home" element={state.token ? <Home /> : <LogInForm />} />
+          <Route path="home" element={<Home />} />
           <Route path="main" element={state.token ? <Main /> : <LogInForm />} />
           <Route
             path="data"

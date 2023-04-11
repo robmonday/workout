@@ -51,6 +51,9 @@ export default function SignUpForm() {
 
   return (
     <div className="shaddow-xlg">
+      <div>
+        
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="m-5 w-auto rounded-xl bg-gradient-to-br from-gray-100 px-7 py-5 shadow-lg md:w-2/3 lg:w-1/2"

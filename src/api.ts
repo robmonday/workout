@@ -6,6 +6,7 @@ import {
   NotificationRequest,
   EmailConfirm,
   UserObj,
+  UserUpdate,
 } from "./types";
 
 type RequestBody =
@@ -173,6 +174,15 @@ export const sendEmailConfirm = (userObj: UserObj) => {
     url: "http://localhost:5174/api/email/emailConfirm",
     method: "POST",
     body: userObj,
+  });
+  return result;
+};
+
+export const updateUser = (id: string, body: UserUpdate) => {
+  const result = fetcher({
+    url: "http://localhost:5174/api/user",
+    method: "PUT",
+    body: { ...body, id },
   });
   return result;
 };

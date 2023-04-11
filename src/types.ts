@@ -68,6 +68,22 @@ export type UserInfo = {
   emailConfirmed: boolean;
 };
 
+export type AccountDetails = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  confirmEmail: string;
+}
+
+export type PersonalDetails = {
+  inches?: number;
+  lbs?: number;
+  DOB?: Date;
+  gender?: "MALE" | "FEMALE" | "OTHER";
+};
+
+export type UserUpdate = AccountDetails | PersonalDetails;
+
 export type Notification = {
   id: string;
   message: string;

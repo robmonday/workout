@@ -91,10 +91,7 @@ const reducer = (state: State, action: Action) => {
     case "filter_workouts":
       return { ...state, workouts: action.payload };
     case "update_account_details":
-      return {
-        ...state,
-        userObj: action.payload.userObj,
-      };
+      return { ...state, user: action.payload };
     case "get_workout_types":
       return { ...state, workoutTypes: action.payload };
     case "set_open_notifications":
