@@ -108,7 +108,7 @@ export default function TimeSeries() {
                 align: "top",
               },
             },
-            aspectRatio: 5,
+            aspectRatio: 3,
             responsive: true,
             scales: { x: { grid: { lineWidth: 0 } } },
           }}

@@ -7,14 +7,14 @@ import TempToastMessage from "./TempToastMessage";
 export default function Main() {
   return (
     <>
-      <div className="flex justify-between">
-        <div className="w-1/3">
+      <div className="flex flex-wrap justify-around">
+        <div className="w-[30rem]">
           <div className="p-2 text-2xl">Announcements</div>
           <div className="panel min-h-[150px]">
             <Announcements />
           </div>
         </div>
-        <div className="w-1/3">
+        <div className="w-[30rem]">
           <div className="p-2 text-2xl">Featured Products</div>
           <div className="panel min-h-[150px]">
             <div className="p-3">
@@ -23,7 +23,7 @@ export default function Main() {
             </div>
           </div>
         </div>
-        <div className="w-1/3">
+        <div className="w-[30rem]">
           <MyBadges />
         </div>
       </div>

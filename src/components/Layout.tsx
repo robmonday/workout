@@ -40,10 +40,10 @@ const Layout = () => {
     navigate("login");
   };
 
-  const notificationFormatting =
+  const notificationStyle =
     state.openNotifications && state.openNotifications.length > 0
       ? "border-2 border-red-600 text-red-600 hover:text-black py-2"
-      : "";
+      : "hover:text-purple-800";
 
   return (
     <>
@@ -99,7 +99,7 @@ const Layout = () => {
                         className="block cursor-pointer text-base text-black hover:text-white"
                       >
                         <div
-                          className={`flex rounded-md  px-2 hover:text-purple-800 ${notificationFormatting}`}
+                          className={`flex rounded-md  px-2 ${notificationStyle}`}
                         >
                           <MessageSquare strokeWidth={0.75} />
                           <span className="ml-4">Notifications</span>

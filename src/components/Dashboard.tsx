@@ -15,32 +15,38 @@ export default function Dashboard() {
         <TimeSeries />
       </div>
 
-      <div className="flex py-2">
-        <div className="w-1/4">
+      <div className="flex flex-wrap py-2">
+        <div className="w-[23rem]">
           <WorksByLoc />
         </div>
-        <div className="w-3/4">
+        <div className="w-[66rem]">
           <RunDistByWeek />
         </div>
       </div>
 
-      <div className="flex py-2">
-        <div className="w-1/3">
+      <div className="flex flex-wrap justify-evenly py-2">
+        <div className="w-[30rem]">
           <AvgsByWorkType metric="steps" />
         </div>
-        <div className="w-1/3">
+        <div className="w-[30rem]">
           <AvgsByWorkType metric="calories" />
         </div>
-        <div className="w-1/3">
+        <div className="w-[30rem]">
           <AvgsByWorkType metric="distance" />
         </div>
       </div>
 
       <div className="py-2">
-        <div className="panel flex justify-between">
-          <DashPanel number={1} />
-          <DashPanel number={2} />
-          <DashPanel number={3} />
+        <div className="panel flex flex-wrap justify-evenly">
+          <div className="w-[29rem] py-2">
+            <DashPanel number={1} />
+          </div>
+          <div className="w-[29rem] py-2">
+            <DashPanel number={2} />
+          </div>
+          <div className="w-[29rem] py-2">
+            <DashPanel number={3} />
+          </div>
         </div>
       </div>
     </div>
@@ -50,7 +56,7 @@ export default function Dashboard() {
 const DashPanel = ({ number }: { number: number }) => {
   return (
     <>
-      <div className="m-5 h-72 w-96 rounded-lg border bg-green-100 p-4 text-center hover:shadow-lg active:translate-y-1">
+      <div className="h-72 w-96 rounded-lg border bg-green-100 p-4 text-center hover:shadow-lg active:translate-y-1">
         Additional Chart {number}
       </div>
     </>
