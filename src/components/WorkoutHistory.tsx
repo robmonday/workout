@@ -114,7 +114,7 @@ const WorkoutHistoryList = ({
               }
             >
               <div className="inline-block">{w.workoutType?.name}</div>
-              <div className="hidden sm:inline-block font-light text-purple-700">
+              <div className="hidden font-light text-purple-700 sm:inline-block">
                 <div className="ml-3 inline">
                   {w.start && dateToWeekdayDate(w.start)}
                 </div>
@@ -247,7 +247,7 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
   const [workoutTypes, setWorkoutTypes] = useState<WorkoutType[]>([]);
 
   const schema = z.object({
-    workoutTypeId: z.string(),
+    workoutTypeId: z.string().min(1, "Please choose"),
     location: z.string().min(3, "Location name is too short"),
     steps: z
       .number()
@@ -267,13 +267,14 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   const onSubmitNew: SubmitHandler<FormValues> = async (data) => {
     dispatch({ type: "hide_workout_form" });
-    // console.log("data from form", data);
+    console.log("data from form", data);
     const newWorkout = await createWorkout(data);
-    // console.log("newWorkout", newWorkout);
+    console.log("newWorkout", newWorkout);
     dispatch({ type: "add_workout", payload: newWorkout });
   };
 
@@ -293,6 +294,8 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
       setWorkoutTypes(workoutTypes);
     });
   }, []);
+
+  console.log("workoutTypes", workoutTypes);
 
   return (
     <>
@@ -319,17 +322,22 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
         <select
           className="input w-52"
           {...register("workoutTypeId")}
-          defaultValue="Outdoor Walk"
+          value={workout?.workoutTypeId}
         >
-          {workoutTypes.map((t: WorkoutType) => (
-            <option
-              key={t.id}
-              value={t.id}
-              selected={t.name === workout?.workoutType?.name}
-            >
-              {t.name}
-            </option>
-          ))}
+          <option key="default" value={""}>
+            Select type...
+          </option>
+          {workoutTypes
+            .sort((a, b) => a.sortOrder - b.sortOrder)
+            .map((t: WorkoutType) => (
+              <option
+                key={t.id}
+                value={t.id}
+                // selected={t.name === workout?.workoutType?.name}
+              >
+                {t.name}
+              </option>
+            ))}
         </select>
         {errors.workoutTypeId && (
           <span className="ml-2 text-red-600">

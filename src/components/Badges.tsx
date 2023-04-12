@@ -4,12 +4,11 @@ import { DispatchContext, StateContext } from "./StateProvider";
 import { Badge } from "../types";
 
 export default function Badges() {
-  const state = useContext(StateContext);
   const dispatch = useContext(DispatchContext);
 
   useEffect(() => {
     getAllBadges().then((badges) => {
-      // console.log(badges);
+      console.log("badges from parent element request", badges);
       dispatch({ type: "set_badges", payload: badges });
     });
   }, []);

@@ -12,16 +12,13 @@ export default function Settings() {
     <>
       <div className="p-2 text-xl">Settings</div>
       <div className="flex flex-wrap">
-        <div className="w-[30rem]">
+        <div className=" w-[40rem]">
           <AccountDetails />
         </div>
-        <div className="w-[30rem]">
+        <div className=" w-[40rem]">
           <PersonalDetails />
         </div>
-        <div className="w-[30rem]">
-          <WorkoutSettings />
-        </div>
-        <div className="-z-20 w-[30rem]">
+        <div className=" w-[40rem]">
           <div className="panel">
             <div className="flex justify-start">
               <div className="p mb-4 h-56 text-lg">Sharing & Privacy</div>
@@ -33,6 +30,9 @@ export default function Settings() {
               </div>
             </div>
           </div>
+        </div>
+        <div className="w-[40rem]">
+          <WorkoutSettings />
         </div>
       </div>
     </>
@@ -49,9 +49,13 @@ export function AccountDetails() {
   useEffect(() => {
     if (state.user) {
       getUser(state.user.id).then((user) => {
-        const DOB = new Date(user.DOB).toISOString().slice(0, 10);
-        const payload = { ...user, DOB };
-        dispatch({ type: "update_account_details", payload });
+        if (user.DOB) {
+          const DOB = new Date(user.DOB).toISOString().slice(0, 10);
+          const payload = { ...user, DOB };
+          dispatch({ type: "update_account_details", payload });
+        } else {
+          dispatch({ type: "update_account_details", payload: user });
+        }
       });
     }
   }, []);
@@ -106,7 +110,7 @@ export function AccountDetails() {
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid-gap-4 grid grid-cols-3">
-          <label className="input border-0">First Name</label>
+          <label className="input">First Name</label>
           <input
             className={`input ${inputEditStyle}`}
             disabled={!editMode}
@@ -185,9 +189,13 @@ export function PersonalDetails() {
   useEffect(() => {
     if (state.user) {
       getUser(state.user.id).then((user) => {
-        const DOB = new Date(user.DOB).toISOString().slice(0, 10);
-        const payload = { ...user, DOB };
-        dispatch({ type: "update_account_details", payload });
+        if (user.DOB) {
+          const DOB = new Date(user.DOB).toISOString().slice(0, 10);
+          const payload = { ...user, DOB };
+          dispatch({ type: "update_account_details", payload });
+        } else {
+          dispatch({ type: "update_account_details", payload: user });
+        }
       });
     }
   }, []);
@@ -329,23 +337,27 @@ export function WorkoutSettings() {
 
   return (
     <div className="panel">
-      <div className="flex justify-start">
-        <div className="p mb-4 text-lg">Workout Settings</div>
+      <div className=" flex justify-start">
+        <div className="p mb-4 text-lg ">Workout Type Configuration</div>
         <div
-          onClick={() => alert("Edit")}
           className="btn btn-purple m-0 mx-3 h-fit px-2 py-0.5"
+          onClick={() =>
+            alert("Editing Workout Type categories is currently disabled.")
+          }
         >
           Edit
         </div>
       </div>
-      <p className="p-2">Current Workout Type Categories:</p>
+      <p className="p-2">Current Categories:</p>
       <ul>
         {workoutTypes &&
-          workoutTypes.map((workoutType) => (
-            <div key={workoutType.id} className="py-2 pl-6">
-              {workoutType.name}
-            </div>
-          ))}
+          workoutTypes
+            .sort((a, b) => a.sortOrder - b.sortOrder)
+            .map((workoutType) => (
+              <div key={workoutType.id} className="py-2 pl-6">
+                {workoutType.name}
+              </div>
+            ))}
       </ul>
     </div>
   );

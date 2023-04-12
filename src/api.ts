@@ -126,6 +126,7 @@ export const getAllBadges = () => {
     url: `${baseUrl}/badge`,
     method: "GET",
   });
+  console.log("getAllBadges() returned", result);
   return result;
 };
 

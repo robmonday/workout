@@ -47,7 +47,7 @@ const Layout = () => {
 
   return (
     <>
-      <div className="text-md fixed top-0 flex w-full justify-between bg-purple-300 px-5 py-3">
+      <div className="text-md fixed top-0 z-10 flex w-full justify-between bg-purple-300 px-5 py-3">
         <Link to="/" className="text-2xl">
           <div className="h-10 overflow-hidden">Workout App</div>
         </Link>
@@ -91,7 +91,7 @@ const Layout = () => {
                       </div>
                     </div>
                   )}
-                <div className="absolute -right-5 top-7 z-50 hidden h-auto group-hover:block group-focus:block group-active:block">
+                <div className="absolute -right-5 top-7  hidden h-auto group-hover:block group-focus:block group-active:block">
                   <ul className="top-0 w-56 rounded-md bg-white px-6 py-4 shadow">
                     <li className="py-1">
                       <Link

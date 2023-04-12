@@ -20,7 +20,7 @@ export type WorkoutRequest = {
 export type WorkoutType = {
   id: string;
   name: string;
-  sortOrder: string;
+  sortOrder: number;
   workouts: Workout[];
 };
 
@@ -38,6 +38,7 @@ export type Workout = {
   calories: number;
   notes?: string | undefined;
   workoutType?: WorkoutTypeName;
+  workoutTypeId?: string;
 };
 
 export type Badge = {
@@ -75,7 +76,7 @@ export type AccountDetails = {
   lastName: string;
   email: string;
   confirmEmail: string;
-}
+};
 
 export type PersonalDetails = {
   inches?: number;
