@@ -74,7 +74,7 @@ export const getAllWorkouts = () => {
     url: "http://localhost:5174/api/workout",
     method: "GET",
   });
-  console.log("getAllWorkouts() fetcher response:", result);
+  // console.log("getAllWorkouts() fetcher response:", result);
   return result;
 };
 

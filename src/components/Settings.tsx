@@ -12,16 +12,16 @@ export default function Settings() {
     <>
       <div className="p-2 text-xl">Settings</div>
       <div className="flex flex-wrap">
-        <div className="w-1/2">
+        <div className="w-[30rem]">
           <AccountDetails />
         </div>
-        <div className="w-1/2">
+        <div className="w-[30rem]">
           <PersonalDetails />
         </div>
-        <div className="w-1/2">
+        <div className="w-[30rem]">
           <WorkoutSettings />
         </div>
-        <div className="-z-20 w-1/2">
+        <div className="-z-20 w-[30rem]">
           <div className="panel">
             <div className="flex justify-start">
               <div className="p mb-4 h-56 text-lg">Sharing & Privacy</div>

@@ -39,7 +39,7 @@ export default function LogInForm() {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const res = await loginRequest(data);
-    console.log("data returned from login request", JSON.stringify(res));
+    // console.log("data returned from login request", JSON.stringify(res));
     if (res.serverError) {
       setError("formLevelError", { type: "custom", message: res.message });
       setTimeout(() => clearErrors(), 4000);

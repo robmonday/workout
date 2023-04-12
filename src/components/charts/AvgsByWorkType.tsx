@@ -6,10 +6,11 @@ import { Bar } from "react-chartjs-2";
 import { getAvgsByWorkType } from "../../api";
 
 type Avgs = {
-  workoutName: string;
-  steps: number;
-  calories: number;
-  distance: string;
+  [index: string]: string;
+  // workoutName: string;
+  // steps: number;
+  // calories: number;
+  // distance: string;
 };
 
 type AvgByWorkTypeProps = {
@@ -38,7 +39,8 @@ export default function AvgByWorkType({
     datasets: [
       {
         label: "Average By Workout Type",
-        data: data.map((t) => parseFloat(t[metric]).toFixed(2).toString()),
+
+        data: data.map((t) => parseFloat(t[metric])),
         backgroundColor: "rgba(255, 255, 0, 0.5)",
       },
     ],

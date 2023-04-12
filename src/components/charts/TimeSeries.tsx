@@ -41,7 +41,7 @@ export default function TimeSeries() {
 
   useEffect(() => {
     getData().then((data) => {
-      console.log(data);
+      // console.log(data);
       setChartData({
         labels: data.map((element: any) => {
           const dateToCorrect = new Date(element.day);
@@ -66,7 +66,7 @@ export default function TimeSeries() {
     });
   }, []);
 
-  console.log(chartData);
+  // console.log(chartData);
 
   return (
     <>
