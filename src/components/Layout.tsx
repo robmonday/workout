@@ -40,9 +40,9 @@ const Layout = () => {
     navigate("login");
   };
 
-  const redFormatting =
+  const notificationFormatting =
     state.openNotifications && state.openNotifications.length > 0
-      ? "border-2 border-red-600 text-red-600 hover:text-black"
+      ? "border-2 border-red-600 text-red-600 hover:text-black py-2"
       : "";
 
   return (
@@ -92,14 +92,14 @@ const Layout = () => {
                     </div>
                   )}
                 <div className="absolute -right-5 top-7 z-50 hidden h-auto group-hover:block group-focus:block group-active:block">
-                  <ul className="top-0 w-56 bg-white px-6 py-2 shadow">
+                  <ul className="top-0 w-56 rounded-md bg-white px-6 py-4 shadow">
                     <li className="py-1">
                       <Link
                         to="/notifications"
                         className="block cursor-pointer text-base text-black hover:text-white"
                       >
                         <div
-                          className={`flex rounded-md px-2 py-2 hover:text-purple-800 ${redFormatting}`}
+                          className={`flex rounded-md  px-2 hover:text-purple-800 ${notificationFormatting}`}
                         >
                           <MessageSquare strokeWidth={0.75} />
                           <span className="ml-4">Notifications</span>

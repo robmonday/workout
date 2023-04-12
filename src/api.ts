@@ -4,10 +4,11 @@ import {
   DeleteRequest,
   WorkoutRequest,
   NotificationRequest,
-  EmailConfirm,
   UserObj,
   UserUpdate,
 } from "./types";
+
+const baseUrl = "http://localhost:5174/api";
 
 type RequestBody =
   | SignUpRequest
@@ -45,7 +46,7 @@ export const fetcher = async ({ url, method, body, json = true }: Fetcher) => {
 export const loginRequest = (body: LogInRequest) => {
   // console.log("Request body passed to fetcher()", body);
   return fetcher({
-    url: "http://localhost:5174/api/user/login",
+    url: `${baseUrl}/user/login`,
     method: "POST",
     body,
   });
@@ -54,7 +55,7 @@ export const loginRequest = (body: LogInRequest) => {
 export const signUpRequest = (body: SignUpRequest) => {
   // console.log("Request body passed to fetcher()", body);
   return fetcher({
-    url: "http://localhost:5174/api/user/signup",
+    url: `${baseUrl}/user/signup`,
     method: "POST",
     body,
   });
@@ -63,7 +64,7 @@ export const signUpRequest = (body: SignUpRequest) => {
 export const createNotification = (body: NotificationRequest) => {
   // console.log("Request body passed to fetcher()", body);
   return fetcher({
-    url: "http://localhost:5174/api/notification",
+    url: `${baseUrl}/notification`,
     method: "POST",
     body,
   });
@@ -71,7 +72,7 @@ export const createNotification = (body: NotificationRequest) => {
 
 export const getAllWorkouts = () => {
   const result = fetcher({
-    url: "http://localhost:5174/api/workout",
+    url: `${baseUrl}/workout`,
     method: "GET",
   });
   // console.log("getAllWorkouts() fetcher response:", result);
@@ -80,7 +81,7 @@ export const getAllWorkouts = () => {
 
 export const getWorksTimeSeries = () => {
   const result = fetcher({
-    url: "http://localhost:5174/api/workout/timeseries",
+    url: `${baseUrl}/workout/timeseries`,
     method: "GET",
   });
   return result;
@@ -88,7 +89,7 @@ export const getWorksTimeSeries = () => {
 
 export const getAvgsByWorkType = () => {
   const result = fetcher({
-    url: "http://localhost:5174/api/workout/averages",
+    url: `${baseUrl}/workout/averages`,
     method: "GET",
   });
   // console.log("averages", result);
@@ -97,7 +98,7 @@ export const getAvgsByWorkType = () => {
 
 export const createWorkout = (body: WorkoutRequest) => {
   return fetcher({
-    url: "http://localhost:5174/api/workout",
+    url: `${baseUrl}/workout`,
     method: "POST",
     body,
   });
@@ -105,7 +106,7 @@ export const createWorkout = (body: WorkoutRequest) => {
 
 export const updateWorkout = (id: string, body: WorkoutRequest) => {
   const result = fetcher({
-    url: "http://localhost:5174/api/workout",
+    url: `${baseUrl}/workout`,
     method: "PUT",
     body: { ...body, id },
   });
@@ -114,7 +115,7 @@ export const updateWorkout = (id: string, body: WorkoutRequest) => {
 
 export const deleteWorkout = (id: string) => {
   return fetcher({
-    url: "http://localhost:5174/api/workout",
+    url: `${baseUrl}/workout`,
     method: "DELETE",
     body: { id },
   });
@@ -122,7 +123,7 @@ export const deleteWorkout = (id: string) => {
 
 export const getAllBadges = () => {
   const result = fetcher({
-    url: "http://localhost:5174/api/badge",
+    url: `${baseUrl}/badge`,
     method: "GET",
   });
   return result;
@@ -130,7 +131,7 @@ export const getAllBadges = () => {
 
 export const getBadgeGallery = () => {
   const result = fetcher({
-    url: "http://localhost:5174/api/badge?gallery=true",
+    url: `${baseUrl}/badge?gallery=true`,
     method: "GET",
   });
   return result;
@@ -138,7 +139,7 @@ export const getBadgeGallery = () => {
 
 export const getAllWorkoutTypes = () => {
   const result = fetcher({
-    url: "http://localhost:5174/api/workout/type",
+    url: `${baseUrl}/workout/type`,
     method: "GET",
   });
   return result;
@@ -146,7 +147,7 @@ export const getAllWorkoutTypes = () => {
 
 export const getWorksGrpByLoc = () => {
   const result = fetcher({
-    url: "http://localhost:5174/api/workout/?groupBy=location",
+    url: `${baseUrl}/workout/?groupBy=location`,
     method: "GET",
   });
   return result;
@@ -154,7 +155,7 @@ export const getWorksGrpByLoc = () => {
 
 export const getUser = (id: string) => {
   const result = fetcher({
-    url: `http://localhost:5174/api/user/${id}`,
+    url: `${baseUrl}/user/${id}`,
     method: "GET",
   });
   return result;
@@ -162,7 +163,7 @@ export const getUser = (id: string) => {
 
 export const getOpenNotifications = () => {
   const result = fetcher({
-    url: "http://localhost:5174/api/notification/open",
+    url: `${baseUrl}/notification/open`,
     method: "GET",
   });
   return result;
@@ -170,7 +171,7 @@ export const getOpenNotifications = () => {
 
 export const dismissNotification = (id: string) => {
   const result = fetcher({
-    url: "http://localhost:5174/api/notification/open",
+    url: `${baseUrl}/notification/open`,
     method: "PUT",
     body: { id },
   });
@@ -179,7 +180,7 @@ export const dismissNotification = (id: string) => {
 
 export const sendEmailConfirm = (userObj: UserObj) => {
   const result = fetcher({
-    url: "http://localhost:5174/api/email/emailConfirm",
+    url: `${baseUrl}/email/emailConfirm`,
     method: "POST",
     body: userObj,
   });
@@ -188,7 +189,7 @@ export const sendEmailConfirm = (userObj: UserObj) => {
 
 export const updateUser = (id: string, body: UserUpdate) => {
   const result = fetcher({
-    url: "http://localhost:5174/api/user",
+    url: `${baseUrl}/user`,
     method: "PUT",
     body: { ...body, id },
   });
