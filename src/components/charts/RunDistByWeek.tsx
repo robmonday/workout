@@ -16,15 +16,15 @@ export default function RunDistByWeek() {
 
   useEffect(() => {
     setChartData({
-      labels: Data.map((element) => element.year),
+      labels: Data.map((element: any) => element.year),
       datasets: [
         {
           // label: "",
-          data: Data.map((data) => data.userGain),
+          data: Data.map((data: any) => data.userGain),
         },
         {
           // label: "",
-          data: Data.map((data) => data.userLost),
+          data: Data.map((data: any) => data.userLost),
         },
       ],
     });
