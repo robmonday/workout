@@ -71,6 +71,15 @@ export const BadgeGallery = () => {
 
 export const MyBadges = () => {
   const state = useContext(StateContext);
+  const dispatch = useContext(DispatchContext);
+
+  useEffect(() => {
+    getAllBadges().then((badges) => {
+      console.log("badges from parent element request", badges);
+      dispatch({ type: "set_badges", payload: badges });
+    });
+  }, []);
+
   return (
     <>
       <div className="p-2 text-2xl">My Badges</div>

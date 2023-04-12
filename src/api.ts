@@ -121,6 +121,14 @@ export const deleteWorkout = (id: string) => {
   });
 };
 
+export const deleteWorkoutSeedData = (id: string) => {
+  return fetcher({
+    url: `${baseUrl}/workout/seed`,
+    method: "DELETE",
+    body: { id },
+  });
+};
+
 export const getAllBadges = () => {
   const result = fetcher({
     url: `${baseUrl}/badge`,

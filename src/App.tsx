@@ -18,6 +18,7 @@ import EmailConfirm from "./components/EmailConfirm";
 import Notifications from "./components/Notifications";
 import Badges from "./components/Badges";
 import Friends from "./components/Friends";
+import SeedDelete from "./components/SeedDelete";
 
 function App(): JSX.Element {
   const state = useContext(StateContext);
@@ -63,6 +64,10 @@ function App(): JSX.Element {
           <Route
             path="friends"
             element={state.token ? <Friends /> : <LogInForm />}
+          />
+          <Route
+            path="deleteseed"
+            element={state.token ? <SeedDelete /> : <LogInForm />}
           />
           <Route path="*" element={<NotFound />} />
         </Route>
