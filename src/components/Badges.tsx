@@ -29,14 +29,6 @@ export default function Badges() {
   );
 }
 
-export const BadgeRender = ({ type = "Badge" }) => {
-  return (
-    <div className="m-3 rounded-full  bg-orange-200 p-4 text-center hover:shadow-lg active:translate-y-1">
-      {type}
-    </div>
-  );
-};
-
 export const BadgeGallery = () => {
   const [galleryBadges, setGalleryBadges] = useState<Badge[]>([]);
 
@@ -44,20 +36,33 @@ export const BadgeGallery = () => {
     getBadgeGallery().then((badges) => setGalleryBadges(badges));
   }, []);
 
+  const colors = [
+    "bg-red-200",
+    "bg-blue-200",
+    "bg-green-200",
+    "bg-yellow-200",
+    "bg-orange-200",
+    "bg-fuchsia-200",
+    "bg-pink-200",
+  ];
+
   return (
     <>
       <div className="p-2 text-2xl">Badge Gallery</div>
       <div className="panel">
         <div className="m-2 flex flex-wrap place-content-evenly rounded-lg bg-gradient-to-br from-purple-200 to-purple-300 px-2">
           {galleryBadges?.length > 0 &&
-            galleryBadges?.map((b) => (
-              <div
-                key={b.id}
-                className="m-3 rounded-full  bg-orange-200 p-4 text-center hover:shadow-lg active:translate-y-1"
-              >
-                {b.type}
-              </div>
-            ))}
+            galleryBadges?.map((b) => {
+              const bgColor = colors[Math.floor(Math.random() * colors.length)];
+              return (
+                <div
+                  key={b.id}
+                  className={`m-3 rounded-full   p-4 text-center hover:shadow-lg active:translate-y-1 ${bgColor}`}
+                >
+                  {b.type}
+                </div>
+              );
+            })}
         </div>
       </div>
     </>
@@ -90,7 +95,7 @@ export const FriendsBadges = () => {
   const state = useContext(StateContext);
   return (
     <>
-      <div className="p-2 text-2xl">My Friends' Badges</div>
+      <div className="p-2 text-2xl">Friends' Badges</div>
       <div className="panel">
         <div className="m-2 flex flex-wrap place-content-evenly rounded-lg bg-gradient-to-br from-purple-200 to-purple-300 px-2">
           {state.badges?.length > 0 &&

@@ -55,11 +55,11 @@ const Layout = () => {
           <div className="">
             <nav className="h-15 flex justify-around ">
               <Link to="/main" className="nav-link">
-                Main
+                Home
               </Link>
-              <Link to="/workout" className="nav-link">
+              {/* <Link to="/workout" className="nav-link">
                 Workout
-              </Link>
+              </Link> */}
               <Link to="/data" className="nav-link">
                 My Data
               </Link>
