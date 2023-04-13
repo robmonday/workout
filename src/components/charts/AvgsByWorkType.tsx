@@ -54,6 +54,7 @@ export default function AvgByWorkType({
         display: true,
         anchor: "end",
         font: { size: 14, weight: "bold" },
+        formatter: Math.round,
       },
     },
   };
