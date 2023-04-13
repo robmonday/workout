@@ -162,6 +162,15 @@ export const getWorksGrpByLoc = () => {
   return result;
 };
 
+export const getUsers = (limit = 0) => {
+  const queryString = limit !== 0 ? `/?limit=${limit}` : "";
+  const result = fetcher({
+    url: `${baseUrl}/user${queryString}`,
+    method: "GET",
+  });
+  return result;
+};
+
 export const getUser = (id: string) => {
   const result = fetcher({
     url: `${baseUrl}/user/${id}`,

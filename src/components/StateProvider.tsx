@@ -6,14 +6,14 @@ import {
   Reducer,
 } from "react";
 
-import { Workout, Badge, WorkoutType, Notification } from "../types";
+import { Workout, Badge, WorkoutType, Notification, Friend } from "../types";
 
 // creating and typing initial state
 
 type State = {
   workouts: Workout[];
   selectedWorkout: string;
-  filterText: string;
+  workoutFilterText: string;
   detailPanelDisplay: "WorkoutDetail" | "WorkoutFormAdd" | "WorkoutFormEdit";
   workoutToEdit: Workout | undefined;
   updatedWorkout: Workout | undefined;
@@ -21,13 +21,16 @@ type State = {
   workoutTypes: WorkoutType[] | undefined;
   openNotifications: Notification[] | undefined;
   user: any;
+  findfriendList: Friend[];
+  friends: Friend[];
+  findFriendsFilterText: string;
   token: string;
 };
 
 const initialState: State = {
   workouts: [],
   selectedWorkout: "",
-  filterText: "",
+  workoutFilterText: "",
   detailPanelDisplay: "WorkoutDetail",
   workoutToEdit: undefined,
   updatedWorkout: undefined,
@@ -35,6 +38,9 @@ const initialState: State = {
   workoutTypes: undefined,
   openNotifications: undefined,
   user: undefined,
+  findfriendList: [],
+  friends: [],
+  findFriendsFilterText: "",
   token: "",
 };
 
@@ -86,8 +92,8 @@ const reducer = (state: State, action: Action) => {
         ...state,
         workouts: workoutsAfterDelete,
       };
-    case "update_filter_text":
-      return { ...state, filterText: action.payload };
+    case "update_workout_filter":
+      return { ...state, workoutFilterText: action.payload };
     case "filter_workouts":
       return { ...state, workouts: action.payload };
     case "update_account_details":

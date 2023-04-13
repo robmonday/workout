@@ -54,7 +54,10 @@ export default function AvgByWorkType({
         display: true,
         anchor: "end",
         font: { size: 14, weight: "bold" },
-        formatter: Math.round,
+        formatter: (value, context) => {
+          if (isNaN(value)) return "";
+          return Math.round(value);
+        },
       },
     },
   };

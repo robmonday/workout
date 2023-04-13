@@ -1,5 +1,6 @@
 import { useEffect, useContext, useState } from "react";
 import { StateContext, DispatchContext } from "./StateProvider";
+import SearchBar from "./SearchBar";
 
 import {
   createWorkout,
@@ -35,7 +36,7 @@ export default function WorkoutHistory() {
       <div className="panel flex">
         <div className="flex w-1/2 lg:w-1/3 ">
           <div className="flex w-full flex-col rounded-lg border-2 border-purple-400 py-1 px-3">
-            <WorkoutSearchBar />
+            <SearchBar updateFilterActionTypeName="update_workout_filter" />
             <WorkoutHistoryList handleDeleteWorkout={handleDeleteWorkout} />
           </div>
         </div>
@@ -143,27 +144,6 @@ const WorkoutHistoryList = ({
         ))}
       </div>
     </div>
-  );
-};
-
-const WorkoutSearchBar = () => {
-  const state = useContext(StateContext);
-  const dispatch = useContext(DispatchContext);
-
-  return (
-    <>
-      <form>
-        <input
-          type="text"
-          value={state.workoutFilterText}
-          onChange={(e) =>
-            dispatch({ type: "update_workout_filter", payload: e.target.value })
-          }
-          placeholder="Start typing to filter..."
-          className="input mt-2 w-full text-gray-500"
-        />
-      </form>
-    </>
   );
 };
 

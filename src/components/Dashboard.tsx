@@ -9,7 +9,7 @@ import AvgsByWorkType from "./charts/AvgsByWorkType";
 export default function Dashboard() {
   return (
     <div className="">
-      <div className="p-2 text-xl">Dashboard</div>
+      <div className="p-2 text-2xl">Dashboard</div>
 
       <div className="py-2">
         <TimeSeries />

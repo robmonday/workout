@@ -94,11 +94,9 @@ export default function TimeSeries() {
               legend: { display: false, position: "top" },
               datalabels: {
                 display: true,
-                formatter: function (value: string, context: any) {
-                  return (
-                    // context.chart.data.labels[context.dataIndex] + "\n" +
-                    value && parseInt(value).toLocaleString("en-US")
-                  );
+                formatter: (value, context) => {
+                  if (isNaN(value)) return "";
+                  return value && parseInt(value).toLocaleString("en-US");
                 },
                 color: "black",
                 anchor: "center",

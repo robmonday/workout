@@ -71,6 +71,8 @@ export type UserInfo = {
   emailConfirmed: boolean;
 };
 
+export type Friend = Omit<UserInfo, "emailConfirmed">;
+
 export type AccountDetails = {
   firstName: string;
   lastName: string;
