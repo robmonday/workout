@@ -1,6 +1,3 @@
-import { DispatchContext, StateContext } from "./StateProvider";
-import { getPotentialFriends } from "../api";
-
 import {
   useEffect,
   useState,
@@ -8,6 +5,9 @@ import {
   PropsWithChildren,
   createContext,
 } from "react";
+
+import { DispatchContext, StateContext } from "./StateProvider";
+import { getPotentialFriends } from "../api";
 
 import { dateToWeekdayDate } from "../util";
 import { Plus, Edit2, Trash2, X, Check } from "react-feather";
@@ -53,8 +53,6 @@ export default function Social() {
   );
 }
 
-export function FindFriends() {}
-
 const FriendContext = createContext<Friend>({
   id: "",
   firstName: "",
@@ -70,9 +68,15 @@ export function FriendList({
   items,
   children,
 }: PropsWithChildren<FriendListProps>) {
+  const [filter, setFilter] = useState("");
+
   const filteredItems = items.filter((i: any) => {
-    // return i.notes?.toLowerCase().includes(state.filter.toLowerCase()); // use || to add multiple filter fields
-    return true;
+    return (
+      i.firstName?.toLowerCase().includes(filter.toLowerCase()) ||
+      i.lastName?.toLowerCase().includes(filter.toLowerCase()) ||
+      i.city?.toLowerCase().includes(filter.toLowerCase()) ||
+      i.state?.toLowerCase().includes(filter.toLowerCase())
+    );
   });
 
   return (
@@ -82,11 +86,12 @@ export function FriendList({
           <input
             type="text"
             placeholder="Start typing to filter..."
+            onChange={(e) => setFilter(e.target.value)}
             className="input mt-2 w-full text-gray-500"
           />
         </form>
 
-        <div className="h-72 overflow-y-auto">
+        <div className="h-96 overflow-y-auto">
           {filteredItems?.map((f: Friend) => {
             return (
               <FriendContext.Provider value={f} key={f.id}>

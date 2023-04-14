@@ -12,27 +12,56 @@ export default function Settings() {
     <>
       <div className="p-2 text-xl">Settings</div>
       <div className="flex flex-wrap">
-        <div className=" w-[40rem]">
+        <div className="w-[40rem]">
           <AccountDetails />
         </div>
+
         <div className=" w-[40rem]">
           <PersonalDetails />
         </div>
+
+        <div className=" w-[40rem]">
+          <Profile />
+        </div>
+
+        <div className="w-[40rem]">
+          <WorkoutSettings />
+        </div>
+
         <div className=" w-[40rem]">
           <div className="panel">
             <div className="flex justify-start">
-              <div className="p mb-4 h-56 text-lg">Sharing & Privacy</div>
+              <div className="p mb-4 text-lg">Sharing & Privacy</div>
               <div
                 onClick={() => alert("Edit")}
-                className="btn btn-purple -z-10 m-0 mx-2 h-fit px-2 py-0.5"
+                className="btn btn-purple m-0 mx-2 h-fit px-2 py-0.5"
               >
                 Edit
               </div>
+              <div className="h-56 "></div>
             </div>
           </div>
         </div>
-        <div className="w-[40rem]">
-          <WorkoutSettings />
+      </div>
+    </>
+  );
+}
+
+export function Profile() {
+  return (
+    <>
+      <div className="panel">
+        <div className="flex ">
+          <div className="mb-4 text-lg">Profile</div>
+          <div
+            onClick={() => alert("Edit")}
+            className="btn btn-purple m-0 mx-2 h-fit px-2 py-0.5"
+          >
+            Edit
+          </div>
+        </div>
+        <div className="h-56">
+          <p className="p-2">Upload profile picture</p>
         </div>
       </div>
     </>
@@ -338,7 +367,7 @@ export function WorkoutSettings() {
   return (
     <div className="panel">
       <div className=" flex justify-start">
-        <div className="p mb-4 text-lg ">Workout Type Configuration</div>
+        <div className="mb-4 text-lg ">Workout Type Configuration</div>
         <div
           className="btn btn-purple m-0 mx-3 h-fit px-2 py-0.5"
           onClick={() =>
