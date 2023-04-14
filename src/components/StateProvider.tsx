@@ -21,7 +21,8 @@ type State = {
   workoutTypes: WorkoutType[] | undefined;
   openNotifications: Notification[] | undefined;
   user: any;
-  findfriendList: Friend[];
+  potentialFriends: Friend[];
+  incomingFriendRequests: Friend[];
   friends: Friend[];
   findFriendsFilterText: string;
   token: string;
@@ -38,7 +39,8 @@ const initialState: State = {
   workoutTypes: undefined,
   openNotifications: undefined,
   user: undefined,
-  findfriendList: [],
+  potentialFriends: [],
+  incomingFriendRequests: [],
   friends: [],
   findFriendsFilterText: "",
   token: "",
@@ -115,6 +117,8 @@ const reducer = (state: State, action: Action) => {
       return { ...state, token: action.payload };
     case "log_out":
       return initialState;
+    case "set_potential_friends":
+      return { ...state, potentialFriends: action.payload };
     default:
       console.error("Unknown action dispatched to reducer.");
       return state;

@@ -66,6 +66,9 @@ const Layout = () => {
               <Link to="/dashboard" className="nav-link">
                 Dashboard
               </Link>
+              <Link to="/social" className="nav-link">
+                Friends
+              </Link>
               <Link to="/badges" className="nav-link">
                 Badges
               </Link>
@@ -109,7 +112,7 @@ const Layout = () => {
 
                     <li className="py-1">
                       <Link
-                        to="/friends"
+                        to="/social"
                         className="block cursor-pointer text-base text-gray-800 hover:text-purple-800"
                       >
                         <div className="flex px-2 py-1">

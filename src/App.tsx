@@ -17,7 +17,7 @@ import NotFound from "./components/NotFound";
 import EmailConfirm from "./components/EmailConfirm";
 import Notifications from "./components/Notifications";
 import Badges from "./components/Badges";
-import Friends from "./components/Friends";
+import Social from "./components/Social";
 import SeedDelete from "./components/SeedDelete";
 
 function App(): JSX.Element {
@@ -62,8 +62,8 @@ function App(): JSX.Element {
             element={state.token ? <EmailConfirm /> : <LogInForm />}
           />
           <Route
-            path="friends"
-            element={state.token ? <Friends /> : <LogInForm />}
+            path="social"
+            element={state.token ? <Social /> : <LogInForm />}
           />
           <Route
             path="deleteseed"

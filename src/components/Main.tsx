@@ -15,7 +15,7 @@ export default function Main() {
           </div>
         </div>
         <div className="w-[30rem]">
-          <div className="p-2 text-2xl">Featured Products</div>
+          <div className="p-2 text-2xl">Recent Activity</div>
           <div className="panel min-h-[150px]">
             <div className="p-3">
               <p className="mb-3 text-xl">...</p>
