@@ -99,7 +99,7 @@ const WorkoutHistoryList = ({
       >
         <Plus strokeWidth={0.75} />
       </div>
-      <div className="h-72 overflow-y-auto">
+      <div className="h-[60vh] overflow-y-auto">
         {filteredWorkouts?.map((w) => (
           <div
             key={w.id}

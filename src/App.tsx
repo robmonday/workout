@@ -9,7 +9,7 @@ import LogInForm from "./components/LogInForm";
 import SignUpForm from "./components/SignUpForm";
 import Home from "./components/Home";
 import Main from "./components/Main";
-import DataEntryMode from "./components/DataEntryMode";
+import DataEntryMode from "./components/MyData";
 import WorkoutMode from "./components/WorkoutMode";
 import Dashboard from "./components/Dashboard";
 import Settings from "./components/Settings";

@@ -10,20 +10,20 @@ export default function Main() {
       <div className="flex flex-wrap justify-around">
         <div className="w-[30rem]">
           <div className="p-2 text-2xl">Announcements</div>
-          <div className="panel min-h-[150px]">
+          <div className="panel h-96">
             <Announcements />
           </div>
         </div>
         <div className="w-[30rem]">
-          <div className="p-2 text-2xl">Recent Activity</div>
-          <div className="panel min-h-[150px]">
+          <div className="p-2 text-2xl">Recent Activity Feed</div>
+          <div className="panel h-96">
             <div className="p-3">
               <p className="mb-3 text-xl">...</p>
               ...
             </div>
           </div>
         </div>
-        <div className="w-[30rem]">
+        <div className="w-[30rem] ">
           <MyBadges />
         </div>
       </div>
