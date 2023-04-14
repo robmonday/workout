@@ -60,16 +60,12 @@ export type UserObj = {
   lastName: string;
   email: string;
   token: string;
-  emailConfirmed: boolean;
+  emailConfirmed?: boolean;
+  city?: string;
+  state?: State; // this is an enum
 };
 
-export type UserInfo = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  emailConfirmed: boolean;
-};
+export type UserInfo = Omit<UserObj, "token">;
 
 export type Friend = Omit<UserInfo, "emailConfirmed">;
 
@@ -111,3 +107,57 @@ export type EmailConfirm = {
   user?: UserInfo;
   token?: string;
 };
+
+enum State {
+  AL,
+  AK,
+  AZ,
+  AR,
+  CA,
+  CO,
+  CT,
+  DE,
+  DC,
+  FL,
+  GA,
+  HI,
+  ID,
+  IL,
+  IN,
+  IA,
+  KS,
+  KY,
+  LA,
+  ME,
+  MD,
+  MA,
+  MI,
+  MN,
+  MS,
+  MO,
+  MT,
+  NE,
+  NV,
+  NH,
+  NJ,
+  NM,
+  NY,
+  NC,
+  ND,
+  OH,
+  OK,
+  OR,
+  PA,
+  RI,
+  SC,
+  SD,
+  TN,
+  TX,
+  UT,
+  VT,
+  VA,
+  WA,
+  WV,
+  WI,
+  WY,
+}
