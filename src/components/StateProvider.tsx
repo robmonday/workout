@@ -23,6 +23,7 @@ type State = {
   user: any;
   potentialFriends: Friend[];
   incomingFriendRequests: Friend[];
+  outgoingFriendRequests: Friend[];
   friends: Friend[];
   findFriendsFilterText: string;
   token: string;
@@ -41,6 +42,7 @@ const initialState: State = {
   user: undefined,
   potentialFriends: [],
   incomingFriendRequests: [],
+  outgoingFriendRequests: [],
   friends: [],
   findFriendsFilterText: "",
   token: "",
@@ -123,6 +125,19 @@ const reducer = (state: State, action: Action) => {
       return { ...state, friends: [...state.friends, action.payload] };
     case "undo_accept_friend_request":
       return { ...state, friends: state.friends.slice(0, -1) };
+    case "create_friend_request":
+      return {
+        ...state,
+        outgoingFriendRequests: [
+          ...state.outgoingFriendRequests,
+          action.payload,
+        ],
+      };
+    case "undo_create_friend_request":
+      return {
+        ...state,
+        outgoingFriendRequests: state.outgoingFriendRequests.slice(0, -1),
+      };
     default:
       console.error("Unknown action dispatched to reducer.");
       return state;
