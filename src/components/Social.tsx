@@ -43,7 +43,7 @@ export default function Social() {
           </div>
           <div className="w-[23rem]">
             <div className="p-2 text-xl">My Friends</div>
-            <FriendList items={state.potentialFriends.slice(-1)}>
+            <FriendList items={state.friends}>
               <Friend />
             </FriendList>
           </div>
@@ -131,13 +131,11 @@ export function PotentialFriend() {
           <div className="">
             {friend.firstName} {friend.lastName}
           </div>
-          <span className="" onClick={() => alert("click")}>
-            <div className="font-light text-purple-700 ">
-              <div className="">
-                {friend.city || "City"}, {friend.state || "State"}
-              </div>
+          <div className="font-light text-purple-700 ">
+            <div className="">
+              {friend.city || "City"}, {friend.state || "State"}
             </div>
-          </span>
+          </div>
         </div>
         <span className="">
           {btnSelected ? (
@@ -171,8 +169,18 @@ export function IncomingFriendRequest() {
   const [status, setStatus] = useState<boolean | undefined>(undefined);
   const friend = useContext(FriendContext);
 
-  const handleAccept = () => {
+  const dispatch = useContext(DispatchContext);
+
+  const handleAccept = (friend: Friend) => {
     setStatus(true);
+    dispatch({ type: "accept_friend_request", payload: friend });
+    // request to backend needed here
+  };
+
+  const handleUndo = (friend: Friend) => {
+    setStatus(undefined);
+    status === true &&
+      dispatch({ type: "undo_accept_friend_request", payload: friend });
     // request to backend needed here
   };
 
@@ -184,7 +192,7 @@ export function IncomingFriendRequest() {
   let selection;
   if (status === true) {
     selection = (
-      <div onClick={() => setStatus(undefined)} className="h-full">
+      <div onClick={() => handleUndo(friend)} className="h-full">
         <div className="float-right ml-1 rounded border border-gray-400 bg-purple-100 hover:bg-gray-500 hover:text-white active:bg-gray-700 ">
           <X className="inline" strokeWidth={0.75} />
           <div className="hidden pr-2 text-sm sm:inline">Undo</div>
@@ -197,7 +205,7 @@ export function IncomingFriendRequest() {
   }
   if (status === false) {
     selection = (
-      <div onClick={() => setStatus(undefined)} className="h-full">
+      <div onClick={() => handleUndo(friend)} className="h-full">
         <div className="float-right ml-1 rounded border border-gray-400 bg-purple-100 hover:bg-gray-500 hover:text-white active:bg-gray-700 ">
           <X className="inline" strokeWidth={0.75} />
           <div className="hidden pr-2 text-sm sm:inline">Undo</div>
@@ -212,7 +220,7 @@ export function IncomingFriendRequest() {
   const buttons = (
     <div>
       <div
-        onClick={handleAccept}
+        onClick={() => handleAccept(friend)}
         className="ml-1 rounded border border-green-400 bg-green-200 hover:bg-green-500 hover:text-white active:bg-green-700"
       >
         <Check className="inline" strokeWidth={0.75} />
@@ -240,14 +248,12 @@ export function IncomingFriendRequest() {
           <div className="">
             {friend.firstName} {friend.lastName}
           </div>
-          <span className="" onClick={() => alert("click")}>
-            <div className="font-light text-purple-700 ">
-              <div className="">
-                {friend.city || "City"}, {friend.state || "State"}
-              </div>
-              <div className="">Request {dateToWeekdayDate(Date())}</div>
+          <div className="font-light text-purple-700 ">
+            <div className="">
+              {friend.city || "City"}, {friend.state || "State"}
             </div>
-          </span>
+            <div className="">Request {dateToWeekdayDate(Date())}</div>
+          </div>
         </div>
         {status === undefined ? buttons : selection}
       </div>
@@ -281,14 +287,12 @@ export function Friend() {
           <div className="">
             {friend.firstName} {friend.lastName}
           </div>
-          <span className="" onClick={() => alert("click")}>
-            <div className="font-light text-purple-700 ">
-              <div className="">
-                {friend.city || "City"}, {friend.state || "State"}
-              </div>
-              <div className="">Since {dateToWeekdayDate(Date())}</div>
+          <div className="font-light text-purple-700 ">
+            <div className="">
+              {friend.city || "City"}, {friend.state || "State"}
             </div>
-          </span>
+            <div className="">Since {dateToWeekdayDate(Date())}</div>
+          </div>
         </div>
         <span className="">
           {btnSelected ? (

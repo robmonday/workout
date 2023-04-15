@@ -119,6 +119,10 @@ const reducer = (state: State, action: Action) => {
       return initialState;
     case "set_potential_friends":
       return { ...state, potentialFriends: action.payload };
+    case "accept_friend_request":
+      return { ...state, friends: [...state.friends, action.payload] };
+    case "undo_accept_friend_request":
+      return { ...state, friends: state.friends.slice(0, -1) };
     default:
       console.error("Unknown action dispatched to reducer.");
       return state;
