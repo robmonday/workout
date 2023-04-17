@@ -229,3 +229,11 @@ export const updateUser = (id: string, body: UserUpdate) => {
   });
   return result;
 };
+
+export const getLeaderboard = () => {
+  const result = fetcher({
+    url: `${baseUrl}/workout/leaderboard`,
+    method: "GET",
+  });
+  return result;
+};

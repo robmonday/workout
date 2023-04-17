@@ -4,19 +4,18 @@ import { StateContext } from "./StateProvider";
 import { MyBadges } from "./Badges";
 import TempToastMessage from "./TempToastMessage";
 import Timer from "./Timer";
+import Leaderboards from "./Leaderboards";
 
 export default function Main() {
   return (
     <>
       <div className="flex flex-wrap justify-around">
-        <div className="min-w-[30rem]">
+        <div className="w-[30rem] flex-grow">
           <div className="p-2 text-2xl">Announcements</div>
           <div className="panel h-52">
             <Announcements />
           </div>
-        </div>
-        <div className="w-[30rem] flex-grow">
-          <div className="p-2 text-2xl">Recent Activity Feed</div>
+          <div className="p-2 text-2xl">Friends' Activity Feed</div>
           <div className="panel h-96">
             <div className="p-3">
               <p className="mb-3 text-xl">...</p>
@@ -24,7 +23,10 @@ export default function Main() {
             </div>
           </div>
         </div>
-        <div className="w-[15rem]">
+        <div className="w-[30rem] flex-grow">
+          <Leaderboards />
+        </div>
+        <div className="w-[15rem] flex-grow">
           <Timer />
           <MyBadges />
         </div>

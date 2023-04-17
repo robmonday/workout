@@ -38,26 +38,28 @@ export default function Timer() {
   const hoursPassed = Math.floor(minutesPassed / 60);
 
   return (
-    <div className="inline-block align-top ">
+    <div className="align-top ">
       <div className="p-2 text-2xl">Workout Timer</div>
       <div className="panel">
-        <div className="px-6 py-4 text-center">
-          {hoursPassed.toString().padStart(2, "0")}:
-          {(minutesPassed % 60).toString().padStart(2, "0")}:
-          {(secondsPassed % 60).toFixed(2).padStart(5, "0")}
-        </div>
-        <div className="">
-          {timerOn === false ? (
-            <div className="btn btn-green py-2 px-6" onClick={handleStart}>
-              Start
+        <div className="flex flex-wrap justify-center">
+          <div className="px-6 py-4 text-center">
+            {hoursPassed.toString().padStart(2, "0")}:
+            {(minutesPassed % 60).toString().padStart(2, "0")}:
+            {(secondsPassed % 60).toFixed(2).padStart(5, "0")}
+          </div>
+          <div>
+            {timerOn === false ? (
+              <div className="btn btn-green py-2 px-6" onClick={handleStart}>
+                Start
+              </div>
+            ) : (
+              <div className="btn btn-red py-2 px-6" onClick={handleStop}>
+                Stop
+              </div>
+            )}
+            <div className="btn btn-secondary py-2 px-4" onClick={handleClear}>
+              Reset
             </div>
-          ) : (
-            <div className="btn btn-red py-2 px-6" onClick={handleStop}>
-              Stop
-            </div>
-          )}
-          <div className="btn btn-secondary py-2 px-4" onClick={handleClear}>
-            Reset
           </div>
         </div>
       </div>
