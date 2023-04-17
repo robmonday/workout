@@ -80,7 +80,7 @@ export default function TimeSeries() {
             <option value="steps">Steps</option>
             <option value="calories">Calories</option>
             <option value="miles">Miles</option>
-            <option value="minutes">Minutes</option>
+            {/* <option value="minutes">Minutes</option> */}
           </select>
         </div>
         <Bar

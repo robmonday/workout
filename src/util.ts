@@ -19,3 +19,12 @@ export function dateToTime(dateString: string): string {
   });
   return fomatObj.format(date).toString();
 }
+
+export function setLocalDTString(date: Date | undefined): string | undefined {
+  if (date) {
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+      .toISOString()
+      .slice(0, -8);
+  }
+  return undefined;
+}

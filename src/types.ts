@@ -10,6 +10,9 @@ export type SignUpRequest = LogInRequest & {
 
 export type WorkoutRequest = {
   location: string;
+  start: Date;
+  end: Date;
+  minutes?: undefined;
   distance: number;
   steps: number;
   calories: number;

@@ -13,7 +13,7 @@ import { ArrowLeft, Plus, Edit2, Trash2 } from "react-feather";
 
 import { Workout, WorkoutType } from "../types";
 
-import { dateToWeekdayDate, dateToTime } from "../util";
+import { dateToWeekdayDate, dateToTime, setLocalDTString } from "../util";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
@@ -237,6 +237,29 @@ const WorkoutDetail = ({
   );
 };
 
+const schema = z.object({
+  workoutTypeId: z.string().min(1, "Please choose"),
+  location: z.string().min(3, "Location name is too short"),
+  end: z
+    .date()
+    .min(new Date(Date.now() - 5 * 365 * 24 * 60 * 60 * 1000), {
+      message: "Too far in the past",
+    })
+    .max(new Date(Date.now() + 24 * 60 * 60 * 1000), {
+      message: "Too far in the future",
+    }),
+  minutes: z.number().min(0, "Can't be negative").max(750, "Number too high"),
+  steps: z.number().min(0, "Can't be negative").max(100000, "Number too high"),
+  distance: z.number().min(0, "Can't be negative").max(50, "Number too high"),
+  calories: z
+    .number()
+    .min(0, "Can't be negative")
+    .max(20000, "Number too high"),
+  notes: z.string().optional(),
+});
+
+export type workoutFormValues = z.infer<typeof schema>;
+
 type WorkoutFormProps = {
   workout?: Workout;
 };
@@ -246,31 +269,13 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
 
   const [workoutTypes, setWorkoutTypes] = useState<WorkoutType[]>([]);
 
-  const schema = z.object({
-    workoutTypeId: z.string().min(1, "Please choose"),
-    location: z.string().min(3, "Location name is too short"),
-    steps: z
-      .number()
-      .min(0, "Can't be negative")
-      .max(100000, "Number too high"),
-    distance: z.number().min(0, "Can't be negative").max(50, "Number too high"),
-    calories: z
-      .number()
-      .min(0, "Can't be negative")
-      .max(20000, "Number too high"),
-    notes: z.string().optional(),
-  });
-
-  type FormValues = z.infer<typeof schema>;
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
-  } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  } = useForm<workoutFormValues>({ resolver: zodResolver(schema) });
 
-  const onSubmitNew: SubmitHandler<FormValues> = async (data) => {
+  const onSubmitNew: SubmitHandler<workoutFormValues> = async (data) => {
     dispatch({ type: "hide_workout_form" });
     console.log("data from form", data);
     const newWorkout = await createWorkout(data);
@@ -278,7 +283,7 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
     dispatch({ type: "add_workout", payload: newWorkout });
   };
 
-  const onSubmitEdit: SubmitHandler<FormValues> = async (data) => {
+  const onSubmitEdit: SubmitHandler<workoutFormValues> = async (data) => {
     dispatch({ type: "hide_workout_form" });
     // console.log("data from form", data);
     if (workout) {
@@ -294,8 +299,6 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
       setWorkoutTypes(workoutTypes);
     });
   }, []);
-
-  console.log("workoutTypes", workoutTypes);
 
   return (
     <>
@@ -318,7 +321,7 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
         }
         className="my-5"
       >
-        <label className="inline-block w-20">Type</label>
+        <label className="inline-block w-28">Type</label>
         <select
           className="input w-52"
           {...register("workoutTypeId")}
@@ -346,7 +349,7 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
         )}
         <br />
 
-        <label className="inline-block w-20">Location</label>
+        <label className="inline-block w-28">Location</label>
         <input
           className="input "
           placeholder=""
@@ -359,7 +362,40 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
         )}
         <br />
 
-        <label className="inline-block w-20">Steps</label>
+        <label className="inline-block w-28">Date & Time</label>
+        <input
+          className="input "
+          {...register("end", { valueAsDate: true })}
+          type="datetime-local"
+          defaultValue={
+            workout
+              ? setLocalDTString(new Date(workout?.end))
+              : setLocalDTString(new Date())
+          }
+        />
+        {errors.end && (
+          <span className="ml-2 text-red-600">{errors.end.message}</span>
+        )}
+        <br />
+
+        <label className="inline-block w-28">Minutes</label>
+        <input
+          className="input "
+          {...register("minutes", { valueAsNumber: true })}
+          type="number"
+          defaultValue={
+            workout &&
+            Math.round(
+              (Date.parse(workout.end) - Date.parse(workout.start)) / 1000 / 60
+            )
+          }
+        />
+        {errors.minutes && (
+          <span className="ml-2 text-red-600">{errors.minutes.message}</span>
+        )}
+        <br />
+
+        <label className="inline-block w-28">Steps</label>
         <input
           className="input "
           {...register("steps", { valueAsNumber: true })}
@@ -372,7 +408,7 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
         )}
         <br />
 
-        <label className="inline-block w-20">Distance</label>
+        <label className="inline-block w-28">Distance</label>
         <input
           className="input "
           {...register("distance", { valueAsNumber: true })}
@@ -386,7 +422,7 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
         )}
         <br />
 
-        <label className="inline-block w-20">Calories</label>
+        <label className="inline-block w-28">Calories</label>
         <input
           className="input "
           {...register("calories", { valueAsNumber: true })}
@@ -399,7 +435,7 @@ const WorkoutForm = ({ workout }: WorkoutFormProps) => {
         )}
         <br />
 
-        <label className="inline-block w-20 align-top">Notes</label>
+        <label className="inline-block w-28 align-top">Notes</label>
         <textarea
           className="input "
           placeholder="optional"

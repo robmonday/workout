@@ -1,3 +1,4 @@
+import { workoutFormValues } from "./components/WorkoutHistory";
 import {
   SignUpRequest,
   LogInRequest,
@@ -96,15 +97,30 @@ export const getAvgsByWorkType = () => {
   return result;
 };
 
-export const createWorkout = (body: WorkoutRequest) => {
-  return fetcher({
+export const createWorkout = (formValues: workoutFormValues) => {
+  const body: WorkoutRequest = {
+    ...formValues,
+    start: new Date(
+      Date.parse(formValues.end.toISOString()) - formValues.minutes * 60 * 1000
+    ),
+    minutes: undefined,
+  };
+  const result = fetcher({
     url: `${baseUrl}/workout`,
     method: "POST",
     body,
   });
+  return result;
 };
 
-export const updateWorkout = (id: string, body: WorkoutRequest) => {
+export const updateWorkout = (id: string, formValues: workoutFormValues) => {
+  const body: WorkoutRequest = {
+    ...formValues,
+    start: new Date(
+      Date.parse(formValues.end.toISOString()) - formValues.minutes * 60 * 1000
+    ),
+    minutes: undefined,
+  };
   const result = fetcher({
     url: `${baseUrl}/workout`,
     method: "PUT",
