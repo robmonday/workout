@@ -1,4 +1,8 @@
-import { useEffect, useContext, useState } from "react";
+import {
+  useEffect,
+  useContext,
+  useState,
+} from "react";
 import { DispatchContext } from "./StateProvider";
 
 import { createWorkout, updateWorkout, getAllWorkoutTypes } from "../api";
@@ -15,7 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
   workoutTypeId: z.string().min(1, "Please choose"),
-  location: z.string().min(3, "Location name is too short"),
+  location: z.string().min(3, "Too short"),
   end: z
     .date()
     .min(new Date(Date.now() - 5 * 365 * 24 * 60 * 60 * 1000), {
@@ -37,10 +41,18 @@ const schema = z.object({
 export type workoutFormValues = z.infer<typeof schema>;
 
 type WorkoutFormProps = {
+  hide: () => void;
+  setSubmitted?: (status: boolean) => void;
   workout?: Workout;
+  minutes?: number;
 };
 
-export default function WorkoutForm({ workout }: WorkoutFormProps) {
+export default function WorkoutForm({
+  hide,
+  setSubmitted,
+  workout,
+  minutes,
+}: WorkoutFormProps) {
   const dispatch = useContext(DispatchContext);
 
   const [workoutTypes, setWorkoutTypes] = useState<WorkoutType[]>([]);
@@ -52,15 +64,18 @@ export default function WorkoutForm({ workout }: WorkoutFormProps) {
   } = useForm<workoutFormValues>({ resolver: zodResolver(schema) });
 
   const onSubmitNew: SubmitHandler<workoutFormValues> = async (data) => {
-    dispatch({ type: "hide_workout_form" });
+    hide();
+    setSubmitted && setSubmitted(true)
     console.log("data from form", data);
     const newWorkout = await createWorkout(data);
     console.log("newWorkout", newWorkout);
     dispatch({ type: "add_workout", payload: newWorkout });
+
   };
 
   const onSubmitEdit: SubmitHandler<workoutFormValues> = async (data) => {
-    dispatch({ type: "hide_workout_form" });
+    hide();
+    setSubmitted && setSubmitted(true);
     // console.log("data from form", data);
     if (workout) {
       const editedWorkout = await updateWorkout(workout.id, data);
@@ -79,7 +94,7 @@ export default function WorkoutForm({ workout }: WorkoutFormProps) {
   return (
     <>
       <div
-        onClick={() => dispatch({ type: "hide_workout_form" })}
+        onClick={() => hide()}
         className="text-gray-00 float-left mr-3 rounded py-1 pl-1 pr-2 hover:bg-purple-500 hover:text-white active:bg-purple-700"
       >
         <ArrowLeft className="inline-block" strokeWidth={0.75} />
@@ -160,10 +175,13 @@ export default function WorkoutForm({ workout }: WorkoutFormProps) {
           {...register("minutes", { valueAsNumber: true })}
           type="number"
           defaultValue={
-            workout &&
-            Math.round(
-              (Date.parse(workout.end) - Date.parse(workout.start)) / 1000 / 60
-            )
+            (workout &&
+              Math.round(
+                (Date.parse(workout.end) - Date.parse(workout.start)) /
+                  1000 /
+                  60
+              )) ||
+            minutes
           }
         />
         {errors.minutes && (
@@ -231,10 +249,7 @@ export default function WorkoutForm({ workout }: WorkoutFormProps) {
             type="submit"
             value="Submit"
           />
-          <button
-            className="btn btn-secondary py-2 "
-            onClick={() => dispatch({ type: "hide_workout_form" })}
-          >
+          <button className="btn btn-secondary py-2 " onClick={() => hide()}>
             Cancel
           </button>
         </div>

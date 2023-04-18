@@ -40,9 +40,16 @@ export default function WorkoutHistory() {
                   handleDeleteWorkout={handleDeleteWorkout}
                 />
               )}
-            {state.detailPanelDisplay === "WorkoutFormAdd" && <WorkoutForm />}
+            {state.detailPanelDisplay === "WorkoutFormAdd" && (
+              <WorkoutForm
+                hide={() => dispatch({ type: "hide_workout_form" })}
+              />
+            )}
             {state.detailPanelDisplay === "WorkoutFormEdit" && (
-              <WorkoutForm workout={state.workoutToEdit} />
+              <WorkoutForm
+                hide={() => dispatch({ type: "hide_workout_form" })}
+                workout={state.workoutToEdit}
+              />
             )}
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { workoutFormValues } from "./components/WorkoutHistory";
+import { workoutFormValues } from "./components/WorkoutForm";
 import {
   SignUpRequest,
   LogInRequest,
@@ -150,7 +150,7 @@ export const getAllBadges = () => {
     url: `${baseUrl}/badge`,
     method: "GET",
   });
-  console.log("getAllBadges() returned", result);
+  // console.log("getAllBadges() returned", result);
   return result;
 };
 

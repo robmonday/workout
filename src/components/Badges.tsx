@@ -8,7 +8,7 @@ export default function Badges() {
 
   useEffect(() => {
     getAllBadges().then((badges) => {
-      console.log("badges from parent element request", badges);
+      // console.log("badges from parent element request", badges);
       dispatch({ type: "set_badges", payload: badges });
     });
   }, []);
@@ -75,7 +75,7 @@ export const MyBadges = () => {
 
   useEffect(() => {
     getAllBadges().then((badges) => {
-      console.log("badges from parent element request", badges);
+      // console.log("badges from parent element request", badges);
       dispatch({ type: "set_badges", payload: badges });
     });
   }, []);
