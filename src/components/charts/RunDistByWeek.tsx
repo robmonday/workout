@@ -64,10 +64,12 @@ export default function RunDistByWeek() {
   return (
     <>
       <div className="panel pt-3 pb-3 pl-4 pr-6">
-        <h2 className="text-center text-gray-700">Running Distance by Week</h2>
+        <h2 className="text-center text-xl text-gray-700">
+          Running Distance by Week
+        </h2>
         <Line
           data={chartData}
-          options={{ plugins: { legend: { display: false } }, aspectRatio: 3 }}
+          options={{ plugins: { legend: { display: false } }, aspectRatio: 4 }}
         />
       </div>
     </>

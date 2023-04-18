@@ -5,23 +5,24 @@ import RunDistByWeek from "./charts/RunDistByWeek";
 import WorksByLoc from "./charts/WorksByLoc";
 import TimeSeries from "./charts/TimeSeries";
 import AvgsByWorkType from "./charts/AvgsByWorkType";
+import Leaderboards from "./Leaderboards";
 
 export default function Dashboard() {
   return (
     <div className="">
       <div className="p-2 text-2xl">Dashboard</div>
 
-      <div className="py-2">
-        <TimeSeries />
-      </div>
-
       <div className="flex flex-wrap py-2">
         <div className="w-[23rem]">
           <WorksByLoc />
         </div>
         <div className="w-[66rem]">
-          <RunDistByWeek />
+          <Leaderboards />
         </div>
+      </div>
+
+      <div className="py-2">
+        <TimeSeries />
       </div>
 
       <div className="flex flex-wrap justify-evenly py-2">
@@ -49,6 +50,8 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      <RunDistByWeek />
     </div>
   );
 }

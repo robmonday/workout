@@ -80,7 +80,7 @@ type LeaderboardProps = {
 };
 
 export function Leaderboard({ title, leaderboard }: LeaderboardProps) {
-  const [numResultsToShow, setNumResultsToShow] = useState(5);
+  const [numResultsToShow, setNumResultsToShow] = useState(10);
 
   return (
     <>
@@ -101,12 +101,12 @@ export function Leaderboard({ title, leaderboard }: LeaderboardProps) {
         <div
           className="relative bottom-2 right-2 float-right rounded-full border border-white bg-purple-300 p-0.5 hover:bg-purple-400 hover:text-black"
           onClick={() =>
-            numResultsToShow === 5
-              ? setNumResultsToShow(10)
-              : setNumResultsToShow(5)
+            numResultsToShow === 10
+              ? setNumResultsToShow(20)
+              : setNumResultsToShow(10)
           }
         >
-          {numResultsToShow === 5 ? (
+          {numResultsToShow === 10 ? (
             <Plus strokeWidth={0.75} size={16} />
           ) : (
             <Minus strokeWidth={0.75} size={16} />
@@ -138,5 +138,32 @@ export function LeaderboardLine({ leader, value }: LeaderboardLineProps) {
         {value.toLocaleString("en-US")}
       </div>
     </div>
+  );
+}
+
+export function StepsLeaderboard() {
+  const [stepsLeaderboard, setStepsLeaderboard] = useState<LeaderPlus[]>([]);
+
+  useEffect(() => {
+    getLeaderboard().then((result) => {
+      const stepsArr1 = result
+        .sort((a: Leader, b: Leader) => b._sum.steps - a._sum.steps)
+        .slice(0, 30);
+      const stepsArr2 = stepsArr1.map((e: Leader) => {
+        return { ...e, value: e._sum.steps };
+      });
+      setStepsLeaderboard(stepsArr2);
+    });
+  }, []);
+  return (
+    <>
+      <div className="p-2 text-2xl">Weekly Leaderboard</div>
+      <div className="panel flex flex-wrap place-content-evenly border pb-4">
+        <Leaderboard
+          title="Steps Taken"
+          leaderboard={stepsLeaderboard}
+        />
+      </div>
+    </>
   );
 }

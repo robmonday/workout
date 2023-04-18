@@ -4,7 +4,8 @@ import { StateContext } from "./StateProvider";
 import { MyBadges } from "./Badges";
 import TempToastMessage from "./TempToastMessage";
 import Timer from "./Timer";
-import Leaderboards from "./Leaderboards";
+import { StepsLeaderboard } from "./Leaderboards";
+import ActivityFeed from "./ActivityFeed";
 
 export default function Main() {
   return (
@@ -15,20 +16,15 @@ export default function Main() {
           <div className="panel h-52">
             <Announcements />
           </div>
-          <div className="p-2 text-2xl">Friends' Activity Feed</div>
-          <div className="panel h-96">
-            <div className="p-3">
-              <p className="mb-3 text-xl">...</p>
-              ...
-            </div>
-          </div>
+
+          <MyBadges />
         </div>
         <div className="w-[30rem] flex-grow">
-          <Leaderboards />
+          <ActivityFeed />
         </div>
         <div className="w-[15rem] flex-grow">
           <Timer />
-          <MyBadges />
+          <StepsLeaderboard />
         </div>
       </div>
       <TempToastMessage>
