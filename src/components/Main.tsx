@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import { StateContext } from "./StateProvider";
-
 import { MyBadges } from "./Badges";
 import TempToastMessage from "./TempToastMessage";
 import Timer from "./Timer";
@@ -16,15 +13,14 @@ export default function Main() {
           <div className="panel h-52">
             <Announcements />
           </div>
-
-          <MyBadges />
+          <Timer />
         </div>
         <div className="w-[30rem] flex-grow">
           <ActivityFeed />
         </div>
         <div className="w-[15rem] flex-grow">
-          <Timer />
           <StepsLeaderboard />
+          <MyBadges />
         </div>
       </div>
       <TempToastMessage>

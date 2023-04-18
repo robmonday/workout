@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import WorkoutForm from "./WorkoutForm";
 
 export default function Timer() {
   const [startTime, setStartTime] = useState<number | null>(null);
@@ -40,8 +41,8 @@ export default function Timer() {
   return (
     <div className="align-top ">
       <div className="p-2 text-2xl">Workout Timer</div>
-      <div className="panel">
-        <div className="flex flex-wrap justify-center">
+      <div className="panel p-4">
+        <div className="mb-6 flex flex-wrap justify-center rounded-lg border border-purple-500 p-2">
           <div className="px-6 py-4 text-center">
             {hoursPassed.toString().padStart(2, "0")}:
             {(minutesPassed % 60).toString().padStart(2, "0")}:
@@ -61,6 +62,9 @@ export default function Timer() {
               Reset
             </div>
           </div>
+        </div>
+        <div className="border border-purple-500 p-6">
+          <WorkoutForm />
         </div>
       </div>
     </div>
