@@ -45,7 +45,7 @@ export default function WorksByLoc() {
             data={chartData}
             options={{
               plugins: {
-                tooltip: { enabled: false },
+                tooltip: { enabled: true },
                 legend: { display: false },
                 datalabels: {
                   formatter: function (value, context: any) {

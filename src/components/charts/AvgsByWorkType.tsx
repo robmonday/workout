@@ -49,7 +49,7 @@ export default function AvgByWorkType({
   const chartOptions: ChartOptions = {
     plugins: {
       legend: { display: false },
-      tooltip: { enabled: true },
+      tooltip: { enabled: false },
       datalabels: {
         display: true,
         anchor: "end",
