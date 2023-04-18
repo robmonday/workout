@@ -44,6 +44,22 @@ export type Workout = {
   workoutTypeId?: string;
 };
 
+export type WorkoutWithUserReact = Workout & {
+  user: User;
+  reactionId: string;
+  reactions: Reaction[];
+};
+
+export type Reaction = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  emojiSymbol: string;
+  seed: boolean;
+  userId: string;
+  workoutId: string;
+};
+
 export type Badge = {
   id: string;
   createdAt: Date;
@@ -55,6 +71,14 @@ export type Badge = {
 
 export type DeleteRequest = {
   id: string;
+};
+
+export type User = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  city: string;
+  state: State;
 };
 
 export type UserObj = {

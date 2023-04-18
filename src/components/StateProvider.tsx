@@ -6,7 +6,14 @@ import {
   Reducer,
 } from "react";
 
-import { Workout, Badge, WorkoutType, Notification, Friend } from "../types";
+import {
+  Workout,
+  Badge,
+  WorkoutType,
+  WorkoutWithUserReact,
+  Notification,
+  Friend,
+} from "../types";
 
 // creating and typing initial state
 
@@ -27,6 +34,7 @@ type State = {
   friends: Friend[];
   findFriendsFilterText: string;
   token: string;
+  activityFeed: WorkoutWithUserReact[];
 };
 
 const initialState: State = {
@@ -46,6 +54,7 @@ const initialState: State = {
   friends: [],
   findFriendsFilterText: "",
   token: "",
+  activityFeed: [],
 };
 
 // creating and typing reducer
@@ -138,6 +147,8 @@ const reducer = (state: State, action: Action) => {
         ...state,
         outgoingFriendRequests: state.outgoingFriendRequests.slice(0, -1),
       };
+    case "set_activity_feed":
+      return { ...state, activityFeed: action.payload };
     default:
       console.error("Unknown action dispatched to reducer.");
       return state;

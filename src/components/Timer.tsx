@@ -47,22 +47,23 @@ export default function Timer() {
 
   return (
     <div className="align-top ">
-      <div className="p-2 text-2xl">Workout Timer</div>
+      <div className="p-2 text-2xl">Start Your Workout</div>
       <div className="panel p-4 pb-2">
+        <div className="text-left text-lg">Workout Timer</div>
         <div className="flex justify-center">
           <div className="w-42">
             {submitted && (
-              <div className="px-6 py-4 text-center font-semibold italic text-green-800">
+              <div className="px-6 py-4 text-center text-xl font-light italic text-green-800">
                 Submitted
               </div>
             )}
             {!submitted && secondsPassed === 0 && (
-              <div className="px-6 py-4 text-center font-semibold italic text-gray-500">
+              <div className="px-6 py-4 text-center text-xl font-light italic text-gray-500">
                 Ready?
               </div>
             )}
             {!submitted && timerOn && (
-              <div className="px-6 py-4 text-center font-semibold italic text-green-600">
+              <div className="px-6 py-4 text-center text-xl font-light italic text-green-600">
                 Go!
               </div>
             )}
@@ -98,7 +99,7 @@ export default function Timer() {
           </div>
         </div>
         {showForm && (
-          <div className="mt-6 rounded-lg border border-purple-500 p-6 ">
+          <div className="mt-4 rounded-lg border border-purple-500 p-6 ">
             <WorkoutForm
               hide={() => setShowForm(false)}
               setSubmitted={setSubmitted}

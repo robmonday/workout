@@ -237,3 +237,11 @@ export const getLeaderboard = () => {
   });
   return result;
 };
+
+export const getWorkoutFeed = () => {
+  const result = fetcher({
+    url: `${baseUrl}/workout/feed`,
+    method: "GET",
+  });
+  return result;
+};
