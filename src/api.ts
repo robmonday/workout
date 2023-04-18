@@ -232,7 +232,7 @@ export const updateUser = (id: string, body: UserUpdate) => {
 
 export const getLeaderboard = () => {
   const result = fetcher({
-    url: `${baseUrl}/workout/leaderboard`,
+    url: `${baseUrl}/workout/leaderboard/`,
     method: "GET",
   });
   return result;
