@@ -75,7 +75,7 @@ export default function Timer() {
               </div>
             )}
           </div>
-          <div className="mb-4 rounded-md border border-purple-500 bg-purple-100 px-4 py-2 text-center text-3xl">
+          <div className="mb-4 w-48 rounded-md border border-purple-500 bg-purple-100 px-4 py-2 text-center text-3xl font-light">
             {hoursPassed.toString().padStart(2, "0")}:
             {(minutesPassed % 60).toString().padStart(2, "0")}:
             {(secondsPassed % 60).toFixed(2).padStart(5, "0")}
