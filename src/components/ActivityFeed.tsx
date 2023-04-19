@@ -4,8 +4,10 @@ import { getWorkoutFeed } from "../api";
 import { dateToWeekdayDate } from "../util";
 import { DispatchContext, StateContext } from "./StateProvider";
 
-import { EmojiButton } from "./Emoji";
+import { EmojiIndicator, EmojiMenu } from "./Emoji";
 import { WorkoutWithUserReact } from "../types";
+
+import { ChevronRight } from "react-feather";
 
 export default function ActivityFeed() {
   const state = useContext(StateContext);
@@ -22,7 +24,9 @@ export default function ActivityFeed() {
       <div className="p-2 text-2xl">Activity Feed</div>
       <div className="panel h-fit max-h-[70vh] overflow-y-auto">
         {state.activityFeed.map((w) => (
-          <Activity key={w.id} workout={w} />
+          <div key={w.id || 0}>
+            <Activity workout={w} />
+          </div>
         ))}
       </div>
     </>
@@ -35,11 +39,9 @@ type ActivityProps = {
 export function Activity({ workout }: ActivityProps) {
   const state = useContext(StateContext);
   const name =
-    workout.user.id === state.user.id
+    workout.user?.id === state.user.id
       ? "YOU"
-      : `${workout.user.firstName} ${workout.user.lastName}`;
-
-  workout.reactions;
+      : `${workout.user?.firstName} ${workout.user?.lastName}`;
 
   return (
     <div key={workout.id} className="border-b p-2 hover:shadow-lg">
@@ -48,50 +50,61 @@ export function Activity({ workout }: ActivityProps) {
       <span className="text-purple-700">{workout.workoutType?.name}</span>
       &nbsp;
       <span className="text-purple-700">
-        ({workout.steps.toLocaleString()} steps)
+        ({workout.steps?.toLocaleString()} steps)
       </span>
       <span> at {workout.location}.</span>
       {workout.notes && <div>({workout.notes})</div>}
-      <div className=" flex justify-between pt-1 text-purple-700">
-        <div>
-          <EmojiButton
-            label="thumb up"
-            symbol="&#x1F44D;"
-            reactions={workout.reactions.filter(
-              (r) => r.emojiSymbol === "&#x1F44D;"
-            )}
+      <div className="  flex justify-between pt-1 text-purple-700">
+        <div className="group flex">
+          <ChevronRight
+            className="btn m-0 rounded-sm border p-0"
+            strokeWidth={1.5}
+            size={18}
           />
-          <EmojiButton
-            label="grin"
-            symbol="&#x1F600;"
-            reactions={workout.reactions.filter(
-              (r) => r.emojiSymbol === "&#x1F600;"
-            )}
-          />
-          <EmojiButton
-            label="eye roll"
-            symbol="&#x1F644;"
-            reactions={workout.reactions.filter(
-              (r) => r.emojiSymbol === "&#x1F644;"
-            )}
-          />
-          <EmojiButton
-            label="tired"
-            symbol="&#x1F62B;"
-            reactions={workout.reactions.filter(
-              (r) => r.emojiSymbol === "&#x1F62B;"
-            )}
-          />
-          <EmojiButton
-            label="afraid"
-            symbol="&#x1F631;"
-            reactions={workout.reactions.filter(
-              (r) => r.emojiSymbol === "&#x1F631;"
-            )}
-          />
+          <div className="hidden group-hover:block group-focus:block group-active:block">
+            <EmojiMenu workout={workout} />
+          </div>
+
+          <div className="inline group-hover:hidden group-focus:hidden group-active:hidden">
+            <EmojiIndicator
+              label="thumb up"
+              symbol="👍"
+              reactions={workout.reactions?.filter(
+                (r) => r.emojiSymbol === "👍"
+              )}
+            />
+            <EmojiIndicator
+              label="grin"
+              symbol="😀"
+              reactions={workout.reactions?.filter(
+                (r) => r.emojiSymbol === "😀"
+              )}
+            />
+            <EmojiIndicator
+              label="eye roll"
+              symbol="🙄"
+              reactions={workout.reactions?.filter(
+                (r) => r.emojiSymbol === "🙄"
+              )}
+            />
+            <EmojiIndicator
+              label="tired"
+              symbol="😫"
+              reactions={workout.reactions?.filter(
+                (r) => r.emojiSymbol === "😫"
+              )}
+            />
+            <EmojiIndicator
+              label="upset"
+              symbol="😱"
+              reactions={workout.reactions?.filter(
+                (r) => r.emojiSymbol === "😱"
+              )}
+            />
+          </div>
         </div>
-        <div className="relative right-0 inline text-right font-light">
-          {dateToWeekdayDate(workout.start)}
+        <div className="relative right-0 text-right font-light">
+          {/* {dateToWeekdayDate(workout?.start)} */}
         </div>
       </div>
     </div>

@@ -155,11 +155,11 @@ const Layout = () => {
         <Outlet />
 
         {/* Displays State on Page */}
-        {/* <div className="border bg-purple-400 p-2">
+        <div className="border bg-purple-400 p-2">
           <div className="overflow-y-auto break-words p-2">
             {JSON.stringify(state)}
           </div>
-        </div> */}
+        </div>
       </div>
 
       <footer className="fixed bottom-2 right-2 w-full text-end text-sm">

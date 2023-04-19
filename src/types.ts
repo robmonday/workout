@@ -50,14 +50,17 @@ export type WorkoutWithUserReact = Workout & {
   reactions: Reaction[];
 };
 
-export type Reaction = {
+export type ReactionRequest = {
+  emojiSymbol: string;
+  workoutId: string;
+};
+
+export type Reaction = ReactionRequest & {
   id: string;
   createdAt: string;
   updatedAt: string;
-  emojiSymbol: string;
   seed: boolean;
   userId: string;
-  workoutId: string;
 };
 
 export type Badge = {

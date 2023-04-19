@@ -149,6 +149,40 @@ const reducer = (state: State, action: Action) => {
       };
     case "set_activity_feed":
       return { ...state, activityFeed: action.payload };
+    // case "set_activity_reaction":
+    //   const activity = state.activityFeed.find(
+    //     (a) => a.id === action.payload.workout.id
+    //   );
+    //   const activityReactions = activity?.reactions;
+    //   const prevActivityReactions = activityReactions?.filter(
+    //     (r) => r.userId !== state.user.id
+    //   );
+    //   const newActivityReactions = prevActivityReactions
+    //     ? [...prevActivityReactions, action.payload.newReaction]
+    //     : [action.payload.newReaction];
+    //   const updatedActivity = { ...activity, reactions: newActivityReactions };
+    //   const prevActivityFeed = state.activityFeed.filter(
+    //     (a) => a.id !== action.payload.workout.id
+    //   );
+    //   const updatedActivityFeed = [...prevActivityFeed, updatedActivity];
+    //   return { ...state, activityFeed: updatedActivityFeed };
+    case "create_activity_reaction":
+      const prevActivity = state.activityFeed.find(
+        (w) => w.id === action.payload.workoutId
+      );
+      const originalReactions =
+        prevActivity &&
+        prevActivity.reactions.filter((r) => r.id !== action.payload.id);
+      const updatedReactions = originalReactions && [
+        ...originalReactions,
+        action.payload,
+      ];
+      const updatedActivity = { ...prevActivity, reactions: updatedReactions };
+      const prevActivityFeed = state.activityFeed.filter(
+        (w) => w.id !== action.payload.workoutId
+      );
+      const updatedActivityFeed = [...prevActivityFeed, updatedActivity];
+      return { ...state, activityFeed: updatedActivityFeed };
     default:
       console.error("Unknown action dispatched to reducer.");
       return state;

@@ -7,6 +7,7 @@ import {
   NotificationRequest,
   UserObj,
   UserUpdate,
+  ReactionRequest,
 } from "./types";
 
 const baseUrl = "http://localhost:5174/api";
@@ -16,7 +17,8 @@ type RequestBody =
   | LogInRequest
   | WorkoutRequest
   | DeleteRequest
-  | NotificationRequest;
+  | NotificationRequest
+  | ReactionRequest;
 
 type Fetcher = {
   url: string;
@@ -242,6 +244,24 @@ export const getWorkoutFeed = () => {
   const result = fetcher({
     url: `${baseUrl}/workout/feed`,
     method: "GET",
+  });
+  return result;
+};
+
+export const createReaction = (
+  symbol: string,
+  workoutId: string
+) => {
+  // console.log("symbol", symbol);
+  // console.log("userId", userId);
+  // console.log("workoutId", workoutId);
+  const result = fetcher({
+    url: `${baseUrl}/reaction`,
+    method: "POST",
+    body: {
+      emojiSymbol: symbol,
+      workoutId,
+    },
   });
   return result;
 };

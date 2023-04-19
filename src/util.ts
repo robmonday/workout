@@ -5,7 +5,7 @@ export function dateToWeekdayDate(dateString: string): string {
     month: "short",
     day: "numeric",
   });
-  return fomatObj.format(date).toString();
+  return fomatObj?.format(date).toString();
 }
 
 export function dateToTime(dateString: string): string {
@@ -17,7 +17,7 @@ export function dateToTime(dateString: string): string {
     hour: "numeric",
     minute: "numeric",
   });
-  return fomatObj.format(date).toString();
+  return fomatObj?.format(date).toString();
 }
 
 export function setLocalDTString(date: Date | undefined): string | undefined {
