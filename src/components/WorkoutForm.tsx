@@ -1,8 +1,4 @@
-import {
-  useEffect,
-  useContext,
-  useState,
-} from "react";
+import { useEffect, useContext, useState } from "react";
 import { DispatchContext } from "./StateProvider";
 
 import { createWorkout, updateWorkout, getAllWorkoutTypes } from "../api";
@@ -65,12 +61,11 @@ export default function WorkoutForm({
 
   const onSubmitNew: SubmitHandler<workoutFormValues> = async (data) => {
     hide();
-    setSubmitted && setSubmitted(true)
+    setSubmitted && setSubmitted(true);
     // console.log("data from form", data);
     const newWorkout = await createWorkout(data);
     // console.log("newWorkout", newWorkout);
     dispatch({ type: "add_workout", payload: newWorkout });
-
   };
 
   const onSubmitEdit: SubmitHandler<workoutFormValues> = async (data) => {
@@ -181,7 +176,8 @@ export default function WorkoutForm({
                   1000 /
                   60
               )) ||
-            minutes
+            minutes ||
+            0
           }
         />
         {errors.minutes && (
