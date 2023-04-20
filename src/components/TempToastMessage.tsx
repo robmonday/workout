@@ -7,7 +7,7 @@ export default function TempToastMessage({ children }: PropsWithChildren) {
 
   useEffect(() => {
     setTimeout(() => setVisible(true), 1000);
-    setTimeout(() => setVisible(false), 10000);
+    setTimeout(() => setVisible(false), 5000);
   }, []);
 
   return (
