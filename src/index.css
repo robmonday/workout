@@ -1,20 +1,9 @@
-/* body {
-  display: flex;
-  place-items: center;
-
-  min-width: 320px;
-  min-height: 100vh;
-  
-} */
-
-/* 
 * {
   box-sizing: border-box;
 }
- */
 
-/* Temporary framing */
 div {
+  user-select: none;
   /* border: 1px solid black; */
 }
 

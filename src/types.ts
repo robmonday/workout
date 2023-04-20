@@ -61,6 +61,7 @@ export type Reaction = ReactionRequest & {
   updatedAt: string;
   seed: boolean;
   userId: string;
+  user: User;
 };
 
 export type Badge = {

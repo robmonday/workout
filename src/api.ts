@@ -248,10 +248,7 @@ export const getWorkoutFeed = () => {
   return result;
 };
 
-export const createReaction = (
-  symbol: string,
-  workoutId: string
-) => {
+export const createReaction = async (symbol: string, workoutId: string) => {
   // console.log("symbol", symbol);
   // console.log("userId", userId);
   // console.log("workoutId", workoutId);

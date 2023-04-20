@@ -3,7 +3,7 @@ import { User, Users, LogOut, Settings, MessageSquare } from "react-feather";
 import { useContext, useEffect } from "react";
 import { DispatchContext, StateContext } from "./StateProvider";
 
-import { getOpenNotifications } from "../api";
+import { getOpenNotifications, getWorkoutFeed } from "../api";
 
 const Layout = () => {
   const state = useContext(StateContext);
@@ -32,6 +32,13 @@ const Layout = () => {
         });
     });
   }, [state.token]);
+
+  useEffect(() => {
+    getWorkoutFeed().then((data) => {
+      const payload = data.slice(0, 30);
+      payload && dispatch({ type: "set_activity_feed", payload });
+    });
+  }, [state.latestReaction]);
 
   const handleLogout = () => {
     localStorage.removeItem("loggedWorkoutAppUser");

@@ -7,7 +7,7 @@ import ActivityFeed from "./ActivityFeed";
 export default function Main() {
   return (
     <>
-      <div className="flex flex-wrap justify-around">
+      <div className="flex flex-wrap justify-around ">
         <div className="w-[30rem] flex-grow">
           <div className="p-2 text-2xl">Announcements</div>
           <div className="panel h-52">

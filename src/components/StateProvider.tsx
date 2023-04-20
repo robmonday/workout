@@ -13,6 +13,7 @@ import {
   WorkoutWithUserReact,
   Notification,
   Friend,
+  Reaction,
 } from "../types";
 
 // creating and typing initial state
@@ -35,6 +36,7 @@ type State = {
   findFriendsFilterText: string;
   token: string;
   activityFeed: WorkoutWithUserReact[];
+  latestReaction: Reaction | undefined;
 };
 
 const initialState: State = {
@@ -55,6 +57,7 @@ const initialState: State = {
   findFriendsFilterText: "",
   token: "",
   activityFeed: [],
+  latestReaction: undefined,
 };
 
 // creating and typing reducer
@@ -149,30 +152,15 @@ const reducer = (state: State, action: Action) => {
       };
     case "set_activity_feed":
       return { ...state, activityFeed: action.payload };
-    // case "set_activity_reaction":
-    //   const activity = state.activityFeed.find(
-    //     (a) => a.id === action.payload.workout.id
-    //   );
-    //   const activityReactions = activity?.reactions;
-    //   const prevActivityReactions = activityReactions?.filter(
-    //     (r) => r.userId !== state.user.id
-    //   );
-    //   const newActivityReactions = prevActivityReactions
-    //     ? [...prevActivityReactions, action.payload.newReaction]
-    //     : [action.payload.newReaction];
-    //   const updatedActivity = { ...activity, reactions: newActivityReactions };
-    //   const prevActivityFeed = state.activityFeed.filter(
-    //     (a) => a.id !== action.payload.workout.id
-    //   );
-    //   const updatedActivityFeed = [...prevActivityFeed, updatedActivity];
-    //   return { ...state, activityFeed: updatedActivityFeed };
-    case "create_activity_reaction":
+    case "update_activity_reaction":
       const prevActivity = state.activityFeed.find(
         (w) => w.id === action.payload.workoutId
       );
       const originalReactions =
         prevActivity &&
-        prevActivity.reactions.filter((r) => r.id !== action.payload.id);
+        prevActivity.reactions.filter(
+          (r) => r.userId !== action.payload.userId
+        );
       const updatedReactions = originalReactions && [
         ...originalReactions,
         action.payload,
@@ -182,7 +170,14 @@ const reducer = (state: State, action: Action) => {
         (w) => w.id !== action.payload.workoutId
       );
       const updatedActivityFeed = [...prevActivityFeed, updatedActivity];
-      return { ...state, activityFeed: updatedActivityFeed };
+      const sortedUpdatedActivityFeed = updatedActivityFeed.sort(
+        (a, b) =>
+          new Date(b.start || Date.now()).valueOf() -
+          new Date(a.start || Date.now()).valueOf()
+      );
+      return { ...state, activityFeed: sortedUpdatedActivityFeed };
+    case "set_latest_reaction":
+      return { ...state, latestReaction: action.payload };
     default:
       console.error("Unknown action dispatched to reducer.");
       return state;

@@ -9,7 +9,7 @@ import Leaderboards from "./Leaderboards";
 
 export default function Dashboard() {
   return (
-    <div className="">
+    <>
       <div className="p-2 text-2xl">Dashboard</div>
 
       <div className="flex flex-wrap py-2">
@@ -52,7 +52,7 @@ export default function Dashboard() {
       </div>
 
       <RunDistByWeek />
-    </div>
+    </>
   );
 }
 

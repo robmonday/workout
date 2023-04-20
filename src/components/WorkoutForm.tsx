@@ -66,9 +66,9 @@ export default function WorkoutForm({
   const onSubmitNew: SubmitHandler<workoutFormValues> = async (data) => {
     hide();
     setSubmitted && setSubmitted(true)
-    console.log("data from form", data);
+    // console.log("data from form", data);
     const newWorkout = await createWorkout(data);
-    console.log("newWorkout", newWorkout);
+    // console.log("newWorkout", newWorkout);
     dispatch({ type: "add_workout", payload: newWorkout });
 
   };
