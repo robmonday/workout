@@ -24,20 +24,22 @@ const Layout = () => {
   }, []);
 
   useEffect(() => {
-    getOpenNotifications().then((openNotifications) => {
-      openNotifications &&
-        dispatch({
-          type: "set_open_notifications",
-          payload: openNotifications,
-        });
-    });
+    state.token &&
+      getOpenNotifications().then((openNotifications) => {
+        openNotifications &&
+          dispatch({
+            type: "set_open_notifications",
+            payload: openNotifications,
+          });
+      });
   }, [state.token]);
 
   useEffect(() => {
-    getWorkoutFeed().then((data) => {
-      const payload = data.slice(0, 30);
-      payload && dispatch({ type: "set_activity_feed", payload });
-    });
+    state.token &&
+      getWorkoutFeed().then((data) => {
+        const payload = data.length > 0 && data.slice(0, 30);
+        payload && dispatch({ type: "set_activity_feed", payload });
+      });
   }, [state.latestReaction]);
 
   const handleLogout = () => {
@@ -162,11 +164,11 @@ const Layout = () => {
         <Outlet />
 
         {/* Displays State on Page */}
-        {/* <div className="border bg-purple-400 p-2">
+        <div className="border bg-purple-400 p-2">
           <div className="overflow-y-auto break-words p-2">
             {JSON.stringify(state)}
           </div>
-        </div> */}
+        </div>
       </div>
 
       <footer className="fixed bottom-2 right-2 w-full text-end text-sm">

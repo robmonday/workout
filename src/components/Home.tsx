@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <>
       {!state.token && (
-        <div className="btn fixed top-2 right-1 bg-purple-500 px-2 py-1 text-base text-white ">
+        <div className="btn fixed top-2 right-1 z-10 bg-purple-500 px-2 py-1 text-base text-white">
           <Link to="/login">Log In / Sign Up</Link>
         </div>
       )}

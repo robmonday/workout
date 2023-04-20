@@ -19,7 +19,7 @@ export default function ActivityFeed() {
       payload && dispatch({ type: "set_activity_feed", payload });
     });
   }, [state.latestReaction]);
-  console.log("state.activityFeed", state.activityFeed);
+  // console.log("state.activityFeed", state.activityFeed);
   return (
     <>
       <div className="p-2 text-2xl">Activity Feed</div>
