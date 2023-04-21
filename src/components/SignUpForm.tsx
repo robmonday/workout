@@ -77,7 +77,7 @@ export default function SignUpForm() {
         <br />
 
         <input
-          className="input mb-4 w-[100%] max-w-[18rem] "
+          className="input mb-4 w-[100%] max-w-[18rem] lowercase"
           placeholder="Email"
           type="text"
           {...register("email")}

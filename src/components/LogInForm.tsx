@@ -63,7 +63,7 @@ export default function LogInForm() {
         <div className="mb-4 text-lg sm:text-xl md:text-2xl ">Log In</div>
 
         <input
-          className="input mb-4 w-[100%] max-w-[18rem] "
+          className="input mb-4 w-[100%] max-w-[18rem] lowercase"
           placeholder="Email Address"
           type="text"
           {...register("email")}
