@@ -56,7 +56,9 @@ export default function Leaderboards() {
 
   return (
     <>
-      <div className="p-2 text-2xl">Leaderboards for Weekly Activity</div>
+      <div className="p-2 text-lg sm:text-xl md:text-2xl">
+        Leaderboards for Weekly Activity
+      </div>
       <div className="panel flex flex-wrap place-content-evenly border pb-4">
         <Leaderboard title="Steps Taken" leaderboard={stepsLeaderboard} />
         <Leaderboard
@@ -157,12 +159,11 @@ export function StepsLeaderboard() {
   }, []);
   return (
     <>
-      <div className="p-2 text-2xl">Weekly Leaderboard</div>
+      <div className="p-2 text-lg sm:text-xl md:text-2xl">
+        Weekly Leaderboard
+      </div>
       <div className="panel flex flex-wrap place-content-evenly border pb-4">
-        <Leaderboard
-          title="Steps Taken"
-          leaderboard={stepsLeaderboard}
-        />
+        <Leaderboard title="Steps Taken" leaderboard={stepsLeaderboard} />
       </div>
     </>
   );

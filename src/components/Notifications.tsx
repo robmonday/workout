@@ -12,7 +12,9 @@ export default function Notifications() {
     return (
       <div className="md:w-1/2">
         <div className="panel">
-          <div className="p-2 text-2xl">Your Notifications</div>
+          <div className="p-2 text-lg sm:text-xl md:text-2xl">
+            Your Notifications
+          </div>
           <div className="px-4 py-2 text-lg font-light">
             No notifications pending
           </div>

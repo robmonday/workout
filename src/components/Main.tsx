@@ -9,7 +9,9 @@ export default function Main() {
     <>
       <div className="flex flex-wrap justify-around ">
         <div className="w-[30rem] flex-grow">
-          <div className="p-2 text-2xl">Announcements</div>
+          <div className="p-2 text-lg sm:text-xl md:text-2xl">
+            Announcements
+          </div>
           <div className="panel h-52">
             <Announcements />
           </div>

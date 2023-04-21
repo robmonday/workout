@@ -64,7 +64,7 @@ export default function AvgByWorkType({
 
   return (
     <div className="panel pt-3 pb-3 pl-4 pr-6">
-      <div className="mb-4 text-center text-xl text-gray-700">
+      <div className="mb-4 text-center text-lg text-gray-700 md:text-xl">
         Average {metric.slice(0, 1).toUpperCase() + metric.slice(1)} by Workout
         Type
       </div>

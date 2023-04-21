@@ -61,7 +61,7 @@ export default function LogInForm() {
         onSubmit={handleSubmit(onSubmit)}
         className="m-5 w-auto rounded-xl bg-gradient-to-br from-gray-100 px-7 py-5 shadow-lg md:w-2/3 lg:w-1/2 2xl:w-1/3"
       >
-        <div className="text-2xl">Log In</div>
+        <div className="text-lg sm:text-xl md:text-2xl">Log In</div>
         <br />
 
         <input

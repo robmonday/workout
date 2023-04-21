@@ -17,7 +17,7 @@ export default function EmailConfirm() {
     <>
       <div className="w-full md:w-2/3 lg:w-1/2 xl:w-1/3">
         <div className="panel py-5 px-6">
-          <div className="mb-3 flex text-2xl">
+          <div className="mb-3 flex text-lg sm:text-xl md:text-2xl">
             <span>Would you like to delete seed data?</span>
           </div>
 

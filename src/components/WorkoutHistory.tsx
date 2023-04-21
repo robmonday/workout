@@ -23,7 +23,7 @@ export default function WorkoutHistory() {
 
   return (
     <>
-      <div className="p-2 text-2xl">My Data</div>
+      <div className="p-2 text-lg sm:text-xl md:text-2xl">My Data</div>
       <div className="panel flex">
         <div className="flex w-1/2 lg:w-1/3 ">
           <div className="flex w-full flex-col rounded-lg border-2 border-purple-400 py-1 px-3">
@@ -188,7 +188,7 @@ const WorkoutDetail = ({
   return (
     <>
       <div className="mb-3">
-        <div className="mb-4 inline text-2xl font-light">
+        <div className="mb-4 inline text-lg font-light sm:text-xl md:text-2xl">
           {workout?.workoutType?.name}
         </div>
         <div

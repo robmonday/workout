@@ -64,7 +64,7 @@ export default function RunDistByWeek() {
   return (
     <>
       <div className="panel pt-3 pb-3 pl-4 pr-6">
-        <h2 className="text-center text-xl text-gray-700">
+        <h2 className="text-center text-lg text-gray-700 md:text-xl">
           Running Distance by Week
         </h2>
         <Line

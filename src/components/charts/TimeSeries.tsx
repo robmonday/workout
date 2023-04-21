@@ -72,7 +72,9 @@ export default function TimeSeries() {
     <>
       <div className="panel pt-3 pb-3 pl-4 pr-6">
         <div className="mx-4 my-2">
-          <div className="inline py-2 text-lg text-gray-700">Time Series</div>
+          <div className="inline py-2 text-lg text-gray-700 md:text-xl">
+            Time Series
+          </div>
           <select
             onChange={(e) => setDataShown(e.target.value)}
             className="float-right inline rounded-md bg-gray-100 px-2 py-1 text-sm"

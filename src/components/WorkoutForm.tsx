@@ -95,7 +95,7 @@ export default function WorkoutForm({
         <ArrowLeft className="inline-block" strokeWidth={0.75} />
         <div className="inline-block font-light">Back</div>
       </div>
-      <div className="text-2xl font-light">
+      <div className="text-lg font-light sm:text-xl md:text-2xl">
         {workout ? "Edit Workout" : "Add Workout"}
       </div>
 

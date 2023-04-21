@@ -38,7 +38,9 @@ export default function WorksByLoc() {
   return (
     <>
       <div className="pr-2 pb-4">
-        <div className="p-2 text-2xl">Workouts By Location</div>
+        <div className="p-2 text-lg sm:text-xl md:text-xl md:text-2xl">
+          Workouts By Location
+        </div>
         <div className="panel pt-3 pb-3">
           {/* <h2 className="mb-4 text-center text-gray-700">Workouts By Location</h2> */}
           <Doughnut

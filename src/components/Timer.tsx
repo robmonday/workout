@@ -47,7 +47,9 @@ export default function Timer() {
 
   return (
     <div className="align-top ">
-      <div className="p-2 text-2xl">Start Your Workout</div>
+      <div className="p-2 text-lg sm:text-xl md:text-2xl">
+        Start Your Workout
+      </div>
       <div className="panel p-4 pb-2">
         <div className="text-left text-lg">Workout Timer</div>
         <div className="flex justify-center">

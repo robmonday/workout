@@ -48,7 +48,7 @@ export const BadgeGallery = () => {
 
   return (
     <>
-      <div className="p-2 text-2xl">Badge Gallery</div>
+      <div className="p-2 text-lg sm:text-xl md:text-2xl">Badge Gallery</div>
       <div className="panel">
         <div className="m-2 flex flex-wrap place-content-evenly rounded-lg bg-gradient-to-br from-purple-200 to-purple-300 px-2">
           {galleryBadges?.length > 0 &&
@@ -82,7 +82,7 @@ export const MyBadges = () => {
 
   return (
     <>
-      <div className="p-2 text-2xl">My Badges</div>
+      <div className="p-2 text-lg sm:text-xl md:text-2xl">My Badges</div>
       <div className="panel">
         <div className="m-2 flex flex-wrap place-content-evenly rounded-lg bg-gradient-to-br from-purple-200 to-purple-300 px-2">
           {state.badges?.length > 0 &&
@@ -104,7 +104,7 @@ export const FriendsBadges = () => {
   const state = useContext(StateContext);
   return (
     <>
-      <div className="p-2 text-2xl">Friends' Badges</div>
+      <div className="p-2 text-lg sm:text-xl md:text-2xl">Friends' Badges</div>
       <div className="panel">
         <div className="m-2 flex flex-wrap place-content-evenly rounded-lg bg-gradient-to-br from-purple-200 to-purple-300 px-2">
           {state.badges?.length > 0 &&

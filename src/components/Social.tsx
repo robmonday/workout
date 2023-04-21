@@ -26,7 +26,9 @@ export default function Social() {
 
   return (
     <>
-      <div className="p-2 text-2xl">Connect with Friends</div>
+      <div className="p-2 text-lg sm:text-xl md:text-2xl">
+        Connect with Friends
+      </div>
       <div className="panel">
         <div className="flex flex-wrap place-content-evenly">
           <div className="w-[23rem]">

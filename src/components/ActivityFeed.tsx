@@ -22,7 +22,9 @@ export default function ActivityFeed() {
   // console.log("state.activityFeed", state.activityFeed);
   return (
     <>
-      <div className="p-2 text-2xl">Activity Feed</div>
+      <div className="md:text-2xl-2xl p-2 text-lg sm:text-xl">
+        Activity Feed
+      </div>
       <div className="panel h-fit max-h-[70vh] overflow-y-auto">
         {state.activityFeed &&
           state.activityFeed.map((w) => <Activity key={w.id} workout={w} />)}
