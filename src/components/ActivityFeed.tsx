@@ -26,8 +26,11 @@ export default function ActivityFeed() {
         Activity Feed
       </div>
       <div className="panel h-fit max-h-[70vh] overflow-y-auto">
-        {state.activityFeed &&
-          state.activityFeed.map((w) => <Activity key={w.id} workout={w} />)}
+        {state.activityFeed.length > 0 ? (
+          state.activityFeed.map((w) => <Activity key={w.id} workout={w} />)
+        ) : (
+          <div className="px-4 py-2 text-lg font-light">No recent activity</div>
+        )}
       </div>
     </>
   );
