@@ -38,11 +38,10 @@ export default function WorksByLoc() {
   return (
     <>
       <div className="pr-2 pb-4">
-        <div className="p-2 text-lg sm:text-xl md:text-xl md:text-2xl">
+        <div className="p-2 text-lg sm:text-xl md:text-2xl">
           Workouts By Location
         </div>
         <div className="panel pt-3 pb-3">
-          {/* <h2 className="mb-4 text-center text-gray-700">Workouts By Location</h2> */}
           <Doughnut
             data={chartData}
             options={{
@@ -50,22 +49,23 @@ export default function WorksByLoc() {
                 tooltip: { enabled: true },
                 legend: { display: false },
                 datalabels: {
-                  formatter: function (value, context: any) {
-                    return (
-                      context.chart.data.labels[context.dataIndex] +
-                      "\n" +
-                      value
-                    );
-                  },
+                  // formatter: function (value, context: any) {
+                  //   return (
+                  //     context.chart.data.labels[context.dataIndex] +
+                  //     "\n" +
+                  //     value
+                  //   );
+                  // },
                   color: "black",
-                  backgroundColor: "white",
+                  // backgroundColor: "white",
                   opacity: 0.6,
-                  anchor: "start",
+                  anchor: "center",
                   textAlign: "center",
-                  font: { size: 14 },
+                  font: { size: 16 },
                 },
               },
               cutout: "70%",
+              maintainAspectRatio: false,
             }}
           />
         </div>

@@ -37,20 +37,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="py-2">
-        <div className="panel flex flex-wrap justify-evenly">
-          <div className="w-[29rem] py-2">
-            <DashPanel number={1} />
-          </div>
-          <div className="w-[29rem] py-2">
-            <DashPanel number={2} />
-          </div>
-          <div className="w-[29rem] py-2">
-            <DashPanel number={3} />
-          </div>
-        </div>
-      </div>
-
       <RunDistByWeek />
     </>
   );

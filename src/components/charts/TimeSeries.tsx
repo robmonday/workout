@@ -85,34 +85,40 @@ export default function TimeSeries() {
             {/* <option value="minutes">Minutes</option> */}
           </select>
         </div>
-        <Bar
-          data={{
-            labels: chartData.labels,
-            datasets: [{ label: chartData.labels, data: chartData[dataShown] }],
-          }}
-          options={{
-            plugins: {
-              tooltip: { enabled: false },
-              legend: { display: false, position: "top" },
-              datalabels: {
-                display: true,
-                formatter: (value, context) => {
-                  if (isNaN(value)) return "";
-                  return value && parseInt(value).toLocaleString("en-US");
+        <div>
+          <Bar
+            data={{
+              labels: chartData.labels,
+              datasets: [
+                { label: chartData.labels, data: chartData[dataShown] },
+              ],
+            }}
+            options={{
+              plugins: {
+                tooltip: { enabled: false },
+                legend: { display: false, position: "top" },
+                datalabels: {
+                  display: false,
+                  formatter: (value, context) => {
+                    if (isNaN(value)) return "";
+                    return value && parseInt(value).toLocaleString("en-US");
+                  },
+                  color: "black",
+                  anchor: "center",
+                  textAlign: "center",
+                  font: { size: 14 },
+                  offset: 0,
+                  align: "top",
                 },
-                color: "black",
-                anchor: "center",
-                textAlign: "center",
-                font: { size: 14 },
-                offset: 0,
-                align: "top",
               },
-            },
-            aspectRatio: 3,
-            responsive: true,
-            scales: { x: { grid: { lineWidth: 0 } } },
-          }}
-        />
+
+              aspectRatio: 3,
+              maintainAspectRatio: false,
+              responsive: true,
+              scales: { x: { grid: { lineWidth: 0 } } },
+            }}
+          />
+        </div>
       </div>
     </>
   );
