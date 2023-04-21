@@ -25,7 +25,7 @@ export default function ActivityFeed() {
       <div className="md:text-2xl-2xl p-2 text-lg sm:text-xl">
         Activity Feed
       </div>
-      <div className="panel h-fit max-h-[70vh] overflow-y-auto">
+      <div className="panel min-h-[60%] max-h-[70vh] overflow-y-auto">
         {state.activityFeed.length > 0 ? (
           state.activityFeed.map((w) => <Activity key={w.id} workout={w} />)
         ) : (

@@ -12,8 +12,8 @@ export default function SignUpForm() {
     .object({
       firstName: z.string().min(2, "Too short"),
       lastName: z.string().min(2, "Too short"),
-      email: z.string().email(),
-      confirmEmail: z.string().email(),
+      email: z.string().email().toLowerCase(),
+      confirmEmail: z.string().email().toLowerCase(),
       password: z
         .string()
         .min(6, "Too short")

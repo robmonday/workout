@@ -82,9 +82,9 @@ div {
 
 @layer base {
   ::-webkit-scrollbar {
-    @apply h-0.5 w-4 bg-transparent lg:h-1 lg:w-2;
+    @apply h-0.5 w-1 bg-transparent;
   }
   ::-webkit-scrollbar-thumb {
-    @apply rounded bg-purple-600;
+    @apply rounded bg-purple-500;
   }
 }

@@ -109,7 +109,7 @@ export default function WorkoutForm({
       >
         <label className="inline-block w-28">Type</label>
         <select
-          className="input w-52"
+          className="input mb-4 w-52 "
           {...register("workoutTypeId")}
           value={workout?.workoutTypeId}
         >
@@ -137,7 +137,7 @@ export default function WorkoutForm({
 
         <label className="inline-block w-28">Location</label>
         <input
-          className="input "
+          className="input mb-4 "
           placeholder=""
           {...register("location")}
           type="text"
@@ -150,7 +150,7 @@ export default function WorkoutForm({
 
         <label className="inline-block w-28">Date & Time</label>
         <input
-          className="input "
+          className="input mb-4 "
           {...register("end", { valueAsDate: true })}
           type="datetime-local"
           defaultValue={
@@ -166,7 +166,7 @@ export default function WorkoutForm({
 
         <label className="inline-block w-28">Minutes</label>
         <input
-          className="input "
+          className="input mb-4 "
           {...register("minutes", { valueAsNumber: true })}
           type="number"
           defaultValue={
@@ -187,7 +187,7 @@ export default function WorkoutForm({
 
         <label className="inline-block w-28">Steps</label>
         <input
-          className="input "
+          className="input mb-4 "
           {...register("steps", { valueAsNumber: true })}
           placeholder="optional"
           type="number"
@@ -200,7 +200,7 @@ export default function WorkoutForm({
 
         <label className="inline-block w-28">Distance</label>
         <input
-          className="input "
+          className="input mb-4 "
           {...register("distance", { valueAsNumber: true })}
           placeholder="optional"
           type="number"
@@ -214,7 +214,7 @@ export default function WorkoutForm({
 
         <label className="inline-block w-28">Calories</label>
         <input
-          className="input "
+          className="input mb-4 "
           {...register("calories", { valueAsNumber: true })}
           placeholder="optional"
           type="number"
@@ -227,7 +227,7 @@ export default function WorkoutForm({
 
         <label className="inline-block w-28 align-top">Notes</label>
         <textarea
-          className="input "
+          className="input mb-4 "
           placeholder="optional"
           rows={1}
           cols={30}

@@ -11,37 +11,37 @@ export default function Settings() {
   return (
     <>
       <div className="p-2 text-xl">Settings</div>
-      <div className="flex flex-wrap">
-        <div className="w-[40rem]">
-          <AccountDetails />
-        </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 ">
+        {/* <div className="w-[40rem]"> */}
+        <AccountDetails />
+        {/* </div> */}
 
-        <div className=" w-[40rem]">
-          <PersonalDetails />
-        </div>
+        {/* <div className=" w-[40rem]"> */}
+        <PersonalDetails />
+        {/* </div> */}
 
-        <div className=" w-[40rem]">
-          <Profile />
-        </div>
+        {/* <div className=" w-[40rem]"> */}
+        <Profile />
+        {/* </div> */}
 
-        <div className="w-[40rem]">
-          <WorkoutSettings />
-        </div>
+        {/* <div className="w-[40rem]"> */}
+        <WorkoutSettings />
+        {/* </div> */}
 
-        <div className=" w-[40rem]">
-          <div className="panel">
-            <div className="flex justify-start">
-              <div className="p mb-4 text-lg">Sharing & Privacy</div>
-              <div
-                onClick={() => alert("Edit")}
-                className="btn btn-purple m-0 mx-2 h-fit px-2 py-0.5"
-              >
-                Edit
-              </div>
-              <div className="h-56 "></div>
+        {/* <div className=" w-[40rem]"> */}
+        <div className="panel">
+          <div className="flex justify-start">
+            <div className="p mb-4 text-lg">Sharing & Privacy</div>
+            <div
+              onClick={() => alert("Edit")}
+              className="btn btn-purple m-0 mx-2 h-fit px-2 py-0.5"
+            >
+              Edit
             </div>
+            <div className="h-56 "></div>
           </div>
         </div>
+        {/* </div> */}
       </div>
     </>
   );
@@ -125,7 +125,7 @@ export function AccountDetails() {
   };
 
   return (
-    <div className="panel">
+    <div className="panel pb-6">
       <div className="flex justify-start">
         <div className="p mb-4 text-lg">Account Details</div>
         {!editMode && (
@@ -293,7 +293,7 @@ export function PersonalDetails() {
   };
 
   return (
-    <div className="panel">
+    <div className="panel pb-6">
       <div className="flex justify-start">
         <div className="p mb-4 text-lg">Personal Details</div>
         {!editMode && (

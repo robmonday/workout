@@ -14,7 +14,7 @@ export default function LogInForm() {
   const dispatch = useContext(DispatchContext);
 
   const schema = z.object({
-    email: z.string().min(6, "Email is too short").email(),
+    email: z.string().min(6, "Email is too short").email().toLowerCase(),
     password: z
       .string()
       .min(6, "Password is too short")
