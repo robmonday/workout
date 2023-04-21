@@ -84,36 +84,49 @@ type LeaderboardProps = {
 export function Leaderboard({ title, leaderboard }: LeaderboardProps) {
   const [numResultsToShow, setNumResultsToShow] = useState(10);
 
+  if (leaderboard.length === 0) {
+    return (
+      <>
+        <div className=" px-4 py-1 text-lg font-light">No recent info</div>
+      </>
+    );
+  }
   return (
     <>
       <div className="w-[14rem] pr-2 pb-4">
         <div className=" pb-2 text-lg">{title}</div>
         <div className="rounded-md  border border-white bg-purple-300 p-2">
-          {leaderboard
-            .sort((a, b) => b.value - a.value)
-            .slice(0, numResultsToShow)
-            .map((leader) => (
-              <LeaderboardLine
-                leader={leader}
-                value={leader.value}
-                key={leader.id}
-              />
-            ))}
-        </div>
-        <div
-          className="relative bottom-2 right-2 float-right rounded-full border border-white bg-purple-300 p-0.5 hover:bg-purple-400 hover:text-black"
-          onClick={() =>
-            numResultsToShow === 10
-              ? setNumResultsToShow(20)
-              : setNumResultsToShow(10)
-          }
-        >
-          {numResultsToShow === 10 ? (
-            <Plus strokeWidth={0.75} size={16} />
+          {leaderboard.length > 0 ? (
+            leaderboard
+              .sort((a, b) => b.value - a.value)
+              .slice(0, numResultsToShow)
+              .map((leader) => (
+                <LeaderboardLine
+                  leader={leader}
+                  value={leader.value}
+                  key={leader.id}
+                />
+              ))
           ) : (
-            <Minus strokeWidth={0.75} size={16} />
+            <div className="px-4 py-2 text-lg font-light">No recent info</div>
           )}
         </div>
+        {leaderboard.length > 0 && (
+          <div
+            className="relative bottom-2 right-2 float-right rounded-full border border-white bg-purple-300 p-0.5 hover:bg-purple-400 hover:text-black"
+            onClick={() =>
+              numResultsToShow === 10
+                ? setNumResultsToShow(20)
+                : setNumResultsToShow(10)
+            }
+          >
+            {numResultsToShow === 10 ? (
+              <Plus strokeWidth={0.75} size={16} />
+            ) : (
+              <Minus strokeWidth={0.75} size={16} />
+            )}
+          </div>
+        )}
       </div>
     </>
   );
@@ -162,7 +175,7 @@ export function StepsLeaderboard() {
       <div className="p-2 text-lg sm:text-xl md:text-2xl">
         Weekly Leaderboard
       </div>
-      <div className="panel flex flex-wrap place-content-evenly border pb-4">
+      <div className="panel border pb-4">
         <Leaderboard title="Steps Taken" leaderboard={stepsLeaderboard} />
       </div>
     </>

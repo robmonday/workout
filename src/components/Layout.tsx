@@ -58,7 +58,7 @@ const Layout = () => {
     <>
       <div className="text-md fixed top-0 z-10 flex w-full bg-purple-300 px-2 py-3 sm:px-5">
         <Link to="/">
-          <div className="mr-1 h-10 text-lg md:text-xl lg:text-2xl">
+          <div className="sm:28 mr-1 h-10 w-20 text-lg md:w-36 md:text-xl lg:text-2xl">
             Workout App
           </div>
         </Link>
@@ -87,7 +87,7 @@ const Layout = () => {
 
         {state.token && (
           <div className="group fixed right-2 flex py-1 sm:right-5">
-            <div className="hidden overflow-hidden truncate pr-2 italic sm:w-24 md:block md:w-fit">
+            <div className="hidden overflow-hidden truncate pr-2 italic sm:w-24 md:block md:w-fit md:pr-4">
               {<span>Welcome {state.user?.firstName}!</span>}
             </div>
             <div className=" mt-0 mr-0 flex rounded border-2 border-white bg-purple-500 px-2 py-1">
@@ -161,7 +161,7 @@ const Layout = () => {
         )}
       </div>
 
-      <div className="mx-6 mt-20 mb-6">
+      <div className="px-2 pt-20 pb-6 sm:px-6 md:pt-14 ">
         <Outlet />
 
         {/* Displays State on Page */}

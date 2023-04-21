@@ -138,55 +138,73 @@ export function AccountDetails() {
         )}
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid-gap-4 grid grid-cols-3">
-          <label className="input">First Name</label>
+        <div className="flex flex-wrap pt-2">
+          <div className="w-28 py-2 md:w-32 md:pl-4 ">
+            <label>First Name</label>
+          </div>
           <input
-            className={`input ${inputEditStyle}`}
+            type="text"
+            className={`${inputEditStyle} input w-42 max-w-[16rem] flex-grow`}
             disabled={!editMode}
             defaultValue={state.user?.firstName}
             {...register("firstName")}
           />
-          <div className="ml-2 text-red-600">
+          <div className="ml-5 min-w-[9rem] overflow-x-auto py-2 text-red-600">
             {errors.firstName && errors.firstName.message}
           </div>
+        </div>
 
-          <label className="input border-0">Last Name</label>
+        <div className="flex flex-wrap pt-2">
+          <div className="w-28 py-2 md:w-32 md:pl-4 ">
+            <label>Last Name</label>
+          </div>
           <input
-            className={`input ${inputEditStyle}`}
+            type="text"
+            className={`${inputEditStyle} input w-42 max-w-[16rem] flex-grow`}
             disabled={!editMode}
             defaultValue={state.user?.lastName}
             {...register("lastName")}
           />
-          <div className="ml-2 text-red-600">
+          <div className="ml-5 min-w-[9rem] overflow-x-auto py-2 text-red-600">
             {errors.lastName && errors.lastName.message}
           </div>
+        </div>
 
-          <label className="input border-0">Email</label>
+        <div className="flex flex-wrap pt-2">
+          <div className="w-28 py-2 md:w-32 md:pl-4 ">
+            <label>Email</label>
+          </div>
           <input
-            className={`input ${inputEditStyle}`}
+            type="text"
+            className={`${inputEditStyle} input w-42 max-w-[16rem] flex-grow`}
             disabled={!editMode}
             defaultValue={state.user?.email}
             {...register("email")}
           />
-          <div className="ml-2 text-red-600">
+          <div className="ml-5 min-w-[9rem] overflow-x-auto py-2 text-red-600">
             {errors.email && errors.email.message}
           </div>
+        </div>
 
-          {editMode && (
-            <>
-              <label className="input border-0">Confirm Email</label>
+        {editMode && (
+          <>
+            <div className="flex flex-wrap pt-2">
+              <div className="w-28 py-2 md:w-32 md:pl-4 ">
+                <label>Confirm Email</label>
+              </div>
               <input
-                className={`input ${inputEditStyle}`}
+                type="text"
+                className={`${inputEditStyle} input w-42 max-w-[16rem] flex-grow`}
                 disabled={!editMode}
                 defaultValue={state.user?.email}
                 {...register("confirmEmail")}
               />
-              <div className="ml-2 text-red-600">
+              <div className="ml-5 min-w-[9rem] py-2 text-red-600">
                 {errors.confirmEmail && errors.confirmEmail.message}
               </div>
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
 
         {editMode && (
           <div className="mt-5">
@@ -288,50 +306,70 @@ export function PersonalDetails() {
         )}
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid-gap-4 grid grid-cols-3">
-          <label className="input border-0">Height (inches)</label>
+        <div className="flex flex-wrap pt-2">
+          <div className="w-32 py-2 md:w-36 md:pl-4">
+            <label>Height (inches)</label>
+          </div>
           <input
             type="number"
-            className={`input ${inputEditStyle}`}
+            className={`${inputEditStyle} input w-42 max-w-[16rem] flex-grow`}
             disabled={!editMode}
             defaultValue={state.user?.inches}
             {...register("inches", { valueAsNumber: true })}
           />
-          <div className="ml-2 text-red-600">{errors.inches && "Invalid"}</div>
+          <div className="ml-5 min-w-[9rem] overflow-x-auto py-2 text-red-600">
+            {errors.inches && "Invalid"}
+          </div>
+        </div>
 
-          <label className="input border-0">Weight (lbs)</label>
+        <div className="flex flex-wrap pt-2">
+          <div className="w-32 py-2 md:w-36 md:pl-4">
+            <label>Weight (lbs)</label>
+          </div>
           <input
             type="number"
-            className={`input ${inputEditStyle}`}
+            className={`${inputEditStyle} input w-42 max-w-[16rem] flex-grow`}
             disabled={!editMode}
             defaultValue={state.user?.lbs}
             {...register("lbs", { valueAsNumber: true })}
           />
-          <div className="ml-2 text-red-600">{errors.lbs && "Invalid"}</div>
+          <div className="ml-5 min-w-[9rem] overflow-x-auto py-2 text-red-600">
+            {errors.lbs && "Invalid"}
+          </div>
+        </div>
 
-          <label className="input border-0">Date of Birth</label>
+        <div className="flex flex-wrap pt-2">
+          <div className="w-32 py-2 md:w-36 md:pl-4">
+            <label>Date of Birth</label>
+          </div>
           <input
             type="date"
-            className={`input ${inputEditStyle}`}
+            className={`${inputEditStyle} input w-42 max-w-[16rem] flex-grow`}
             disabled={!editMode}
             defaultValue={state.user?.DOB}
             {...register("DOB", { valueAsDate: true })}
           />
-          <div className="ml-2 text-red-600">
+          <div className="ml-5 min-w-[9rem] overflow-x-auto py-2 text-red-600">
             {errors.DOB && errors.DOB.message}
           </div>
+        </div>
 
-          <label className="input border-0">Gender</label>
+        <div className="flex flex-wrap pt-2">
+          <div className="w-32 py-2 md:w-36 md:pl-4">
+            <label>Gender</label>
+          </div>
           <input
-            className={`input ${inputEditStyle}`}
+            type="text"
+            className={`${inputEditStyle} input w-42 max-w-[16rem] flex-grow`}
             disabled={!editMode}
             defaultValue={state.user?.gender}
             {...register("gender")}
           />
-          <div className="ml-2 text-red-600">
+          <div className="ml-5 min-w-[9rem] overflow-x-auto py-2 text-red-600">
             {errors.gender && errors.gender.message}
           </div>
         </div>
+
         {editMode && (
           <div className="mt-5">
             <input

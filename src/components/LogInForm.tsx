@@ -60,10 +60,10 @@ export default function LogInForm() {
         onSubmit={handleSubmit(onSubmit)}
         className="m-5 w-auto rounded-xl bg-gradient-to-br from-gray-100 px-7 py-5 shadow-lg md:w-2/3 lg:w-1/2 2xl:w-1/3"
       >
-        <div className="text-lg sm:text-xl md:text-2xl">Log In</div>
+        <div className="mb-4 text-lg sm:text-xl md:text-2xl ">Log In</div>
 
         <input
-          className="input w-full"
+          className="input mb-4 w-[100%] max-w-[18rem] "
           placeholder="Email Address"
           type="text"
           {...register("email")}
@@ -74,7 +74,7 @@ export default function LogInForm() {
         <br />
 
         <input
-          className="input w-full"
+          className="input mb-4 w-[100%] max-w-[18rem] "
           placeholder="Password"
           type="password"
           {...register("password")}
@@ -94,19 +94,19 @@ export default function LogInForm() {
           </div>
         )}
 
-        <div className="mt-3">
+        <div className="">
           <input className="btn btn-primary" type="submit" value="Submit" />
           <Link to="/" className="btn btn-secondary">
             Cancel
           </Link>
         </div>
-        <div className="mt-3">
+        <div className="my-4">
           Don't have an account?&nbsp;&nbsp;&nbsp;
           <Link
             to="/signup"
             className="text-blue-500 hover:underline hover:underline-offset-8"
           >
-            <div>Sign Up!</div>
+            <div className="sm:inline">Sign Up!</div>
           </Link>
         </div>
       </form>

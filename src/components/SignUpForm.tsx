@@ -50,25 +50,26 @@ export default function SignUpForm() {
   };
 
   return (
-    <div className="shaddow-xlg">
-      <div></div>
+    <>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="m-5 w-auto rounded-xl bg-gradient-to-br from-gray-100 px-7 py-5 shadow-lg md:w-2/3 lg:w-1/2"
       >
-        <div className="text-lg sm:text-xl md:text-2xl">Sign Up</div>
+        <div className="mb-4 text-lg sm:text-xl md:text-2xl ">Sign Up</div>
 
         <input
-          className="input w-full"
+          type="text"
+          className="input mb-4 mr-2 w-[100%] max-w-[18rem]"
           placeholder="First Name"
           {...register("firstName")}
         />
         <input
-          className="input w-full"
+          type="text"
+          className="input mb-4 w-[100%] max-w-[18rem] "
           placeholder="Last Name"
           {...register("lastName")}
         />
-        <span className="ml-2 border border-black text-red-600">
+        <span className="ml-2 text-red-600">
           {(errors.firstName || errors.lastName) && (
             <span>{errors.firstName?.message || errors.lastName?.message}</span>
           )}
@@ -76,7 +77,7 @@ export default function SignUpForm() {
         <br />
 
         <input
-          className="input w-full "
+          className="input mb-4 w-[100%] max-w-[18rem] "
           placeholder="Email"
           type="text"
           {...register("email")}
@@ -87,7 +88,7 @@ export default function SignUpForm() {
         <br />
 
         <input
-          className="input w-full"
+          className="input mb-4 w-[100%] max-w-[18rem] "
           placeholder="Confirm Email"
           type="text"
           {...register("confirmEmail")}
@@ -100,7 +101,7 @@ export default function SignUpForm() {
         <br />
 
         <input
-          className="input w-full"
+          className="input mb-4 w-[100%] max-w-[18rem] "
           placeholder="Password"
           type="password"
           {...register("password")}
@@ -111,22 +112,22 @@ export default function SignUpForm() {
         )}
         <br />
 
-        <div className="mt-3">
+        <div className="">
           <input className="btn btn-primary" type="submit" value="Submit" />
           <Link to="/" className="btn btn-secondary">
             Cancel
           </Link>
         </div>
-        <div className="mt-3">
+        <div className="my-4 ">
           Already have an account?&nbsp;&nbsp;&nbsp;
           <Link
             to="/login"
             className="text-blue-500 hover:underline hover:underline-offset-8"
           >
-            <div>Log In!</div>
+            <div className="sm:inline">Log In!</div>
           </Link>
         </div>
       </form>
-    </div>
+    </>
   );
 }

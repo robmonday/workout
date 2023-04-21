@@ -49,8 +49,12 @@ div {
   }
 
   .input {
-    @apply mr-2 mt-4 rounded-lg border border-gray-300 px-3 py-2
+    @apply rounded-lg border border-gray-300 
     focus:ring-1 focus:ring-gray-500 focus:ring-opacity-50 focus:ring-offset-2;
+  }
+
+  .input-label {
+    /* @apply px-3 py-2 */
   }
 
   .link {
@@ -73,5 +77,14 @@ div {
     @apply text-blue-600 
     visited:text-purple-700 
     hover:underline hover:underline-offset-8;
+  }
+}
+
+@layer base {
+  ::-webkit-scrollbar {
+    @apply h-0.5 w-4 bg-transparent lg:h-1 lg:w-2;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded bg-purple-600;
   }
 }

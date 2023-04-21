@@ -29,7 +29,7 @@ export default function ActivityFeed() {
         {state.activityFeed.length > 0 ? (
           state.activityFeed.map((w) => <Activity key={w.id} workout={w} />)
         ) : (
-          <div className="px-4 py-2 text-lg font-light">No recent activity</div>
+          <div className="px-4 py-2 text-lg font-light">No recent info</div>
         )}
       </div>
     </>
