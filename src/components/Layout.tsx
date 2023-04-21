@@ -90,16 +90,16 @@ const Layout = () => {
             <div className="hidden overflow-hidden truncate pr-2 italic sm:w-24 md:block md:w-fit md:pr-4">
               {<span>Welcome {state.user?.firstName}!</span>}
             </div>
-            <div className=" mt-0 mr-0 flex rounded border-2 border-white bg-purple-500 px-2 py-1">
-              <div className="relative cursor-pointer text-white">
+            <div className=" mt-0 mr-0 flex rounded border-2 border-white bg-purple-500 px-3 py-1">
+              <div className=" cursor-pointer text-white">
                 <User />
                 {state.openNotifications &&
                   state.openNotifications.length > 0 && (
-                    <div>
-                      <div className="fixed left-16 bottom-4 animate-ping rounded-md bg-white px-2 text-sm font-semibold">
+                    <div className="relative">
+                      <div className="absolute left-6 bottom-4 animate-ping rounded-md bg-white px-2 text-sm font-semibold">
                         1
                       </div>
-                      <div className="fixed left-16 bottom-4 rounded-md border-2 border-red-600 bg-white px-2 text-sm font-semibold text-red-600 ring-2 ring-white">
+                      <div className="absolute left-6 bottom-4 rounded-md border-2 border-red-600 bg-white px-2 text-sm font-semibold text-red-600 ring-2 ring-white">
                         {state.openNotifications.length}
                       </div>
                     </div>
