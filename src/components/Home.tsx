@@ -23,11 +23,13 @@ const Home = () => {
               <div className="">Come be a part of our team!</div>
               <br />
             </div>
-            <Link to="/signup">
-              <div className="btn btn-purple mt-5 bg-purple-500 text-white shadow-xl">
-                Join the movement!
-              </div>
-            </Link>
+            {state.token && (
+              <Link to="/signup">
+                <div className="btn btn-purple mt-5 bg-purple-500 text-white shadow-xl">
+                  Join the movement!
+                </div>
+              </Link>
+            )}
           </div>
 
           <img
