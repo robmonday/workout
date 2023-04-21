@@ -10,7 +10,7 @@ import {
   ReactionRequest,
 } from "./types";
 
-export const baseUrl = "https://workout-backend.fly.dev/api"; // "http://localhost:5174";
+export const baseUrl = "https://workout-backend.fly.dev"; // "http://localhost:5174";
 
 type RequestBody =
   | SignUpRequest
