@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DispatchContext, StateContext } from "./StateProvider";
+import { DispatchContext } from "./StateProvider";
 
 import { useNavigate, Link } from "react-router-dom";
 import { loginRequest } from "../api";
@@ -12,7 +12,6 @@ export default function LogInForm() {
   const navigate = useNavigate();
 
   const dispatch = useContext(DispatchContext);
-  const state = useContext(StateContext);
 
   const schema = z.object({
     email: z.string().min(6, "Email is too short").email(),
@@ -62,10 +61,9 @@ export default function LogInForm() {
         className="m-5 w-auto rounded-xl bg-gradient-to-br from-gray-100 px-7 py-5 shadow-lg md:w-2/3 lg:w-1/2 2xl:w-1/3"
       >
         <div className="text-lg sm:text-xl md:text-2xl">Log In</div>
-        <br />
 
         <input
-          className="input w-64"
+          className="input w-full"
           placeholder="Email Address"
           type="text"
           {...register("email")}
@@ -76,7 +74,7 @@ export default function LogInForm() {
         <br />
 
         <input
-          className="input w-64"
+          className="input w-full"
           placeholder="Password"
           type="password"
           {...register("password")}
@@ -102,13 +100,13 @@ export default function LogInForm() {
             Cancel
           </Link>
         </div>
-        <div className="mt-5">
+        <div className="mt-3">
           Don't have an account?&nbsp;&nbsp;&nbsp;
           <Link
             to="/signup"
             className="text-blue-500 hover:underline hover:underline-offset-8"
           >
-            Sign Up!
+            <div>Sign Up!</div>
           </Link>
         </div>
       </form>

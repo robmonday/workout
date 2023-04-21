@@ -57,19 +57,18 @@ export default function SignUpForm() {
         className="m-5 w-auto rounded-xl bg-gradient-to-br from-gray-100 px-7 py-5 shadow-lg md:w-2/3 lg:w-1/2"
       >
         <div className="text-lg sm:text-xl md:text-2xl">Sign Up</div>
-        <br />
 
         <input
-          className="input"
+          className="input w-full"
           placeholder="First Name"
           {...register("firstName")}
         />
         <input
-          className="input"
+          className="input w-full"
           placeholder="Last Name"
           {...register("lastName")}
         />
-        <span className="ml-2 text-red-600">
+        <span className="ml-2 border border-black text-red-600">
           {(errors.firstName || errors.lastName) && (
             <span>{errors.firstName?.message || errors.lastName?.message}</span>
           )}
@@ -77,18 +76,18 @@ export default function SignUpForm() {
         <br />
 
         <input
-          className="input w-64"
+          className="input w-full "
           placeholder="Email"
           type="text"
           {...register("email")}
         />
         {errors.email && (
-          <span className="ml-2 text-red-600">{errors.email.message}</span>
+          <span className="ml-2 text-red-600 ">{errors.email.message}</span>
         )}
         <br />
 
         <input
-          className="input w-64"
+          className="input w-full"
           placeholder="Confirm Email"
           type="text"
           {...register("confirmEmail")}
@@ -101,7 +100,7 @@ export default function SignUpForm() {
         <br />
 
         <input
-          className="input w-64"
+          className="input w-full"
           placeholder="Password"
           type="password"
           {...register("password")}
@@ -112,17 +111,19 @@ export default function SignUpForm() {
         )}
         <br />
 
-        <input className="btn btn-primary" type="submit" value="Submit" />
-        <Link to="/" className="btn btn-secondary">
-          Cancel
-        </Link>
-        <div className="mt-5">
+        <div className="mt-3">
+          <input className="btn btn-primary" type="submit" value="Submit" />
+          <Link to="/" className="btn btn-secondary">
+            Cancel
+          </Link>
+        </div>
+        <div className="mt-3">
           Already have an account?&nbsp;&nbsp;&nbsp;
           <Link
             to="/login"
             className="text-blue-500 hover:underline hover:underline-offset-8"
           >
-            Log In!
+            <div>Log In!</div>
           </Link>
         </div>
       </form>
