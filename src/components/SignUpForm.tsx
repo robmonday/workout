@@ -60,13 +60,13 @@ export default function SignUpForm() {
         <input
           type="text"
           className="input mb-4 mr-2 w-[100%] max-w-[18rem]"
-          placeholder="First Name"
+          placeholder="first name"
           {...register("firstName")}
         />
         <input
           type="text"
           className="input mb-4 w-[100%] max-w-[18rem] "
-          placeholder="Last Name"
+          placeholder="last name"
           {...register("lastName")}
         />
         <span className="ml-2 text-red-600">
@@ -78,7 +78,7 @@ export default function SignUpForm() {
 
         <input
           className="input mb-4 w-[100%] max-w-[18rem] lowercase"
-          placeholder="Email"
+          placeholder="email"
           type="text"
           {...register("email")}
         />
@@ -88,8 +88,8 @@ export default function SignUpForm() {
         <br />
 
         <input
-          className="input mb-4 w-[100%] max-w-[18rem] "
-          placeholder="Confirm Email"
+          className="input mb-4 w-[100%] max-w-[18rem] lowercase "
+          placeholder="confirm email"
           type="text"
           {...register("confirmEmail")}
         />
@@ -102,7 +102,7 @@ export default function SignUpForm() {
 
         <input
           className="input mb-4 w-[100%] max-w-[18rem] "
-          placeholder="Password"
+          placeholder="password"
           type="password"
           {...register("password")}
         />

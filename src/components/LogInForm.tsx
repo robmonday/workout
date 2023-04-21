@@ -64,7 +64,7 @@ export default function LogInForm() {
 
         <input
           className="input mb-4 w-[100%] max-w-[18rem] lowercase"
-          placeholder="Email Address"
+          placeholder="email"
           type="text"
           {...register("email")}
         />
@@ -75,7 +75,7 @@ export default function LogInForm() {
 
         <input
           className="input mb-4 w-[100%] max-w-[18rem] "
-          placeholder="Password"
+          placeholder="password"
           type="password"
           {...register("password")}
         />
