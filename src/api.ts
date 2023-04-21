@@ -10,7 +10,7 @@ import {
   ReactionRequest,
 } from "./types";
 
-const baseUrl = "https://workout-backend.fly.dev/api"; // "http://localhost:5174/api";
+export const baseUrl = "http://localhost:5174"; // "https://workout-backend.fly.dev/api";
 
 type RequestBody =
   | SignUpRequest
@@ -49,7 +49,7 @@ export const fetcher = async ({ url, method, body, json = true }: Fetcher) => {
 export const loginRequest = (body: LogInRequest) => {
   // console.log("Request body passed to fetcher()", body);
   return fetcher({
-    url: `${baseUrl}/user/login`,
+    url: `${baseUrl}/api/user/login`,
     method: "POST",
     body,
   });
@@ -58,7 +58,7 @@ export const loginRequest = (body: LogInRequest) => {
 export const signUpRequest = (body: SignUpRequest) => {
   // console.log("Request body passed to fetcher()", body);
   return fetcher({
-    url: `${baseUrl}/user/signup`,
+    url: `${baseUrl}/api/user/signup`,
     method: "POST",
     body,
   });
@@ -67,7 +67,7 @@ export const signUpRequest = (body: SignUpRequest) => {
 export const createNotification = (body: NotificationRequest) => {
   // console.log("Request body passed to fetcher()", body);
   return fetcher({
-    url: `${baseUrl}/notification`,
+    url: `${baseUrl}/api/notification`,
     method: "POST",
     body,
   });
@@ -75,7 +75,7 @@ export const createNotification = (body: NotificationRequest) => {
 
 export const getAllWorkouts = () => {
   const result = fetcher({
-    url: `${baseUrl}/workout`,
+    url: `${baseUrl}/api/workout`,
     method: "GET",
   });
   // console.log("getAllWorkouts() fetcher response:", result);
@@ -84,7 +84,7 @@ export const getAllWorkouts = () => {
 
 export const getWorksTimeSeries = () => {
   const result = fetcher({
-    url: `${baseUrl}/workout/timeseries`,
+    url: `${baseUrl}/api/workout/timeseries`,
     method: "GET",
   });
   return result;
@@ -92,7 +92,7 @@ export const getWorksTimeSeries = () => {
 
 export const getAvgsByWorkType = () => {
   const result = fetcher({
-    url: `${baseUrl}/workout/averages`,
+    url: `${baseUrl}/api/workout/averages`,
     method: "GET",
   });
   // console.log("averages", result);
@@ -108,7 +108,7 @@ export const createWorkout = (formValues: workoutFormValues) => {
     minutes: undefined,
   };
   const result = fetcher({
-    url: `${baseUrl}/workout`,
+    url: `${baseUrl}/api/workout`,
     method: "POST",
     body,
   });
@@ -124,7 +124,7 @@ export const updateWorkout = (id: string, formValues: workoutFormValues) => {
     minutes: undefined,
   };
   const result = fetcher({
-    url: `${baseUrl}/workout`,
+    url: `${baseUrl}/api/workout`,
     method: "PUT",
     body: { ...body, id },
   });
@@ -133,7 +133,7 @@ export const updateWorkout = (id: string, formValues: workoutFormValues) => {
 
 export const deleteWorkout = (id: string) => {
   return fetcher({
-    url: `${baseUrl}/workout`,
+    url: `${baseUrl}/api/workout`,
     method: "DELETE",
     body: { id },
   });
@@ -141,7 +141,7 @@ export const deleteWorkout = (id: string) => {
 
 export const deleteWorkoutSeedData = (id: string) => {
   return fetcher({
-    url: `${baseUrl}/workout/seed`,
+    url: `${baseUrl}/api/workout/seed`,
     method: "DELETE",
     body: { id },
   });
@@ -149,7 +149,7 @@ export const deleteWorkoutSeedData = (id: string) => {
 
 export const getAllBadges = () => {
   const result = fetcher({
-    url: `${baseUrl}/badge`,
+    url: `${baseUrl}/api/badge`,
     method: "GET",
   });
   // console.log("getAllBadges() returned", result);
@@ -158,7 +158,7 @@ export const getAllBadges = () => {
 
 export const getBadgeGallery = () => {
   const result = fetcher({
-    url: `${baseUrl}/badge?gallery=true`,
+    url: `${baseUrl}/api/badge?gallery=true`,
     method: "GET",
   });
   return result;
@@ -166,7 +166,7 @@ export const getBadgeGallery = () => {
 
 export const getAllWorkoutTypes = () => {
   const result = fetcher({
-    url: `${baseUrl}/workout/type`,
+    url: `${baseUrl}/api/workout/type`,
     method: "GET",
   });
   return result;
@@ -174,7 +174,7 @@ export const getAllWorkoutTypes = () => {
 
 export const getWorksGrpByLoc = () => {
   const result = fetcher({
-    url: `${baseUrl}/workout/?groupBy=location`,
+    url: `${baseUrl}/api/workout/?groupBy=location`,
     method: "GET",
   });
   return result;
@@ -183,7 +183,7 @@ export const getWorksGrpByLoc = () => {
 export const getPotentialFriends = (limit = 0) => {
   const queryString = limit !== 0 ? `/?limit=${limit}` : "";
   const result = fetcher({
-    url: `${baseUrl}/user${queryString}`,
+    url: `${baseUrl}/api/user${queryString}`,
     method: "GET",
   });
   return result;
@@ -191,7 +191,7 @@ export const getPotentialFriends = (limit = 0) => {
 
 export const getUser = (id: string) => {
   const result = fetcher({
-    url: `${baseUrl}/user/${id}`,
+    url: `${baseUrl}/api/user/${id}`,
     method: "GET",
   });
   return result;
@@ -199,7 +199,7 @@ export const getUser = (id: string) => {
 
 export const getOpenNotifications = () => {
   const result = fetcher({
-    url: `${baseUrl}/notification/open`,
+    url: `${baseUrl}/api/notification/open`,
     method: "GET",
   });
   return result;
@@ -207,7 +207,7 @@ export const getOpenNotifications = () => {
 
 export const dismissNotification = (id: string) => {
   const result = fetcher({
-    url: `${baseUrl}/notification/open`,
+    url: `${baseUrl}/api/notification/open`,
     method: "PUT",
     body: { id },
   });
@@ -216,7 +216,7 @@ export const dismissNotification = (id: string) => {
 
 export const sendEmailConfirm = (userObj: UserObj) => {
   const result = fetcher({
-    url: `${baseUrl}/email/emailConfirm`,
+    url: `${baseUrl}/api/email/emailConfirm`,
     method: "POST",
     body: userObj,
   });
@@ -225,7 +225,7 @@ export const sendEmailConfirm = (userObj: UserObj) => {
 
 export const updateUser = (id: string, body: UserUpdate) => {
   const result = fetcher({
-    url: `${baseUrl}/user`,
+    url: `${baseUrl}/api/user`,
     method: "PUT",
     body: { ...body, id },
   });
@@ -234,7 +234,7 @@ export const updateUser = (id: string, body: UserUpdate) => {
 
 export const getLeaderboard = () => {
   const result = fetcher({
-    url: `${baseUrl}/workout/leaderboard/`,
+    url: `${baseUrl}/api/workout/leaderboard/`,
     method: "GET",
   });
   return result;
@@ -242,7 +242,7 @@ export const getLeaderboard = () => {
 
 export const getWorkoutFeed = () => {
   const result = fetcher({
-    url: `${baseUrl}/workout/feed`,
+    url: `${baseUrl}/api/workout/feed`,
     method: "GET",
   });
   return result;
@@ -253,7 +253,7 @@ export const createReaction = async (symbol: string, workoutId: string) => {
   // console.log("userId", userId);
   // console.log("workoutId", workoutId);
   const result = fetcher({
-    url: `${baseUrl}/reaction`,
+    url: `${baseUrl}/api/reaction`,
     method: "POST",
     body: {
       emojiSymbol: symbol,
