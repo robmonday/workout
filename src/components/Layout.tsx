@@ -56,41 +56,42 @@ const Layout = () => {
 
   return (
     <>
-      <div className="text-md fixed top-0 z-10 flex w-full justify-between bg-purple-300 px-5 py-3">
-        <Link to="/" className="text-2xl">
-          <div className="h-10 overflow-hidden">Workout App</div>
+      <div className="text-md fixed top-0 z-10 flex w-full bg-purple-300 px-2 py-3 sm:px-5">
+        <Link to="/">
+          <div className="mr-1 h-10 text-lg md:text-xl lg:text-2xl">
+            Workout App
+          </div>
         </Link>
         {state.token && (
-          <div className="">
-            <nav className="h-15 flex justify-around ">
-              <Link to="/main" className="nav-link">
-                Home
-              </Link>
-              {/* <Link to="/workout" className="nav-link">
+          <nav className="h-15 mx-1 mr-14 flex-grow overflow-x-auto border border-red-600 md:w-full">
+            <Link to="/main" className="nav-link">
+              Home
+            </Link>
+            {/* <Link to="/workout" className="nav-link">
                 Workout
               </Link> */}
-              <Link to="/data" className="nav-link">
-                My Data
-              </Link>
-              <Link to="/dashboard" className="nav-link">
-                Dashboard
-              </Link>
-              <Link to="/social" className="nav-link">
-                Friends
-              </Link>
-              <Link to="/badges" className="nav-link">
-                Badges
-              </Link>
-            </nav>
-          </div>
+            <Link to="/data" className="nav-link">
+              My Data
+            </Link>
+            <Link to="/dashboard" className="nav-link">
+              Dashboard
+            </Link>
+            <Link to="/social" className="nav-link">
+              Friends
+            </Link>
+            <Link to="/badges" className="nav-link">
+              Badges
+            </Link>
+          </nav>
         )}
+
         {state.token && (
-          <div className="flex py-1">
-            <div className="hidden overflow-hidden truncate pr-4 italic sm:block sm:w-24 md:w-fit">
+          <div className="group fixed right-2 flex py-1 sm:right-5">
+            <div className="hidden overflow-hidden truncate pr-2 italic sm:w-24 md:block md:w-fit">
               {<span>Welcome {state.user?.firstName}!</span>}
             </div>
-            <div className="btn group flex bg-purple-500 py-1 ">
-              <div className="relative cursor-pointer px-2 text-white ">
+            <div className=" mt-0 mr-0 flex rounded border-2 border-white bg-purple-500 px-2 py-1">
+              <div className="relative cursor-pointer text-white">
                 <User />
                 {state.openNotifications &&
                   state.openNotifications.length > 0 && (
@@ -103,7 +104,7 @@ const Layout = () => {
                       </div>
                     </div>
                   )}
-                <div className="absolute -right-5 top-7  hidden h-auto group-hover:block group-focus:block group-active:block">
+                <div className="absolute -right-2 top-8 hidden h-auto group-hover:block group-focus:block group-active:block ">
                   <ul className="top-0 w-56 rounded-md bg-white px-6 py-4 shadow">
                     <li className="py-1">
                       <Link

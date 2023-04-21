@@ -10,7 +10,7 @@ export default function Notifications() {
 
   if (!state.openNotifications || state.openNotifications.length === 0) {
     return (
-      <div className="w-1/2">
+      <div className="md:w-1/2">
         <div className="panel">
           <div className="p-2 text-2xl">Your Notifications</div>
           <div className="px-4 py-2 text-lg font-light">
@@ -26,7 +26,7 @@ export default function Notifications() {
 
   return (
     <>
-      <div className="w-1/2">
+      <div className="md:w-1/2">
         <div className="panel">
           <div className="p-2 text-2xl">Your Notifications</div>
           {openNotifications.map((n) => (
