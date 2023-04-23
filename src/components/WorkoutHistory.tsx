@@ -25,13 +25,13 @@ export default function WorkoutHistory() {
     <>
       <div className="p-2 text-lg sm:text-xl md:text-2xl">My Data</div>
       <div className="panel flex">
-        <div className="flex w-1/2 lg:w-1/3 ">
+        <div className="flex w-1/2 flex-grow lg:w-1/3 ">
           <div className="flex w-full flex-col rounded-lg border-2 border-purple-400 py-1 px-3">
             <WorkoutSearchBar />
             <WorkoutHistoryList handleDeleteWorkout={handleDeleteWorkout} />
           </div>
         </div>
-        <div className="w-1/2 align-top lg:w-2/3">
+        <div className="hidden w-1/2 align-top md:block lg:w-2/3">
           <div className="px-6 py-4">
             {state.detailPanelDisplay === "WorkoutDetail" &&
               state.workouts?.length > 0 && (
@@ -103,7 +103,8 @@ const WorkoutHistoryList = ({
           <div
             key={w.id}
             className={`my-2 flex justify-between rounded-lg border border-purple-500 p-2 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5 active:bg-purple-400 ${
-              w.id === state.selectedWorkout && "bg-purple-400 font-semibold"
+              w.id === state.selectedWorkout &&
+              "sm:bg-purple-400 sm:font-semibold"
             }`}
           >
             <span
@@ -113,10 +114,13 @@ const WorkoutHistoryList = ({
               }
             >
               <div className="inline-block">{w.workoutType?.name}</div>
-              <div className="hidden font-light text-purple-700 sm:inline-block">
-                <div className="ml-3 inline">
+              <div className="inline-flex">
+                <div className="ml-3 font-light text-purple-700">
                   {w.start && dateToWeekdayDate(w.start)}
                 </div>
+                {/* <div className="ml-3 overflow-hidden truncate border font-light">
+                  {w.notes}
+                </div> */}
               </div>
             </span>
             <span className="flex-none">
@@ -171,7 +175,7 @@ type WorkoutDetailProps = {
   handleDeleteWorkout: (id: string) => void;
 };
 
-const WorkoutDetail = ({
+export const WorkoutDetail = ({
   workoutId,
   handleDeleteWorkout,
 }: WorkoutDetailProps) => {

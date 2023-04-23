@@ -8,7 +8,7 @@ import Layout from "./components/Layout";
 import LogInForm from "./components/LogInForm";
 import SignUpForm from "./components/SignUpForm";
 import Home from "./components/Home";
-import Main from "./components/Main";
+import Start from "./components/Start";
 import DataEntryMode from "./components/MyData";
 import WorkoutMode from "./components/WorkoutMode";
 import Dashboard from "./components/Dashboard";
@@ -31,7 +31,10 @@ function App(): JSX.Element {
           <Route path="signup" element={<SignUpForm />} />
           <Route path="forgot" element={<SignUpForm />} />
           <Route path="home" element={<Home />} />
-          <Route path="main" element={state.token ? <Main /> : <LogInForm />} />
+          <Route
+            path="start"
+            element={state.token ? <Start /> : <LogInForm />}
+          />
           <Route
             path="data"
             element={state.token ? <DataEntryMode /> : <LogInForm />}

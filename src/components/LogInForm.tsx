@@ -50,7 +50,7 @@ export default function LogInForm() {
       window.localStorage.setItem("loggedWorkoutAppToken", res.token);
       dispatch({ type: "log_in_set_user", payload: res.userObj });
       dispatch({ type: "log_in_set_token", payload: res.token });
-      navigate("/main");
+      navigate("/start");
     }
   };
 

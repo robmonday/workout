@@ -4,7 +4,7 @@ import Timer from "./Timer";
 import { StepsLeaderboard } from "./Leaderboards";
 import ActivityFeed from "./ActivityFeed";
 
-export default function Main() {
+export default function Start() {
   return (
     <>
       <div className="flex flex-wrap justify-around ">

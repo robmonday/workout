@@ -58,7 +58,7 @@ export default function EmailConfirm() {
           {firstEmailSent && (
             <div className="my-2">
               <div
-                onClick={() => navigate("/main")}
+                onClick={() => navigate("/start")}
                 className="btn btn-green my-1 mr-5"
               >
                 I received the email and confirmed.

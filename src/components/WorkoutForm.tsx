@@ -148,7 +148,7 @@ export default function WorkoutForm({
         )}
         <br />
 
-        <label className="inline-block w-28">Date & Time</label>
+        <label className="inline-block w-28">Time</label>
         <input
           className="input mb-4 "
           {...register("end", { valueAsDate: true })}
