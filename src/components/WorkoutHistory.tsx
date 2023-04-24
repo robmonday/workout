@@ -22,6 +22,7 @@ export default function WorkoutHistory() {
     deleteWorkout(id);
     dispatch({ type: "delete_workout", payload: id });
     dispatch({ type: "select_workout" });
+    closeModal();
   };
 
   return (
@@ -29,7 +30,7 @@ export default function WorkoutHistory() {
       <div className="p-2 text-lg sm:text-xl md:text-2xl">My Data</div>
       <div className="panel flex">
         <div className="flex w-1/2 flex-grow lg:w-1/3 ">
-          <div className="flex w-full flex-col rounded-lg border-2 border-purple-400 py-1 px-3">
+          <div className="flex w-full flex-col rounded-lg border-2 border-purple-400 p-1">
             <WorkoutSearchBar />
             <WorkoutHistoryList handleDeleteWorkout={handleDeleteWorkout} />
           </div>
@@ -111,11 +112,12 @@ const WorkoutHistoryList = ({
       >
         <Plus strokeWidth={0.75} />
       </div>
+
       <div className="h-[60vh] overflow-y-auto">
         {filteredWorkouts?.map((w) => (
           <div
             key={w.id}
-            className={`my-2 flex justify-between rounded-lg border border-purple-500 p-2 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5 active:bg-purple-400 ${
+            className={`m-1 my-2 flex justify-between rounded-lg border border-purple-500 p-2 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5 active:bg-purple-400 ${
               w.id === state.selectedWorkout &&
               "bg-purple-400 font-semibold sm:bg-purple-400 sm:font-semibold" //sm:bg-purple-400 sm:font-semibold
             }`}
@@ -128,7 +130,7 @@ const WorkoutHistoryList = ({
                   content: (
                     <WorkoutDetail
                       workoutId={w.id}
-                      handleDeleteWorkout={() => {}}
+                      handleDeleteWorkout={handleDeleteWorkout}
                     />
                   ),
                   level: "purple",
@@ -212,7 +214,8 @@ export const WorkoutDetail = ({
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
 
-  console.log(state.workouts);
+  const [openModal, closeModal] = useContext(ModalContext);
+
   const workout = state.workouts.find((w) => w.id === workoutId);
   if (!workout) {
     return <div>No workout selected</div>;
@@ -233,12 +236,18 @@ export const WorkoutDetail = ({
           <Trash2 className="inline-block" strokeWidth={0.75} />
         </div>
         <div
-          onClick={() =>
+          onClick={() => {
             dispatch({
               type: "show_workout_form_populated",
               payload: workout,
-            })
-          }
+            });
+            openModal({
+              content: <WorkoutForm workout={workout} hide={closeModal} />,
+              level: "purple",
+              // title: "Hi!",
+              // topBar: false,
+            });
+          }}
           className="text-gray-00 float-right ml-1 inline rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
         >
           <Edit2 className="inline" strokeWidth={0.75} />

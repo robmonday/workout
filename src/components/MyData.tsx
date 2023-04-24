@@ -1,15 +1,7 @@
-import WorkoutHistory, { WorkoutDetail } from "./WorkoutHistory";
+import WorkoutHistory from "./WorkoutHistory";
 import { MyBadges } from "./Badges";
-import { ModalContext, ModalProps } from "./Modal";
-import { useContext } from "react";
-import WorkoutForm from "./WorkoutForm";
-import { StateContext } from "./StateProvider";
 
 export default function DataEntryMode() {
-  const state = useContext(StateContext);
-
-  const [openModal, closeModal] = useContext(ModalContext);
-
   return (
     <>
       <div className="flex">
