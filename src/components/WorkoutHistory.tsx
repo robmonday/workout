@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
 import { StateContext, DispatchContext } from "./StateProvider";
-import { ModalContext, ModalProps } from "./Modal";
+import { ModalContext, ModalProps, SmallScreenModalContextProvider } from "./Modal";
 
 import { getAllWorkouts, deleteWorkout } from "../api";
 
@@ -27,37 +27,39 @@ export default function WorkoutHistory() {
 
   return (
     <>
-      <div className="p-2 text-lg sm:text-xl md:text-2xl">My Data</div>
-      <div className="panel flex">
-        <div className="flex w-1/2 flex-grow lg:w-1/3 ">
-          <div className="flex w-full flex-col rounded-lg border-2 border-purple-400 p-1">
-            <WorkoutSearchBar />
-            <WorkoutHistoryList handleDeleteWorkout={handleDeleteWorkout} />
+      <SmallScreenModalContextProvider>
+        <div className="p-2 text-lg sm:text-xl md:text-2xl">My Data</div>
+        <div className="panel flex">
+          <div className="flex w-1/2 flex-grow lg:w-1/3 ">
+            <div className="flex w-full flex-col rounded-lg border-2 border-purple-400 p-1">
+              <WorkoutSearchBar />
+              <WorkoutHistoryList handleDeleteWorkout={handleDeleteWorkout} />
+            </div>
           </div>
-        </div>
-        <div className="hidden w-1/2 align-top md:block lg:w-2/3">
-          <div className="px-6 py-4">
-            {state.detailPanelDisplay === "WorkoutDetail" &&
-              state.workouts?.length > 0 && (
-                <WorkoutDetail
-                  workoutId={state.selectedWorkout || state.workouts[0].id}
-                  handleDeleteWorkout={handleDeleteWorkout}
+          <div className="hidden w-1/2 align-top md:block lg:w-2/3">
+            <div className="px-6 py-4">
+              {state.detailPanelDisplay === "WorkoutDetail" &&
+                state.workouts?.length > 0 && (
+                  <WorkoutDetail
+                    workoutId={state.selectedWorkout || state.workouts[0].id}
+                    handleDeleteWorkout={handleDeleteWorkout}
+                  />
+                )}
+              {state.detailPanelDisplay === "WorkoutFormAdd" && (
+                <WorkoutForm
+                  hide={() => dispatch({ type: "hide_workout_form" })}
                 />
               )}
-            {state.detailPanelDisplay === "WorkoutFormAdd" && (
-              <WorkoutForm
-                hide={() => dispatch({ type: "hide_workout_form" })}
-              />
-            )}
-            {state.detailPanelDisplay === "WorkoutFormEdit" && (
-              <WorkoutForm
-                hide={() => dispatch({ type: "hide_workout_form" })}
-                workout={state.workoutToEdit}
-              />
-            )}
+              {state.detailPanelDisplay === "WorkoutFormEdit" && (
+                <WorkoutForm
+                  hide={() => dispatch({ type: "hide_workout_form" })}
+                  workout={state.workoutToEdit}
+                />
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </SmallScreenModalContextProvider>
     </>
   );
 }

@@ -7,6 +7,8 @@ import {
 } from "react";
 
 import { DispatchContext, StateContext } from "./StateProvider";
+import { ModalContext } from "./Modal";
+
 import { getPotentialFriends } from "../api";
 
 import { dateToWeekdayDate } from "../util";
@@ -34,7 +36,7 @@ export default function Social() {
           <div className="w-full">
             <div className="p-2 text-xl">My Friends</div>
             <FriendList items={state.friends}>
-              <Friend />
+              <FriendItem />
             </FriendList>
           </div>
 
@@ -99,7 +101,7 @@ export function FriendList({
             placeholder="Start typing to filter..."
             onChange={(e) => setFilter(e.target.value)}
             value={filter}
-            className="input mt-2 w-full text-gray-500 "
+            className="input ml-1 mb-1 mt-2 w-full text-gray-500 "
           />
           <X
             size={30}
@@ -136,6 +138,8 @@ export function PotentialFriend() {
 
   const dispatch = useContext(DispatchContext);
 
+  const [openModal, closeModal] = useContext(ModalContext);
+
   const handleRequest = (friend: Friend) => {
     setBtnSelected(true);
     dispatch({ type: "create_friend_request", payload: friend });
@@ -151,18 +155,30 @@ export function PotentialFriend() {
   return (
     <>
       <div
-        className={`mx-1 mx-1 my-2 flex justify-between rounded-lg border border-purple-500 p-2 pr-3 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5`}
+        className={`mx-1 my-2 flex justify-between rounded-lg border border-purple-500 p-2 pr-3 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5`}
       >
-        <div className="flex h-16 w-16 flex-col place-content-center rounded-full border border-purple-500 bg-purple-100 text-center ">
-          <span className="">pic</span>
-        </div>
-        <div className="flex-grow pl-2 ">
-          <div className="">
-            {friend.firstName} {friend.lastName}
+        <div
+          className="flex flex-grow"
+          onClick={() =>
+            openModal({
+              content: <BasicProfile friend={friend} />,
+              level: "purple",
+              title: "Basic Profile",
+              topBar: true,
+            })
+          }
+        >
+          <div className="flex h-16 w-16 flex-col place-content-center rounded-full border border-purple-500 bg-purple-100 text-center ">
+            <span className="">pic</span>
           </div>
-          <div className="font-light text-purple-700 ">
+          <div className="flex-grow pl-2 ">
             <div className="">
-              {friend.city || "City"}, {friend.state || "State"}
+              {friend.firstName} {friend.lastName}
+            </div>
+            <div className="font-light text-purple-700 ">
+              <div className="">
+                {friend.city || "City"}, {friend.state || "State"}
+              </div>
             </div>
           </div>
         </div>
@@ -198,6 +214,8 @@ export function OutgoingFriendRequest() {
   const [btnSelected, setBtnSelected] = useState(false);
   const friend = useContext(FriendContext);
 
+  const [openModal, closeModal] = useContext(ModalContext);
+
   const handleUnfriend = () => {
     setBtnSelected(true);
     // request to backend needed here
@@ -213,18 +231,30 @@ export function OutgoingFriendRequest() {
       <div
         className={`mx-1 my-2 flex justify-between rounded-lg border border-purple-500 p-2 pr-3 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5`}
       >
-        <div className="flex h-16 w-16 flex-col place-content-center rounded-full border border-purple-500 bg-purple-100 text-center ">
-          <span className="">pic</span>
-        </div>
-        <div className="flex-grow pl-2 ">
-          <div className="">
-            {friend.firstName} {friend.lastName}
+        <div
+          className="flex flex-grow"
+          onClick={() =>
+            openModal({
+              content: <BasicProfile friend={friend} />,
+              level: "purple",
+              title: "Basic Profile",
+              topBar: true,
+            })
+          }
+        >
+          <div className="flex h-16 w-16 flex-col place-content-center rounded-full border border-purple-500 bg-purple-100 text-center ">
+            <span className="">pic</span>
           </div>
-          <div className="font-light text-purple-700 ">
+          <div className="flex-grow pl-2 ">
             <div className="">
-              {friend.city || "City"}, {friend.state || "State"}
+              {friend.firstName} {friend.lastName}
             </div>
-            <div className="">Since {dateToWeekdayDate(Date())}</div>
+            <div className="font-light text-purple-700 ">
+              <div className="">
+                {friend.city || "City"}, {friend.state || "State"}
+              </div>
+              <div className="">Since {dateToWeekdayDate(Date())}</div>
+            </div>
           </div>
         </div>
         <span className="">
@@ -260,6 +290,8 @@ export function IncomingFriendRequest() {
   const friend = useContext(FriendContext);
 
   const dispatch = useContext(DispatchContext);
+
+  const [openModal, closeModal] = useContext(ModalContext);
 
   const handleAccept = (friend: Friend) => {
     setStatus(true);
@@ -331,18 +363,30 @@ export function IncomingFriendRequest() {
       <div
         className={`mx-1 my-2 flex justify-between rounded-lg border border-purple-500 p-2 pr-3 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5`}
       >
-        <div className="flex h-16 w-16 flex-col place-content-center rounded-full border border-purple-500 bg-purple-100 text-center ">
-          <span className="">pic</span>
-        </div>
-        <div className="flex-grow pl-2 ">
-          <div className="">
-            {friend.firstName} {friend.lastName}
+        <div
+          className="flex flex-grow"
+          onClick={() =>
+            openModal({
+              content: <BasicProfile friend={friend} />,
+              level: "purple",
+              title: "Basic Profile",
+              topBar: true,
+            })
+          }
+        >
+          <div className="flex h-16 w-16 flex-col place-content-center rounded-full border border-purple-500 bg-purple-100 text-center ">
+            <span className="">pic</span>
           </div>
-          <div className="font-light text-purple-700 ">
+          <div className="flex-grow pl-2 ">
             <div className="">
-              {friend.city || "City"}, {friend.state || "State"}
+              {friend.firstName} {friend.lastName}
             </div>
-            <div className="">Request {dateToWeekdayDate(Date())}</div>
+            <div className="font-light text-purple-700 ">
+              <div className="">
+                {friend.city || "City"}, {friend.state || "State"}
+              </div>
+              <div className="">Request {dateToWeekdayDate(Date())}</div>
+            </div>
           </div>
         </div>
         {status === undefined ? buttons : selection}
@@ -351,9 +395,11 @@ export function IncomingFriendRequest() {
   );
 }
 
-export function Friend() {
+export function FriendItem() {
   const [btnSelected, setBtnSelected] = useState(false);
   const friend = useContext(FriendContext);
+
+  const [openModal, closeModal] = useContext(ModalContext);
 
   const handleUnfriend = () => {
     setBtnSelected(true);
@@ -371,8 +417,15 @@ export function Friend() {
         className={`mx-1 my-2 flex justify-between rounded-lg border border-purple-500 p-2 pr-3 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5`}
       >
         <div
-          className="flex flex-grow border"
-          onClick={() => alert("Show basic profile")}
+          className="flex flex-grow"
+          onClick={() =>
+            openModal({
+              content: <BasicProfile friend={friend} />,
+              level: "purple",
+              title: "Basic Profile",
+              topBar: true,
+            })
+          }
         >
           <div className="flex h-16 w-16 flex-col place-content-center rounded-full border border-purple-500 bg-purple-100 text-center ">
             <span className="">pic</span>
@@ -414,5 +467,24 @@ export function Friend() {
         </span>
       </div>
     </>
+  );
+}
+
+type BasicProfileProps = {
+  friend: Friend;
+};
+export function BasicProfile({ friend }: BasicProfileProps) {
+  return (
+    <div className="m-5 rounded-lg border-2 border-purple-500 bg-purple-100 px-5 py-7 text-center">
+      <div className="mx-auto mb-5 flex h-32 w-32 flex-col place-content-center rounded-full border border-purple-500 bg-purple-300 text-center ">
+        <span className="">pic</span>
+      </div>
+      <div className="mb-2 text-2xl">
+        {friend.firstName} {friend.lastName}
+      </div>
+      <div className="text-lg text-purple-500">
+        {friend.city || "City"}, {friend.state || "State"}
+      </div>
+    </div>
   );
 }

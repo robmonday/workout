@@ -19,6 +19,24 @@ export const ModalContext = createContext<
   [(modal: ModalProps) => unknown, () => unknown]
 >([() => console.log("Open modal"), () => console.log("Close modal")]);
 
+export function SmallScreenModalContextProvider({
+  children,
+}: PropsWithChildren) {
+  const [modal, setModal] = useState<ModalProps | undefined>();
+  const openModal = (modalProps: ModalProps) => setModal(modalProps);
+  const closeModal = () => setModal(undefined);
+  return (
+    <ModalContext.Provider value={[openModal, closeModal]}>
+      {children}
+      {modal && (
+        <div className="md:hidden">
+          <Modal {...modal} />
+        </div>
+      )}
+    </ModalContext.Provider>
+  );
+}
+
 export function ModalContextProvider({ children }: PropsWithChildren) {
   const [modal, setModal] = useState<ModalProps | undefined>();
   const openModal = (modalProps: ModalProps) => setModal(modalProps);
@@ -45,7 +63,7 @@ export function Modal({
     error: "bg-red-500",
   } satisfies Record<ModalProps["level"], string>;
   return (
-    <div className="absolute top-0 z-20 flex h-[200vh] w-full items-start justify-center overflow-clip bg-black bg-opacity-60 md:hidden">
+    <div className="absolute top-0 z-20 flex h-[200vh] w-full items-start justify-center overflow-clip bg-black bg-opacity-60">
       <div className="relative m-1 w-96 rounded bg-white shadow">
         {topBar && (
           <div
