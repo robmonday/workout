@@ -32,27 +32,30 @@ export default function Social() {
       <div className="panel">
         <div className="flex flex-wrap place-content-evenly">
           <div className="w-[23rem]">
-            <div className="p-2 text-xl">Find Friends</div>
-            <FriendList items={state.potentialFriends}>
-              <PotentialFriend />
+            <div className="p-2 text-xl">My Friends</div>
+            <FriendList items={state.friends}>
+              <Friend />
             </FriendList>
           </div>
-          <div className="w-[23rem]">
-            <div className="p-2 text-xl">Outgoing Friend Requests</div>
-            <FriendList items={state.outgoingFriendRequests}>
-              <OutgoingFriendRequest />
-            </FriendList>
-          </div>
+
           <div className="w-[23rem]">
             <div className="p-2 text-xl">Incoming Friend Requests</div>
             <FriendList items={state.potentialFriends.slice(1, 3)}>
               <IncomingFriendRequest />
             </FriendList>
           </div>
+
           <div className="w-[23rem]">
-            <div className="p-2 text-xl">My Friends</div>
-            <FriendList items={state.friends}>
-              <Friend />
+            <div className="p-2 text-xl">Outgoing Friend Requests</div>
+            <FriendList items={state.outgoingFriendRequests}>
+              <OutgoingFriendRequest />
+            </FriendList>
+          </div>
+
+          <div className="w-[23rem]">
+            <div className="p-2 text-xl">Find Friends</div>
+            <FriendList items={state.potentialFriends}>
+              <PotentialFriend />
             </FriendList>
           </div>
         </div>
