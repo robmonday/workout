@@ -45,8 +45,7 @@ export function Modal({
     error: "bg-red-500",
   } satisfies Record<ModalProps["level"], string>;
   return (
-    <div className="absolute top-0 z-20 flex h-full w-full items-start justify-center overflow-clip bg-black bg-opacity-60 md:hidden">
-      {/* bg-black bg-opacity-60 */}
+    <div className="absolute top-0 z-20 flex h-[200vh] w-full items-start justify-center overflow-clip bg-black bg-opacity-60 md:hidden">
       <div className="relative m-1 w-96 rounded bg-white shadow">
         {topBar && (
           <div
