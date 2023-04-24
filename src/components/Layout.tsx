@@ -64,7 +64,7 @@ const Layout = () => {
         </Link>
         {state.token && (
           <nav className="h-15 mx-1 mr-14 flex-grow overflow-x-auto py-1 md:w-full">
-            <Link to="/main" className="nav-link">
+            <Link to="/start" className="nav-link">
               Home
             </Link>
             {/* <Link to="/workout" className="nav-link">
