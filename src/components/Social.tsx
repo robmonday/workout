@@ -30,29 +30,29 @@ export default function Social() {
         Connect with Friends
       </div>
       <div className="panel">
-        <div className="flex flex-wrap place-content-evenly">
-          <div className="w-[23rem]">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-10 lg:px-5 2xl:grid-cols-4 2xl:gap-4 2xl:px-0 ">
+          <div className="w-full">
             <div className="p-2 text-xl">My Friends</div>
             <FriendList items={state.friends}>
               <Friend />
             </FriendList>
           </div>
 
-          <div className="w-[23rem]">
+          <div className="w-full">
             <div className="p-2 text-xl">Incoming Friend Requests</div>
             <FriendList items={state.potentialFriends.slice(1, 3)}>
               <IncomingFriendRequest />
             </FriendList>
           </div>
 
-          <div className="w-[23rem]">
+          <div className="w-full">
             <div className="p-2 text-xl">Outgoing Friend Requests</div>
             <FriendList items={state.outgoingFriendRequests}>
               <OutgoingFriendRequest />
             </FriendList>
           </div>
 
-          <div className="w-[23rem]">
+          <div className="w-full">
             <div className="p-2 text-xl">Find Friends</div>
             <FriendList items={state.potentialFriends}>
               <PotentialFriend />
@@ -92,7 +92,7 @@ export function FriendList({
 
   return (
     <>
-      <div className="mb-8 flex w-full flex-col rounded-lg border-2 border-purple-400 py-1 px-3">
+      <div className="mb-8 flex w-full flex-col rounded-lg border-2 border-purple-400 py-1 px-1">
         <form className="flex align-middle">
           <input
             type="text"
@@ -151,7 +151,7 @@ export function PotentialFriend() {
   return (
     <>
       <div
-        className={`my-2 flex justify-between rounded-lg border border-purple-500 p-2 pr-3 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5`}
+        className={`mx-1 mx-1 my-2 flex justify-between rounded-lg border border-purple-500 p-2 pr-3 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5`}
       >
         <div className="flex h-16 w-16 flex-col place-content-center rounded-full border border-purple-500 bg-purple-100 text-center ">
           <span className="">pic</span>
@@ -211,7 +211,7 @@ export function OutgoingFriendRequest() {
   return (
     <>
       <div
-        className={`my-2 flex justify-between rounded-lg border border-purple-500 p-2 pr-3 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5`}
+        className={`mx-1 my-2 flex justify-between rounded-lg border border-purple-500 p-2 pr-3 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5`}
       >
         <div className="flex h-16 w-16 flex-col place-content-center rounded-full border border-purple-500 bg-purple-100 text-center ">
           <span className="">pic</span>
@@ -314,13 +314,13 @@ export function IncomingFriendRequest() {
         className="ml-1 rounded border border-green-400 bg-green-200 hover:bg-green-500 hover:text-white active:bg-green-700"
       >
         <Check className="inline" strokeWidth={0.75} />
-        <span className="hidden pr-2 text-sm sm:inline-block">Accept</span>
+        <span className="hidden pr-2 text-sm lg:inline 2xl:hidden">Accept</span>
       </div>
 
       <div onClick={handleReject} className="mt-2 h-full">
         <div className="float-right ml-1 rounded border border-red-400 bg-red-200 hover:bg-red-500 hover:text-white active:bg-red-700 ">
           <X className="inline" strokeWidth={0.75} />
-          <div className="hidden pr-2 text-sm sm:inline">Reject</div>
+          <div className="hidden pr-2 text-sm lg:inline 2xl:hidden">Reject</div>
         </div>
       </div>
     </div>
@@ -329,7 +329,7 @@ export function IncomingFriendRequest() {
   return (
     <>
       <div
-        className={`my-2 flex justify-between rounded-lg border border-purple-500 p-2 pr-3 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5`}
+        className={`mx-1 my-2 flex justify-between rounded-lg border border-purple-500 p-2 pr-3 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5`}
       >
         <div className="flex h-16 w-16 flex-col place-content-center rounded-full border border-purple-500 bg-purple-100 text-center ">
           <span className="">pic</span>
@@ -368,20 +368,25 @@ export function Friend() {
   return (
     <>
       <div
-        className={`my-2 flex justify-between rounded-lg border border-purple-500 p-2 pr-3 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5`}
+        className={`mx-1 my-2 flex justify-between rounded-lg border border-purple-500 p-2 pr-3 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5`}
       >
-        <div className="flex h-16 w-16 flex-col place-content-center rounded-full border border-purple-500 bg-purple-100 text-center ">
-          <span className="">pic</span>
-        </div>
-        <div className="flex-grow pl-2 ">
-          <div className="">
-            {friend.firstName} {friend.lastName}
+        <div
+          className="flex flex-grow border"
+          onClick={() => alert("Show basic profile")}
+        >
+          <div className="flex h-16 w-16 flex-col place-content-center rounded-full border border-purple-500 bg-purple-100 text-center ">
+            <span className="">pic</span>
           </div>
-          <div className="font-light text-purple-700 ">
+          <div className="flex-grow pl-2 ">
             <div className="">
-              {friend.city || "City"}, {friend.state || "State"}
+              {friend.firstName} {friend.lastName}
             </div>
-            <div className="">Since {dateToWeekdayDate(Date())}</div>
+            <div className="font-light text-purple-700 ">
+              <div className="">
+                {friend.city || "City"}, {friend.state || "State"}
+              </div>
+              <div className="">Since {dateToWeekdayDate(Date())}</div>
+            </div>
           </div>
         </div>
         <span className="">
