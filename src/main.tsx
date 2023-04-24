@@ -9,11 +9,11 @@ import { ModalContextProvider } from "./components/Modal";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   // <React.StrictMode>
   <BrowserRouter>
-    <ModalContextProvider>
-      <StateProvider>
+    <StateProvider>
+      <ModalContextProvider>
         <App />
-      </StateProvider>
-    </ModalContextProvider>
+      </ModalContextProvider>
+    </StateProvider>
   </BrowserRouter>
   // </React.StrictMode>
 );

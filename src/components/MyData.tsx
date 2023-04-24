@@ -12,53 +12,6 @@ export default function DataEntryMode() {
 
   return (
     <>
-      <button
-        className="btn btn-primary"
-        onClick={() =>
-          openModal({
-            content: <WorkoutForm hide={closeModal} />,
-            level: "purple",
-            // title: "Hi!",
-            // topBar: false,
-          }) as ModalProps
-        }
-      >
-        Add Modal
-      </button>
-
-      <button
-        className="btn btn-primary"
-        onClick={() =>
-          openModal({
-            content: <WorkoutForm hide={closeModal} />,
-            level: "purple",
-            // title: "Hi!",
-            // topBar: false,
-          }) as ModalProps
-        }
-      >
-        Edit Modal
-      </button>
-
-      <button
-        className="btn btn-primary"
-        onClick={() =>
-          openModal({
-            content: (
-              <WorkoutDetail
-                workoutId={state.selectedWorkout}
-                handleDeleteWorkout={() => {}}
-              />
-            ),
-            level: "purple",
-            title: "Workout Details",
-            topBar: true,
-          }) as ModalProps
-        }
-      >
-        View Modal
-      </button>
-
       <div className="flex">
         <div className="w-full max-w-4xl lg:w-5/6">
           <WorkoutHistory />

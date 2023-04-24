@@ -1,5 +1,6 @@
 import { useEffect, useContext } from "react";
 import { StateContext, DispatchContext } from "./StateProvider";
+import { ModalContext, ModalProps } from "./Modal";
 
 import { getAllWorkouts, deleteWorkout } from "../api";
 
@@ -14,6 +15,8 @@ import { dateToWeekdayDate, dateToTime } from "../util";
 export default function WorkoutHistory() {
   const state = useContext(StateContext);
   const dispatch = useContext(DispatchContext);
+
+  const [openModal, closeModal] = useContext(ModalContext);
 
   const handleDeleteWorkout = (id: string) => {
     deleteWorkout(id);
@@ -90,10 +93,20 @@ const WorkoutHistoryList = ({
     );
   });
 
+  const [openModal, closeModal] = useContext(ModalContext);
+
   return (
     <div className="">
       <div
-        onClick={() => dispatch({ type: "show_workout_form_blank" })}
+        onClick={() => {
+          dispatch({ type: "show_workout_form_blank" });
+          openModal({
+            content: <WorkoutForm hide={closeModal} />,
+            level: "purple",
+            // title: "Hi!",
+            // topBar: false,
+          });
+        }}
         className="text-gray-00 ml-1 inline-block rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
       >
         <Plus strokeWidth={0.75} />
@@ -104,14 +117,25 @@ const WorkoutHistoryList = ({
             key={w.id}
             className={`my-2 flex justify-between rounded-lg border border-purple-500 p-2 hover:bg-purple-300 focus:bg-purple-500 active:translate-y-0.5 active:bg-purple-400 ${
               w.id === state.selectedWorkout &&
-              "sm:bg-purple-400 sm:font-semibold"
+              "bg-purple-400 font-semibold sm:bg-purple-400 sm:font-semibold" //sm:bg-purple-400 sm:font-semibold
             }`}
           >
             <span
               className="flex-grow"
-              onClick={() =>
-                dispatch({ type: "select_workout", payload: w.id })
-              }
+              onClick={() => {
+                dispatch({ type: "select_workout", payload: w.id });
+                openModal({
+                  content: (
+                    <WorkoutDetail
+                      workoutId={w.id}
+                      handleDeleteWorkout={() => {}}
+                    />
+                  ),
+                  level: "purple",
+                  title: "Workout Details",
+                  topBar: true,
+                }) as ModalProps;
+              }}
             >
               <div className="inline-block">{w.workoutType?.name}</div>
               <div className="inline-flex">
@@ -125,12 +149,18 @@ const WorkoutHistoryList = ({
             </span>
             <span className="flex-none">
               <div
-                onClick={() =>
+                onClick={() => {
                   dispatch({
                     type: "show_workout_form_populated",
                     payload: w,
-                  })
-                }
+                  });
+                  openModal({
+                    content: <WorkoutForm workout={w} hide={closeModal} />,
+                    level: "purple",
+                    // title: "Hi!",
+                    // topBar: false,
+                  });
+                }}
                 className="text-gray-00 ml-1 inline-block rounded hover:bg-purple-500 hover:text-white active:bg-purple-700"
               >
                 <Edit2 className="inline" strokeWidth={0.75} />
@@ -182,9 +212,10 @@ export const WorkoutDetail = ({
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
 
+  console.log(state.workouts);
   const workout = state.workouts.find((w) => w.id === workoutId);
   if (!workout) {
-    return <div>No Workout Selected</div>;
+    return <div>No workout selected</div>;
   }
   const minutes = Math.floor(
     (Date.parse(workout.end) - Date.parse(workout.start)) / (1000 * 60)
