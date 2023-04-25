@@ -21,17 +21,17 @@ const Home = () => {
                 Welcome to the Workout App!
               </div>
               <div className="font-light leading-8">
-                The Workout App brings empowers a tribe of individuals committed
-                to improving their physical health and wellbeing through
-                consistent daily exercises and workouts. Our activity tracking
-                tools and AI insights spell out your progress (and
-                opportunities) in the clearest possible terms, enabling you to
-                up your game and see measurable results. Connecting with other
-                community members and inviting those in your own social circle
-                plugs you into a community of enouragement and accountability
-                that will help you along the way. No matter where you are
-                starting from (or headed toward) in your fitness journey, let
-                Workout App take you further.
+                The Workout App empowers a tribe of individuals committed to
+                improving their physical health and wellbeing through consistent
+                daily exercises and workouts. Our activity tracking tools and AI
+                insights spell out your progress (and opportunities) in the
+                clearest possible terms, enabling you to up your game and see
+                measurable results. Connecting with other community members and
+                inviting those in your own social circle plugs you into a
+                community of enouragement and accountability that can also help
+                you along the way. No matter where you are starting from (or
+                headed toward) in your fitness journey, let Workout App take you
+                further.
               </div>
             </div>
             {!state.token && (
