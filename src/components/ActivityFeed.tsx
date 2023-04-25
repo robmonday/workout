@@ -27,7 +27,11 @@ export default function ActivityFeed() {
       </div>
       <div className="panel max-h-[70vh] min-h-[60%] overflow-y-auto">
         {state.activityFeed.length > 0 ? (
-          state.activityFeed.map((w) => <Activity key={w.id} workout={w} />)
+          state.activityFeed.map((w) => (
+            <div key={w.id}>
+              <Activity workout={w} />
+            </div>
+          ))
         ) : (
           <div className="px-4 py-2 text-lg font-light">No recent info</div>
         )}
@@ -49,7 +53,7 @@ export function Activity({ workout }: ActivityProps) {
   // console.log("Activity component workout prop", workout);
   const styleNotesHeight = expanded ? "h-fit" : "h-8 truncate";
   return (
-    <div key={workout.id} className="border-b px-2 py-1 hover:shadow-lg">
+    <div className="border-b px-2 py-1 hover:shadow-lg">
       <span className="text-purple-700">{name}</span>
       &nbsp;completed&nbsp;
       <span className="text-purple-700">{workout.workoutType?.name}</span>
