@@ -30,7 +30,7 @@ export default function Notifications() {
     <>
       <div className="xl:w-2/3">
         <div className="panel">
-          <div className="p-2 text-2xl">Your Notifications</div>
+          <div className="p-2 text-xl sm:text-2xl">Your Notifications</div>
           {openNotifications.map((n) => (
             <div key={n.id}>
               <NotificationLine notification={n} />
@@ -62,7 +62,7 @@ export const NotificationLine = ({ notification }: NotificationProps) => {
   return (
     <>
       <div className="flex border-collapse flex-wrap justify-between border-b  border-b-purple-400 p-2 hover:bg-purple-300">
-        <div className="inline-flex text-sm md:text-base">
+        <div className="inline-flex text-sm sm:text-base">
           <div className="mr-1 w-24 font-light">
             {new Date(notification.createdAt).toLocaleDateString("en-US", {
               weekday: "short",
@@ -71,7 +71,9 @@ export const NotificationLine = ({ notification }: NotificationProps) => {
             })}
           </div>
 
-          <div className="flex-shrink flex-grow">{notification.message}</div>
+          <div className="flex-shrink flex-grow text-sm sm:text-base">
+            {notification.message}
+          </div>
         </div>
         <div className="ml-auto block md:inline">
           {notification.dismissable && (
@@ -79,7 +81,7 @@ export const NotificationLine = ({ notification }: NotificationProps) => {
               onClick={() =>
                 handleDismiss(notification.id, notification.dismissable)
               }
-              className="btn btn-purple ml-2 mr-0 px-3 py-1 text-sm md:text-base"
+              className="btn btn-purple ml-2 mr-0 px-3 py-1 text-sm sm:text-base"
             >
               Dismiss
             </div>
@@ -87,7 +89,7 @@ export const NotificationLine = ({ notification }: NotificationProps) => {
           {notification.buttonUrl && (
             <div
               onClick={() => navigate(notification.buttonUrl)}
-              className="btn btn-green ml-2 mr-0 animate-pulse px-3 py-1 text-sm md:text-base"
+              className="btn btn-green ml-2 mr-0 animate-pulse px-3 py-1 text-sm sm:text-base"
             >
               Go
             </div>
