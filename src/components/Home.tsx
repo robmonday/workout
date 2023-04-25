@@ -17,13 +17,24 @@ const Home = () => {
         <div className="m-4 grid max-w-7xl grid-cols-1 gap-10 rounded-xl border-2 border-purple-500 bg-gradient-to-br from-purple-100 to-purple-300 p-10 shadow-xl ring-2 ring-gray-200 ring-offset-2 md:m-10 md:grid-cols-2">
           <div className="rounded p-2 sm:p-4">
             <div>
-              <div className="mb-7 text-xl font-light lg:text-2xl">
+              <div className="mb-3 text-xl font-light lg:text-2xl">
                 Welcome to the Workout App!
               </div>
-              <div className="">Come be a part of our team!</div>
-              <br />
+              <div className="font-light leading-8">
+                The Workout App brings empowers a tribe of individuals committed
+                to improving their physical health and wellbeing through
+                consistent daily exercises and workouts. Our activity tracking
+                tools and AI insights spell out your progress (and
+                opportunities) in the clearest possible terms, enabling you to
+                up your game and see measurable results. Connecting with other
+                community members and inviting those in your own social circle
+                plugs you into a community of enouragement and accountability
+                that will help you along the way. No matter where you are
+                starting from (or headed toward) in your fitness journey, let
+                Workout App take you further.
+              </div>
             </div>
-            {state.token && (
+            {!state.token && (
               <Link to="/signup">
                 <div className="btn btn-purple mt-5 bg-purple-500 text-white shadow-xl">
                   Join the movement!
