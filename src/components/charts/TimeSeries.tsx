@@ -70,7 +70,7 @@ export default function TimeSeries() {
 
   return (
     <>
-      <div className="panel pt-3 pb-3 pl-4 pr-6">
+      <div className="panel h-96 pt-3 pb-3 pl-4 pr-6">
         <div className="mx-4 my-2">
           <div className="inline py-2 text-lg text-gray-700 md:text-xl">
             Time Series
@@ -85,7 +85,7 @@ export default function TimeSeries() {
             {/* <option value="minutes">Minutes</option> */}
           </select>
         </div>
-        <div>
+        <div className="h-[85%]">
           <Bar
             data={{
               labels: chartData.labels,

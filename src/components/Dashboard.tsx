@@ -12,13 +12,9 @@ export default function Dashboard() {
     <>
       <div className="p-2 text-lg sm:text-xl md:text-2xl">Dashboard</div>
 
-      <div className="flex flex-wrap py-2">
-        <div className="w-[23rem]">
+      <div className="flex flex-wrap place-content-evenly py-2">
           <WorksByLoc />
-        </div>
-        <div className="w-[66rem]">
           <Leaderboards />
-        </div>
       </div>
 
       <div className="py-2">

@@ -56,15 +56,16 @@ export default function Leaderboards() {
 
   return (
     <>
-      <div className="p-2 text-lg sm:text-xl md:text-2xl">
-        Leaderboards for Weekly Activity
-      </div>
-      <div className="panel flex flex-wrap place-content-evenly border pb-4">
+      <div className="panel min-w-[17rem] max-w-[25rem] flex-grow">
         <Leaderboard title="Steps Taken" leaderboard={stepsLeaderboard} />
+      </div>
+      <div className="panel min-w-[17rem] max-w-[25rem] flex-grow">
         <Leaderboard
           title="Calories Burned"
           leaderboard={caloriesLeaderboard}
         />
+      </div>
+      <div className="panel min-w-[17rem] max-w-[25rem] flex-grow">
         <Leaderboard
           title="Miles Travelled"
           leaderboard={distanceLeaderboard}
@@ -93,7 +94,7 @@ export function Leaderboard({ title, leaderboard }: LeaderboardProps) {
   }
   return (
     <>
-      <div className="w-[14rem] pr-2 pb-4">
+      <div className="min-w-fit pr-2 pb-4">
         <div className=" pb-2 text-lg">{title}</div>
         <div className="rounded-md  border border-white bg-purple-300 p-2">
           {leaderboard.length > 0 ? (

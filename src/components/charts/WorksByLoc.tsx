@@ -37,11 +37,11 @@ export default function WorksByLoc() {
 
   return (
     <>
-      <div className="pr-2 pb-4">
-        <div className="p-2 text-lg sm:text-xl md:text-2xl">
+      <div className="panel w-[28rem]">
+        <div className="pb-2 text-lg">
           Workouts By Location
         </div>
-        <div className="panel pt-3 pb-3">
+        <div className="flex h-96 place-content-evenly border border-white rounded-lg p-2 bg-purple-300">
           <Doughnut
             data={chartData}
             options={{
