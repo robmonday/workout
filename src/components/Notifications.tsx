@@ -10,7 +10,7 @@ export default function Notifications() {
 
   if (!state.openNotifications || state.openNotifications.length === 0) {
     return (
-      <div className="md:w-1/2">
+      <div className="xl:w-2/3">
         <div className="panel">
           <div className="p-2 text-lg sm:text-xl md:text-2xl">
             Your Notifications
@@ -28,7 +28,7 @@ export default function Notifications() {
 
   return (
     <>
-      <div className="md:w-1/2">
+      <div className="xl:w-2/3">
         <div className="panel">
           <div className="p-2 text-2xl">Your Notifications</div>
           {openNotifications.map((n) => (
@@ -61,24 +61,25 @@ export const NotificationLine = ({ notification }: NotificationProps) => {
 
   return (
     <>
-      <div className="flex border-collapse justify-between border-b  border-b-purple-400 p-2 hover:bg-purple-300">
-        <div className="flex w-5/6">
-          <span className="w-24 font-light">
+      <div className="flex border-collapse flex-wrap justify-between border-b  border-b-purple-400 p-2 hover:bg-purple-300">
+        <div className="inline-flex text-sm md:text-base">
+          <div className="mr-1 w-24 font-light">
             {new Date(notification.createdAt).toLocaleDateString("en-US", {
               weekday: "short",
               month: "numeric",
               day: "numeric",
             })}
-          </span>
-          <span className="w-full">{notification.message}</span>
+          </div>
+
+          <div className="flex-shrink flex-grow">{notification.message}</div>
         </div>
-        <div className="flex w-fit">
+        <div className="ml-auto block md:inline">
           {notification.dismissable && (
             <div
               onClick={() =>
                 handleDismiss(notification.id, notification.dismissable)
               }
-              className="btn btn-purple ml-2 mr-0 px-3 py-1"
+              className="btn btn-purple ml-2 mr-0 px-3 py-1 text-sm md:text-base"
             >
               Dismiss
             </div>
@@ -86,7 +87,7 @@ export const NotificationLine = ({ notification }: NotificationProps) => {
           {notification.buttonUrl && (
             <div
               onClick={() => navigate(notification.buttonUrl)}
-              className="btn btn-green ml-2 mr-0 animate-pulse px-3 py-1 "
+              className="btn btn-green ml-2 mr-0 animate-pulse px-3 py-1 text-sm md:text-base"
             >
               Go
             </div>
