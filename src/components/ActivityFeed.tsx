@@ -22,9 +22,7 @@ export default function ActivityFeed() {
   // console.log("state.activityFeed", state.activityFeed);
   return (
     <>
-      <div className="md:text-2xl-2xl p-2 text-lg sm:text-xl">
-        Activity Feed
-      </div>
+      <div className="p-2 text-lg sm:text-xl md:text-2xl">Activity Feed</div>
       <div className="panel max-h-[70vh] min-h-[60%] overflow-y-auto">
         {state.activityFeed.length > 0 ? (
           state.activityFeed.map((w) => (
