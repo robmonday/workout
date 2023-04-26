@@ -104,7 +104,7 @@ const Layout = () => {
                       </div>
                     </div>
                   )}
-                <div className="absolute -right-2 top-8 hidden h-auto group-hover:block group-focus:block group-active:block ">
+                <div className="absolute right-0 top-10 hidden h-auto group-hover:block group-focus:block group-active:block ">
                   <ul className="top-0 w-56 rounded-md bg-white px-6 py-4 shadow">
                     <li className="py-1">
                       <Link
