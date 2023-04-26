@@ -5,12 +5,12 @@ import {
   DeleteRequest,
   WorkoutRequest,
   NotificationRequest,
-  UserObj,
+  UserInfo,
   UserUpdate,
   ReactionRequest,
 } from "./types";
 
-export const baseUrl = "https://workout-backend.fly.dev"; // "https://workout-backend.fly.dev" "http://localhost:8080" "http://localhost:5174"
+export const baseUrl = "http://localhost:8080"; // "https://workout-backend.fly.dev" "http://localhost:8080" "http://localhost:5174"
 
 type RequestBody =
   | SignUpRequest
@@ -214,11 +214,19 @@ export const dismissNotification = (id: string) => {
   return result;
 };
 
-export const sendEmailConfirm = (userObj: UserObj) => {
+export const sendEmailConfirm = (userInfo: UserInfo) => {
   const result = fetcher({
-    url: `${baseUrl}/api/email/emailConfirm`,
+    url: `${baseUrl}/api/email/emailconfirm`,
     method: "POST",
-    body: userObj,
+    body: userInfo,
+  });
+  return result;
+};
+
+export const handleEmailConfirmToken = (emailConfirmToken: string) => {
+  const result = fetcher({
+    url: `${baseUrl}/api/email/emailconfirm/?emailConfirmToken=${emailConfirmToken}`,
+    method: "GET",
   });
   return result;
 };

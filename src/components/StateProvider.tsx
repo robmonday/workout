@@ -123,7 +123,7 @@ const reducer = (state: State, action: Action) => {
         ...state,
         openNotifications:
           state.openNotifications &&
-          state.openNotifications.filter((n) => n.id !== action.payload.id),
+          state.openNotifications.filter((n) => n.id !== action.payload?.id),
       };
     case "log_in_set_user":
       return { ...state, user: action.payload };

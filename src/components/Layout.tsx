@@ -32,7 +32,7 @@ const Layout = () => {
             payload: openNotifications,
           });
       });
-  }, [state.token]);
+  }, [state.token, state.user]);
 
   useEffect(() => {
     state.token &&
@@ -65,7 +65,7 @@ const Layout = () => {
         {state.token && (
           <nav className="h-15 mx-1 mr-14 flex-grow overflow-x-auto py-1 md:w-full">
             <Link to="/start" className="nav-link">
-              Home
+              Start
             </Link>
             {/* <Link to="/workout" className="nav-link">
                 Workout
@@ -165,11 +165,11 @@ const Layout = () => {
         <Outlet />
 
         {/* Displays State on Page */}
-        {/* <div className="border bg-purple-400 p-2">
+        <div className="border bg-purple-400 p-2">
           <div className="overflow-y-auto break-words p-2">
             {JSON.stringify(state)}
           </div>
-        </div> */}
+        </div>
       </div>
 
       <footer className="fixed bottom-2 right-2 w-full text-end text-sm">

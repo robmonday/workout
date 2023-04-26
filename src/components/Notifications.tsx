@@ -48,7 +48,6 @@ type NotificationProps = {
 
 export const NotificationLine = ({ notification }: NotificationProps) => {
   const dispatch = useContext(DispatchContext);
-  const state = useContext(StateContext);
 
   const navigate = useNavigate();
 
