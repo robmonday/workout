@@ -12,7 +12,7 @@ import {
   UpdatePasswordRequest,
 } from "./types";
 
-export const baseUrl = "http://localhost:8080"; // "https://workout-backend.fly.dev" "http://localhost:8080"
+export const baseUrl = "https://workout-backend.fly.dev"; // "https://workout-backend.fly.dev" "http://localhost:8080"
 
 type RequestBody =
   | SignUpRequest
