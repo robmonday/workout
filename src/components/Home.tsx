@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { StateContext } from "./StateProvider";
 import { Link } from "react-router-dom";
-import { baseUrl } from "../api";
 
 const Home = () => {
   const state = useContext(StateContext);
@@ -45,7 +44,7 @@ const Home = () => {
 
           <img
             className="w-full rounded opacity-80 shadow-xl "
-            src="https://cdn.pixabay.com/photo/2022/01/28/05/10/work-out-6973688_960_720.png" //{`${baseUrl}/work-out.png`}
+            src="https://workout-app-static.s3.us-east-2.amazonaws.com/images/work-out.png" //{`${staticUrl}/work-out.png`}
             alt="Intro Graphic"
           />
         </div>
