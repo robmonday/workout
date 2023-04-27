@@ -77,7 +77,7 @@ export default function TimeSeries() {
           </div>
           <select
             onChange={(e) => setDataShown(e.target.value)}
-            className="float-right inline rounded-md bg-gray-100 px-2 py-1 text-sm"
+            className="float-right inline w-[6rem] rounded-md bg-gray-100 px-2 py-1 text-sm"
           >
             <option value="steps">Steps</option>
             <option value="calories">Calories</option>
