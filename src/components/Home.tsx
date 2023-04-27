@@ -14,7 +14,7 @@ const Home = () => {
         </div>
       )}
       <div className="flex place-content-center ">
-        <div className="m-4 grid max-w-7xl grid-cols-1 gap-10 rounded-xl border-2 border-purple-500 bg-gradient-to-br from-purple-100 to-purple-300 p-10 shadow-xl ring-2 ring-gray-200 ring-offset-2 md:m-10 md:grid-cols-2">
+        <div className="m-2 grid max-w-7xl grid-cols-1 gap-10 rounded-xl border-2 border-purple-500 bg-gradient-to-br from-purple-100 to-purple-300 p-4 shadow-xl ring-2 ring-gray-200 ring-offset-2 sm:m-4 sm:p-6 md:m-10 md:grid-cols-2 md:p-10">
           <div className="rounded p-2 sm:p-4">
             <div>
               <div className="mb-3 text-xl font-light lg:text-2xl">
