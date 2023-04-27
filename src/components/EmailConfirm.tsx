@@ -3,7 +3,6 @@ import { Mail } from "react-feather";
 import {
   handleEmailConfirmToken,
   sendEmailConfirm,
-  dismissNotification,
 } from "../api";
 import { UserInfo } from "../types";
 import { useState, useContext, useEffect } from "react";
@@ -76,7 +75,7 @@ export function SendConfirmEmail() {
               onClick={() => handleEmailConfirm(state.user)}
               className="btn btn-purple my-1"
             >
-              Send email to {state.user.email}
+              Send email to {state.user?.email}
             </div>
           </div>
         )}
