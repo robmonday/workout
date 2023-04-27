@@ -20,7 +20,7 @@ const Home = () => {
               <div className="mb-3 text-xl font-light lg:text-2xl">
                 Welcome to the Workout App!
               </div>
-              <div className="font-light leading-8">
+              <div className="text-justify font-light leading-8">
                 The Workout App empowers a tribe of individuals committed to
                 improving their physical health and wellbeing through consistent
                 daily exercises and workouts. Our activity tracking tools and AI
