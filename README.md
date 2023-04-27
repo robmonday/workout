@@ -14,7 +14,6 @@ The purpose of this project is 'just for practice' and meant to showcase my curr
 - React Hook Forms
 - Zod
 - ChartJS
-
 - PostgeSQL / Express / Node
 - Prisma
 - JsonWebToken
@@ -27,7 +26,7 @@ The purpose of this project is 'just for practice' and meant to showcase my curr
 
 ### Github Repos
 
-[Frontend](https://github.com/robmonday/workout)
+[Frontend](https://github.com/robmonday/workout) &
 [Backend](https://github.com/robmonday/workout-backend)
 
 - Frontend deployed to Vercel
