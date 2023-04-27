@@ -100,6 +100,15 @@ export type UserInfo = Omit<UserObj, "token">;
 
 export type Friend = Omit<UserInfo, "emailConfirmed">;
 
+export type ForgotEmailRequest = {
+  email: string;
+};
+
+export type UpdatePasswordRequest = {
+  password: string;
+  confirmPassword: string;
+};
+
 export type AccountDetails = {
   firstName: string;
   lastName: string;

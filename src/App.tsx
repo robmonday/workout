@@ -15,6 +15,7 @@ import Dashboard from "./components/Dashboard";
 import Settings from "./components/Settings";
 import NotFound from "./components/NotFound";
 import EmailConfirm from "./components/EmailConfirm";
+import ForgotPassword from "./components/ForgotPassword";
 import Notifications from "./components/Notifications";
 import Badges from "./components/Badges";
 import Social from "./components/Social";
@@ -29,7 +30,7 @@ function App(): JSX.Element {
           <Route index element={<Home />} />
           <Route path="login" element={<LogInForm />} />
           <Route path="signup" element={<SignUpForm />} />
-          <Route path="forgot" element={<SignUpForm />} />
+          <Route path="forgot" element={<ForgotPassword />} />
           <Route path="home" element={<Home />} />
           <Route
             path="start"

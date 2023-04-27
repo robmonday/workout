@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
-import { signUpRequest, createNotification } from "../api";
+import { signUpRequest } from "../api";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";

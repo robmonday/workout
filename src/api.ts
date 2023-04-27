@@ -1,4 +1,4 @@
-import { workoutFormValues } from "./components/WorkoutForm";
+import { WorkoutFormValues } from "./components/WorkoutForm";
 import {
   SignUpRequest,
   LogInRequest,
@@ -8,9 +8,11 @@ import {
   UserInfo,
   UserUpdate,
   ReactionRequest,
+  ForgotEmailRequest,
+  UpdatePasswordRequest,
 } from "./types";
 
-export const baseUrl = "https://workout-backend.fly.dev"; // "https://workout-backend.fly.dev" "http://localhost:8080" "http://localhost:5174"
+export const baseUrl = "http://localhost:8080"; // "https://workout-backend.fly.dev" "http://localhost:8080"
 
 type RequestBody =
   | SignUpRequest
@@ -18,7 +20,9 @@ type RequestBody =
   | WorkoutRequest
   | DeleteRequest
   | NotificationRequest
-  | ReactionRequest;
+  | ReactionRequest
+  | ForgotEmailRequest
+  | UpdatePasswordRequest;
 
 type Fetcher = {
   url: string;
@@ -64,6 +68,17 @@ export const signUpRequest = (body: SignUpRequest) => {
   });
 };
 
+export const updatePassword = (email: string, password: string) => {
+  const body = { email, password };
+  console.log("Request body passed to fetcher()", body);
+  const result = fetcher({
+    url: `${baseUrl}/api/user/updatepassword`,
+    method: "PUT",
+    body,
+  });
+  return result;
+};
+
 export const createNotification = (body: NotificationRequest) => {
   // console.log("Request body passed to fetcher()", body);
   return fetcher({
@@ -99,7 +114,7 @@ export const getAvgsByWorkType = () => {
   return result;
 };
 
-export const createWorkout = (formValues: workoutFormValues) => {
+export const createWorkout = (formValues: WorkoutFormValues) => {
   const body: WorkoutRequest = {
     ...formValues,
     start: new Date(
@@ -115,7 +130,7 @@ export const createWorkout = (formValues: workoutFormValues) => {
   return result;
 };
 
-export const updateWorkout = (id: string, formValues: workoutFormValues) => {
+export const updateWorkout = (id: string, formValues: WorkoutFormValues) => {
   const body: WorkoutRequest = {
     ...formValues,
     start: new Date(
@@ -223,9 +238,26 @@ export const sendEmailConfirm = (userInfo: UserInfo) => {
   return result;
 };
 
+export const sendEmailForgotPw = (body: ForgotEmailRequest) => {
+  const result = fetcher({
+    url: `${baseUrl}/api/email/emailforgotpw`,
+    method: "POST",
+    body,
+  });
+  return result;
+};
+
 export const handleEmailConfirmToken = (emailConfirmToken: string) => {
   const result = fetcher({
     url: `${baseUrl}/api/email/emailconfirm/?emailConfirmToken=${emailConfirmToken}`,
+    method: "GET",
+  });
+  return result;
+};
+
+export const handleEmailForgotPwToken = (newPasswordToken: string) => {
+  const result = fetcher({
+    url: `${baseUrl}/api/email/emailforgotpw/?newPasswordToken=${newPasswordToken}`,
     method: "GET",
   });
   return result;

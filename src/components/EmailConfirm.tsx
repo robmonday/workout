@@ -1,9 +1,6 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Mail } from "react-feather";
-import {
-  handleEmailConfirmToken,
-  sendEmailConfirm,
-} from "../api";
+import { handleEmailConfirmToken, sendEmailConfirm } from "../api";
 import { UserInfo } from "../types";
 import { useState, useContext, useEffect } from "react";
 import { DispatchContext, StateContext } from "./StateProvider";
@@ -133,6 +130,11 @@ export function ReceiveConfirmToken({ emailConfirmToken }: ReceiveCTokenProps) {
   return (
     <>
       <div className="p-5">
+        {authenticated === undefined && (
+          <div className="animate-bounce text-gray-600">
+            ...waiting for response
+          </div>
+        )}
         {authenticated === true && (
           <div>
             <div className="mb-5 text-green-700">

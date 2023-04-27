@@ -34,7 +34,7 @@ const schema = z.object({
   notes: z.string().optional(),
 });
 
-export type workoutFormValues = z.infer<typeof schema>;
+export type WorkoutFormValues = z.infer<typeof schema>;
 
 type WorkoutFormProps = {
   hide: () => void;
@@ -57,9 +57,9 @@ export default function WorkoutForm({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<workoutFormValues>({ resolver: zodResolver(schema) });
+  } = useForm<WorkoutFormValues>({ resolver: zodResolver(schema) });
 
-  const onSubmitNew: SubmitHandler<workoutFormValues> = async (data) => {
+  const onSubmitNew: SubmitHandler<WorkoutFormValues> = async (data) => {
     hide();
     setSubmitted && setSubmitted(true);
     // console.log("data from form", data);
@@ -68,7 +68,7 @@ export default function WorkoutForm({
     dispatch({ type: "add_workout", payload: newWorkout });
   };
 
-  const onSubmitEdit: SubmitHandler<workoutFormValues> = async (data) => {
+  const onSubmitEdit: SubmitHandler<WorkoutFormValues> = async (data) => {
     hide();
     setSubmitted && setSubmitted(true);
     // console.log("data from form", data);
