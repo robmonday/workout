@@ -29,8 +29,8 @@ const Home = () => {
                 inviting those in your own social circle plugs you into a
                 community of enouragement and accountability that can also help
                 you along the way. No matter where you are starting from (or
-                headed toward) in your fitness journey, let Workout App take you
-                further.
+                headed toward) in your fitness journey, let the Workout App take
+                you further.
               </div>
             </div>
             {!state.token && (
