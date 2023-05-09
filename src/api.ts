@@ -50,8 +50,26 @@ export const fetcher = async ({ url, method, body, json = true }: Fetcher) => {
   }
 };
 
+// User Requests
+
+export const getUser = (id: string) => {
+  const result = fetcher({
+    url: `${baseUrl}/api/user/${id}`,
+    method: "GET",
+  });
+  return result;
+};
+
+export const getPotentialFriends = (limit = 0) => {
+  const queryString = limit !== 0 ? `/?limit=${limit}` : "";
+  const result = fetcher({
+    url: `${baseUrl}/api/user${queryString}`,
+    method: "GET",
+  });
+  return result;
+};
+
 export const loginRequest = (body: LogInRequest) => {
-  // console.log("Request body passed to fetcher()", body);
   return fetcher({
     url: `${baseUrl}/api/user/login`,
     method: "POST",
@@ -60,12 +78,20 @@ export const loginRequest = (body: LogInRequest) => {
 };
 
 export const signUpRequest = (body: SignUpRequest) => {
-  // console.log("Request body passed to fetcher()", body);
   return fetcher({
     url: `${baseUrl}/api/user/signup`,
     method: "POST",
     body,
   });
+};
+
+export const updateUser = (id: string, body: UserUpdate) => {
+  const result = fetcher({
+    url: `${baseUrl}/api/user`,
+    method: "PUT",
+    body: { ...body, id },
+  });
+  return result;
 };
 
 export const updatePassword = (email: string, password: string) => {
@@ -79,8 +105,17 @@ export const updatePassword = (email: string, password: string) => {
   return result;
 };
 
+// Notification Requests
+
+export const getOpenNotifications = () => {
+  const result = fetcher({
+    url: `${baseUrl}/api/notification/open`,
+    method: "GET",
+  });
+  return result;
+};
+
 export const createNotification = (body: NotificationRequest) => {
-  // console.log("Request body passed to fetcher()", body);
   return fetcher({
     url: `${baseUrl}/api/notification`,
     method: "POST",
@@ -88,12 +123,38 @@ export const createNotification = (body: NotificationRequest) => {
   });
 };
 
+export const dismissNotification = (id: string) => {
+  const result = fetcher({
+    url: `${baseUrl}/api/notification/open`,
+    method: "PUT",
+    body: { id },
+  });
+  return result;
+};
+
+// Workout Requests
+
 export const getAllWorkouts = () => {
   const result = fetcher({
     url: `${baseUrl}/api/workout`,
     method: "GET",
   });
-  // console.log("getAllWorkouts() fetcher response:", result);
+  return result;
+};
+
+export const getWorkoutFeed = () => {
+  const result = fetcher({
+    url: `${baseUrl}/api/workout/feed`,
+    method: "GET",
+  });
+  return result;
+};
+
+export const getLeaderboard = () => {
+  const result = fetcher({
+    url: `${baseUrl}/api/workout/leaderboard/`,
+    method: "GET",
+  });
   return result;
 };
 
@@ -110,7 +171,14 @@ export const getAvgsByWorkType = () => {
     url: `${baseUrl}/api/workout/averages`,
     method: "GET",
   });
-  // console.log("averages", result);
+  return result;
+};
+
+export const getWorksGrpByLoc = () => {
+  const result = fetcher({
+    url: `${baseUrl}/api/workout/?groupBy=location`,
+    method: "GET",
+  });
   return result;
 };
 
@@ -162,12 +230,23 @@ export const deleteWorkoutSeedData = (id: string) => {
   });
 };
 
+// Workout Type Requests
+
+export const getAllWorkoutTypes = () => {
+  const result = fetcher({
+    url: `${baseUrl}/api/workout/type`,
+    method: "GET",
+  });
+  return result;
+};
+
+// Badge Requests
+
 export const getAllBadges = () => {
   const result = fetcher({
     url: `${baseUrl}/api/badge`,
     method: "GET",
   });
-  // console.log("getAllBadges() returned", result);
   return result;
 };
 
@@ -179,52 +258,20 @@ export const getBadgeGallery = () => {
   return result;
 };
 
-export const getAllWorkoutTypes = () => {
+// Email Requests
+
+export const handleEmailConfirmToken = (emailConfirmToken: string) => {
   const result = fetcher({
-    url: `${baseUrl}/api/workout/type`,
+    url: `${baseUrl}/api/email/emailconfirm/?emailConfirmToken=${emailConfirmToken}`,
     method: "GET",
   });
   return result;
 };
 
-export const getWorksGrpByLoc = () => {
+export const handleEmailForgotPwToken = (newPasswordToken: string) => {
   const result = fetcher({
-    url: `${baseUrl}/api/workout/?groupBy=location`,
+    url: `${baseUrl}/api/email/emailforgotpw/?newPasswordToken=${newPasswordToken}`,
     method: "GET",
-  });
-  return result;
-};
-
-export const getPotentialFriends = (limit = 0) => {
-  const queryString = limit !== 0 ? `/?limit=${limit}` : "";
-  const result = fetcher({
-    url: `${baseUrl}/api/user${queryString}`,
-    method: "GET",
-  });
-  return result;
-};
-
-export const getUser = (id: string) => {
-  const result = fetcher({
-    url: `${baseUrl}/api/user/${id}`,
-    method: "GET",
-  });
-  return result;
-};
-
-export const getOpenNotifications = () => {
-  const result = fetcher({
-    url: `${baseUrl}/api/notification/open`,
-    method: "GET",
-  });
-  return result;
-};
-
-export const dismissNotification = (id: string) => {
-  const result = fetcher({
-    url: `${baseUrl}/api/notification/open`,
-    method: "PUT",
-    body: { id },
   });
   return result;
 };
@@ -247,51 +294,9 @@ export const sendEmailForgotPw = (body: ForgotEmailRequest) => {
   return result;
 };
 
-export const handleEmailConfirmToken = (emailConfirmToken: string) => {
-  const result = fetcher({
-    url: `${baseUrl}/api/email/emailconfirm/?emailConfirmToken=${emailConfirmToken}`,
-    method: "GET",
-  });
-  return result;
-};
-
-export const handleEmailForgotPwToken = (newPasswordToken: string) => {
-  const result = fetcher({
-    url: `${baseUrl}/api/email/emailforgotpw/?newPasswordToken=${newPasswordToken}`,
-    method: "GET",
-  });
-  return result;
-};
-
-export const updateUser = (id: string, body: UserUpdate) => {
-  const result = fetcher({
-    url: `${baseUrl}/api/user`,
-    method: "PUT",
-    body: { ...body, id },
-  });
-  return result;
-};
-
-export const getLeaderboard = () => {
-  const result = fetcher({
-    url: `${baseUrl}/api/workout/leaderboard/`,
-    method: "GET",
-  });
-  return result;
-};
-
-export const getWorkoutFeed = () => {
-  const result = fetcher({
-    url: `${baseUrl}/api/workout/feed`,
-    method: "GET",
-  });
-  return result;
-};
+// Reaction Requests
 
 export const createReaction = async (symbol: string, workoutId: string) => {
-  // console.log("symbol", symbol);
-  // console.log("userId", userId);
-  // console.log("workoutId", workoutId);
   const result = fetcher({
     url: `${baseUrl}/api/reaction`,
     method: "POST",
